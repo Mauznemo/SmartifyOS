@@ -1,0 +1,29 @@
+{
+    "name": "LeTai.TranslucentImage.UniversalRP",
+    "rootNamespace": "",
+    "references": [
+        "GUID:df380645f10b7bc4b97d4f5eb6303d95",
+        "GUID:15fc0a57446b3144c949da3e2b9737a9",
+        "GUID:ff218ee40fe2b8648ab3234d56415557"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.render-pipelines.universal",
+            "expression": "12",
+            "define": "URP12_OR_NEWER"
+        },
+        {
+            "name": "Unity",
+            "expression": "[2021.3,2021.3.13)",
+            "define": "UNITY_BUGGED_HAS_PASSES_AFTER_POSTPROCESS"
+        }
+    ],
+    "noEngineReferences": false
+}

@@ -1,0 +1,22 @@
+{
+    "name": "LeTai.TranslucentImage",
+    "rootNamespace": "",
+    "references": [
+        "GUID:7ab3663edede26740845931880bf22af"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [
+        {
+            "name": "com.unity.render-pipelines.universal",
+            "expression": "12",
+            "define": "URP12_OR_NEWER"
+        }
+    ],
+    "noEngineReferences": false
+}
