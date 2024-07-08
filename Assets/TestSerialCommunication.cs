@@ -1,19 +1,16 @@
 using UnityEngine;
 using SmartifyOS.SerialCommunication;
+using SmartifyOS.StatusBar;
+using SmartifyOS.Notifications;
 
 public class TestSerialCommunication : BaseSerialCommunication
 {
-    //You can remove this and the code in Awake() if you don't want an instance
-    public static TestSerialCommunication Instance { get; private set; }
+    [SerializeField] private Sprite noGpsSprite;
 
-    private void Awake()
-    {
-        Instance = this;
-    }
+    private StatusBar.StatusEntry noGpsStatusEntry;
 
     private void Start()
     {
-        //portName = "COM1"; //You can also set the port from code
         Init();
     }
 
@@ -25,5 +22,16 @@ public class TestSerialCommunication : BaseSerialCommunication
     public override void Received(string message)
     {
         Debug.Log($"Received: {message}");
+
+        if (message == "no-gps" && noGpsStatusEntry == null)
+        {
+            noGpsStatusEntry = StatusBar.AddStatus(noGpsSprite);
+
+            NotificationManager.SendNotification(NotificationType.Warning, "No GPS signal found");
+        }
+        else if(message == "gps")
+        {
+            noGpsStatusEntry?.Remove();
+        }
     }
 }

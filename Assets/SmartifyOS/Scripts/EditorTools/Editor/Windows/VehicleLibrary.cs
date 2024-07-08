@@ -6,7 +6,6 @@ using Newtonsoft.Json;
 using System.Buffers.Text;
 using Newtonsoft.Json.Linq;
 using System;
-using static UnityEditor.Searcher.SearcherWindow;
 
 namespace SmartifyOS.Editor
 {

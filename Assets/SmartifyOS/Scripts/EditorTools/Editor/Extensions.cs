@@ -36,7 +36,7 @@ namespace SmartifyOS.Editor
                     }
                     else
                     {
-                        result.Append(textInfo.ToLower(c));
+                        result.Append(c);
                     }
                 }
             }

@@ -9,7 +9,8 @@ namespace SmartifyOS.Editor
         [MenuItem("GameObject/UI/SmartifyOS/Blurred Image", false)]
         public static void CreateBlurredImage(MenuCommand menuCommand)
         {
-            CreateObjectWithComponent<BlurredImage>(menuCommand, "Blurred Image");
+            var component = CreateObjectWithComponent<BlurredImage>(menuCommand, "Blurred Image");
+            component.color = new Color(75, 75, 75);
         }
 
         [MenuItem("GameObject/UI/SmartifyOS/Button/Icon Button", false)]
@@ -42,17 +43,19 @@ namespace SmartifyOS.Editor
             WindowCreator.ShowWindow(menuCommand.context as GameObject);
         }
 
-        private static void CreateObjectWithComponent<T>(MenuCommand menuCommand, string name) where T : Component
+        private static T CreateObjectWithComponent<T>(MenuCommand menuCommand, string name) where T : Component
         {
             GameObject customObject = new GameObject(name);
 
-            customObject.AddComponent<T>();
+            var component = customObject.AddComponent<T>();
 
             GameObjectUtility.SetParentAndAlign(customObject, menuCommand.context as GameObject);
 
             Undo.RegisterCreatedObjectUndo(customObject, "Create " + customObject.name);
 
             Selection.activeObject = customObject;
+
+            return component;
         }
 
         private static void CreateObjectFromPrefab(MenuCommand menuCommand, string prefabPath, string name)

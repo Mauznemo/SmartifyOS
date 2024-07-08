@@ -7,7 +7,7 @@ namespace SmartifyOS.Editor
         [MenuItem("Assets/Create/SmartifyOS/Serial Communication Script", false, 80)]
         static void CreateSerialCommunicationScript()
         {
-            string templatePath = GetTemplatesPath() + "SerialCommunication.cs.txt";
+            string templatePath = ScriptTemplateUtility.GetTemplatesPath() + "SerialCommunication.cs.txt";
 
             ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, "NewSerialCommunicationScript.cs");
         }
@@ -15,7 +15,7 @@ namespace SmartifyOS.Editor
         [MenuItem("Assets/Create/SmartifyOS/Live Serial Communication Script", false, 80)]
         static void CreateLiveSerialCommunicationScript()
         {
-            string templatePath = GetTemplatesPath() + "LiveSerialCommunication.cs.txt";
+            string templatePath = ScriptTemplateUtility.GetTemplatesPath() + "LiveSerialCommunication.cs.txt";
 
             ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, "NewLiveSerialCommunicationScript.cs");
         }
@@ -23,14 +23,25 @@ namespace SmartifyOS.Editor
         [MenuItem("Assets/Create/SmartifyOS/UI Window Script", false, 80)]
         static void CreateUIWindowScript()
         {
-            string templatePath = GetTemplatesPath() + "UIWindow.cs.txt";
+            string templatePath = ScriptTemplateUtility.GetTemplatesPath() + "UIWindow.cs.txt";
 
             ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, "NewUIWindow.cs");
         }
 
-        private static string GetTemplatesPath()
+        [MenuItem("Assets/Create/SmartifyOS/Add Audio Config", false, 80)]
+        static void CreateAudioConfigPartialClass()
         {
-            return EditorUtils.GetSmartifyOSPath() + "Scripts/EditorTools/Editor/MenuItems/ScriptTemplates/";
+            string directoryPath = AssetDatabase.GetAssetPath(Selection.activeObject);
+
+            CreateFileWithSuffix.CreateCustomScript("NewAddition", "_AudioConfig_SO", "AudioConfig_SO.cs.txt", directoryPath);
+        }
+
+        [MenuItem("Assets/Create/SmartifyOS/Save System/Add Save Data", false, 80)]
+        static void CreateSaveDataPartialClass()
+        {
+            string directoryPath = AssetDatabase.GetAssetPath(Selection.activeObject);
+
+            CreateFileWithSuffix.CreateCustomScript("NewAddition", "_SaveData", "SaveData.cs.txt", directoryPath);
         }
     }
 }

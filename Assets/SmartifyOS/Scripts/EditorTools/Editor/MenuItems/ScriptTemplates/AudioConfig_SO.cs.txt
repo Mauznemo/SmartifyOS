@@ -1,0 +1,9 @@
+using UnityEngine;
+
+namespace SmartifyOS.Audio
+{
+    public partial class #SCRIPTNAME#_AudioConfig_SO : ScriptableObject
+    {
+        //Add Additional variables here
+    }
+}
