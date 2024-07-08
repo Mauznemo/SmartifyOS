@@ -28,6 +28,14 @@ namespace SmartifyOS.Editor
             ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, "NewUIWindow.cs");
         }
 
+        [MenuItem("Assets/Create/SmartifyOS/More/Quick Settings Entry", false, 82)]
+        static void CreateQuickSettingsEntryScript()
+        {
+            string templatePath = ScriptTemplateUtility.GetTemplatesPath() + "QuickSettingsEntry.cs.txt";
+
+            ProjectWindowUtil.CreateScriptAssetFromTemplateFile(templatePath, "NewQuickSettingsEntry.cs");
+        }
+
         [MenuItem("Assets/Create/SmartifyOS/Add Audio Config", false, 80)]
         static void CreateAudioConfigPartialClass()
         {

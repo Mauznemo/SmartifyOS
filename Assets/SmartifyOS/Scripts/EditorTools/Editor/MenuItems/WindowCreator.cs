@@ -60,7 +60,7 @@ namespace SmartifyOS.Editor
 
         private void LoadPrefab()
         {
-            loadedPrefab = Resources.Load<GameObject>("WindowPrefab");
+            loadedPrefab = Resources.Load<GameObject>("Prefabs/UI/WindowPrefab");
 
             if (loadedPrefab == null)
             {

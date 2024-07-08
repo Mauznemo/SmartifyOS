@@ -2,7 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public static class Extensions
 {
@@ -15,6 +17,38 @@ public static class Extensions
 
         return window is T;
     }*/
+
+    public static void SetIfNotNull(this TMP_Text textComponent, string value)
+    {
+        if (textComponent != null)
+        {
+            textComponent.text = value;
+        }
+    }
+
+    public static void SetColorIfNotNull(this TMP_Text textComponent, Color value)
+    {
+        if (textComponent != null)
+        {
+            textComponent.color = value;
+        }
+    }
+
+    public static void SetColorIfNotNull(this Image image, Color value)
+    {
+        if (image != null)
+        {
+            image.color = value;
+        }
+    }
+
+    public static void SetSpriteIfNotNull(this Image image, Sprite sprite)
+    {
+        if (image != null && sprite != null)
+        {
+            image.sprite = sprite;
+        }
+    }
 
     public static bool IsWindowOfType(this BaseUIWindow window, params Type[] types)
     {

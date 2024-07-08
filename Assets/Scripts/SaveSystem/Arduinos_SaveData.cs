@@ -1,6 +1,6 @@
 namespace SmartifyOS.SaveSystem
 {
-    public partial class Arduinos_SaveData
+    public partial class SaveData
     {
         //Add your custom structs here as a public variable
         public LightController lightController;

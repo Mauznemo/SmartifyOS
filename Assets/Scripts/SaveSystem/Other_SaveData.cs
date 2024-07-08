@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace SmartifyOS.SaveSystem
 {
-    public partial class Other_SaveData
+    public partial class SaveData
     {
         //Add your custom structs here as a public variable
         public Statistics statistics;

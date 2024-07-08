@@ -37,6 +37,18 @@ namespace SmartifyOS.Editor
 
         }
 
+        [MenuItem("GameObject/UI/SmartifyOS/More/Quick Settings/Toggle", false, 1180)]
+        public static void CreateQsToggle(MenuCommand menuCommand)
+        {
+            CreateObjectFromPrefab(menuCommand, "Prefabs/UI/QuickSettings/ToggleButton", "QsToggle");
+        }
+
+        [MenuItem("GameObject/UI/SmartifyOS/More/Quick Settings/Button", false, 1180)]
+        public static void CreateQsButton(MenuCommand menuCommand)
+        {
+            CreateObjectFromPrefab(menuCommand, "Prefabs/UI/QuickSettings/Button", "QsButton");
+        }
+
         [MenuItem("GameObject/UI/SmartifyOS/Window", false)]
         public static void CreateWindow(MenuCommand menuCommand)
         {
@@ -60,7 +72,8 @@ namespace SmartifyOS.Editor
 
         private static void CreateObjectFromPrefab(MenuCommand menuCommand, string prefabPath, string name)
         {
-            GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+            //GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+            GameObject prefab = Resources.Load<GameObject>(prefabPath);
             if (prefab == null)
             {
                 Debug.LogError("Prefab not found at path: " + prefabPath);
