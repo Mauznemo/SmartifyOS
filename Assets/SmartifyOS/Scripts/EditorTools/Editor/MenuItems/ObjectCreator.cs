@@ -16,13 +16,13 @@ namespace SmartifyOS.Editor
         [MenuItem("GameObject/UI/SmartifyOS/Button/Icon Button", false)]
         public static void CreateIconButton(MenuCommand menuCommand)
         {
-
+            CreateObjectFromPrefab(menuCommand, "Prefabs/UI/Components/IconButton", "Icon Button");
         }
 
         [MenuItem("GameObject/UI/SmartifyOS/Button/Button", false)]
         public static void CreateButton(MenuCommand menuCommand)
         {
-
+            CreateObjectFromPrefab(menuCommand, "Prefabs/UI/Components/Button", "Button");
         }
 
         [MenuItem("GameObject/UI/SmartifyOS/Input Field", false)]
