@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,10 @@ namespace SmartifyOS.UI
 
         protected void Init()
         {
-            UIManager.OnWindowOpened += UIManager_OnWindowOpened;
-            UIManager.OnWindowClosed += UIManager_OnWindowClosed;
+            UIManager.Instance.RegisterUIWindow(this);
+
+            BaseUIManager.OnWindowOpened += UIManager_OnWindowOpened;
+            BaseUIManager.OnWindowClosed += UIManager_OnWindowClosed;
 
             transform.localScale = Vector3.zero;
         }
@@ -43,7 +46,7 @@ namespace SmartifyOS.UI
 
         public void Show()
         {
-            if(!Application.isPlaying)
+            if (!Application.isPlaying)
             {
                 transform.localScale = Vector3.one;
                 return;
@@ -53,14 +56,15 @@ namespace SmartifyOS.UI
 
             wasOpen = true;
 
-            transform.localScale = Vector3.one;
+            //transform.localScale = Vector3.one;
+            LeanTween.scale(gameObject, Vector3.one, 0.2f).setEaseInOutCubic();
 
             OnShow();
         }
 
         public void Hide(bool internalUpdate = false)
         {
-            if(!Application.isPlaying)
+            if (!Application.isPlaying)
             {
                 transform.localScale = Vector3.zero;
                 return;
@@ -71,7 +75,8 @@ namespace SmartifyOS.UI
             if (!internalUpdate)
                 wasOpen = false;
 
-            transform.localScale = Vector3.zero;
+            //transform.localScale = Vector3.zero;
+            LeanTween.scale(gameObject, Vector3.zero, 0.2f).setEaseInOutCubic();
 
             OnHide();
         }

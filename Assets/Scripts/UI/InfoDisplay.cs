@@ -3,27 +3,16 @@ using System.Collections.Generic;
 using SmartifyOS.UI.Components;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
-public class InfoDisplay : MonoBehaviour
+public class InfoDisplay : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField] private TMP_Text firstText;
     [SerializeField] private TMP_Text secondText;
 
-    [SerializeField] private IconButton switchButton;
 
     private bool isMain = true;
 
-    private void Awake()
-    {
-        switchButton.onClick += () =>
-        {
-            isMain = !isMain;
-            string textOne = firstText.text;
-            string textTwo = secondText.text;
-            firstText.text = textTwo;
-            secondText.text = textOne;
-        };
-    }
 
     public void SetFirstText(string text)
     {
@@ -39,5 +28,14 @@ public class InfoDisplay : MonoBehaviour
             firstText.text = text;
         else
             secondText.text = text;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        isMain = !isMain;
+        string textOne = firstText.text;
+        string textTwo = secondText.text;
+        firstText.text = textTwo;
+        secondText.text = textOne;
     }
 }
