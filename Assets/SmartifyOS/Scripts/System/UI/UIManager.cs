@@ -3,35 +3,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class UIManager : MonoBehaviour
+namespace SmartifyOS.UI
 {
-    public static UIManager Instance { get; private set; }
-
-    private void Awake()
+    public class UIManager : MonoBehaviour
     {
-        Instance = this;
-    }
+        public static UIManager Instance { get; private set; }
 
-    [SerializeField] private List<BaseUIWindow> openWindows = new List<BaseUIWindow>();
-
-    public static event Action<BaseUIWindow> OnWindowOpened;
-    public static event Action<BaseUIWindow> OnWindowClosed;
-
-    public void AddOpenWindow(BaseUIWindow window)
-    {
-        if (openWindows.Contains(window))
+        private void Awake()
         {
-            Debug.Log("Window already open");
-            return;
+            Instance = this;
         }
 
-        openWindows.Add(window);
-        OnWindowOpened?.Invoke(window);
-    }
+        [SerializeField] private ModalWindow modalWindowPrefab;
+        [SerializeField] private List<BaseUIWindow> openWindows = new List<BaseUIWindow>();
 
-    public void RemoveOpenWindow(BaseUIWindow window)
-    {
-        openWindows.Remove(window);
-        OnWindowClosed?.Invoke(window);
+        public static event Action<BaseUIWindow> OnWindowOpened;
+        public static event Action<BaseUIWindow> OnWindowClosed;
+
+        public void AddOpenWindow(BaseUIWindow window)
+        {
+            if (openWindows.Contains(window))
+            {
+                Debug.Log("Window already open");
+                return;
+            }
+
+            openWindows.Add(window);
+            OnWindowOpened?.Invoke(window);
+        }
+
+        public void RemoveOpenWindow(BaseUIWindow window)
+        {
+            openWindows.Remove(window);
+            OnWindowClosed?.Invoke(window);
+        }
+
+        public ModalWindow CreateModal()
+        {
+            ModalWindow modalWindow = Instantiate(modalWindowPrefab, transform);
+
+            modalWindow.gameObject.SetActive(true);
+
+            return modalWindow;
+        }
     }
 }
+

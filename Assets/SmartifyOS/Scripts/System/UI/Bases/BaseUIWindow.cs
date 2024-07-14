@@ -2,55 +2,80 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class BaseUIWindow : MonoBehaviour
+namespace SmartifyOS.UI
 {
-    protected bool wasOpen;
-
-    protected void Init()
+    public abstract class BaseUIWindow : MonoBehaviour
     {
-        UIManager.OnWindowOpened += UIManager_OnWindowOpened;
-        UIManager.OnWindowClosed += UIManager_OnWindowClosed;
+        protected bool wasOpen;
 
-        transform.localScale = Vector3.zero;
-    }
+        protected void Init()
+        {
+            UIManager.OnWindowOpened += UIManager_OnWindowOpened;
+            UIManager.OnWindowClosed += UIManager_OnWindowClosed;
 
-    private void UIManager_OnWindowClosed(BaseUIWindow obj)
-    {
-        if(obj == this)
-            return;
+            transform.localScale = Vector3.zero;
+        }
 
-        HandleWindowClosed(obj);
-    }
+        private void UIManager_OnWindowClosed(BaseUIWindow obj)
+        {
+            if (obj == this)
+                return;
 
-    private void UIManager_OnWindowOpened(BaseUIWindow obj)
-    {
-        if (obj == this)
-            return;
+            HandleWindowClosed(obj);
+        }
 
-        HandleWindowOpened(obj);
-    }
+        private void UIManager_OnWindowOpened(BaseUIWindow obj)
+        {
+            if (obj == this)
+                return;
 
-    protected virtual void HandleWindowOpened(BaseUIWindow window) { }
+            HandleWindowOpened(obj);
+        }
 
-    protected virtual void HandleWindowClosed(BaseUIWindow window) { }
+        protected virtual void HandleWindowOpened(BaseUIWindow window) { }
+
+        protected virtual void HandleWindowClosed(BaseUIWindow window) { }
+
+        protected virtual void OnShow() { }
+
+        protected virtual void OnHide() { }
 
 
-    public void Show()
-    {
-        UIManager.Instance.AddOpenWindow(this);
+        public void Show()
+        {
+            if(!Application.isPlaying)
+            {
+                transform.localScale = Vector3.one;
+                return;
+            }
 
-        wasOpen = true;
+            UIManager.Instance.AddOpenWindow(this);
 
-        transform.localScale = Vector3.one;
-    }
+            wasOpen = true;
 
-    public void Hide(bool internalUpdate = false)
-    {
-        UIManager.Instance.RemoveOpenWindow(this);
+            transform.localScale = Vector3.one;
 
-        if (!internalUpdate)
-            wasOpen = false;
+            OnShow();
+        }
 
-        transform.localScale = Vector3.zero;
+        public void Hide(bool internalUpdate = false)
+        {
+            if(!Application.isPlaying)
+            {
+                transform.localScale = Vector3.zero;
+                return;
+            }
+
+            UIManager.Instance.RemoveOpenWindow(this);
+
+            if (!internalUpdate)
+                wasOpen = false;
+
+            transform.localScale = Vector3.zero;
+
+            OnHide();
+        }
     }
 }
+
+

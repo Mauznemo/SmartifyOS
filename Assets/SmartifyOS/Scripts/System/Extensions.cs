@@ -5,6 +5,7 @@ using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using SmartifyOS.UI;
 
 public static class Extensions
 {

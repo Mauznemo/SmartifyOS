@@ -37,10 +37,46 @@ namespace SmartifyOS.Editor
 
         }
 
-        [MenuItem("GameObject/UI/SmartifyOS/More/Quick Settings/Toggle", false, 1180)]
+        [MenuItem("GameObject/UI/SmartifyOS/More/Settings/Toggle", false, 1180)]
         public static void CreateQsToggle(MenuCommand menuCommand)
         {
-            CreateObjectFromPrefab(menuCommand, "Prefabs/UI/QuickSettings/ToggleButton", "QsToggle");
+            CreateObjectFromPrefab(menuCommand, "Prefabs/UI/QuickSettings/ToggleButton", "SToggle");
+        }
+
+        [MenuItem("GameObject/UI/SmartifyOS/More/Settings/Button", false, 1180)]
+        public static void CreateSButton(MenuCommand menuCommand)
+        {
+            CreateObjectFromPrefab(menuCommand, "Prefabs/UI/Settings/Button", "SButton");
+        }
+
+        [MenuItem("GameObject/UI/SmartifyOS/More/Settings/Link Button (Page Link)", false, 1180)]
+        public static void CreateSLinkButton(MenuCommand menuCommand)
+        {
+            CreateObjectFromPrefab(menuCommand, "Prefabs/UI/Settings/LinkButton", "SLinkButton");
+        }
+
+        [MenuItem("GameObject/UI/SmartifyOS/More/Settings/InputField", false, 1180)]
+        public static void CreateSInputField(MenuCommand menuCommand)
+        {
+            CreateObjectFromPrefab(menuCommand, "Prefabs/UI/Settings/InputField", "SInputField");
+        }
+
+        [MenuItem("GameObject/UI/SmartifyOS/More/Settings/Slider", false, 1180)]
+        public static void CreateSSlider(MenuCommand menuCommand)
+        {
+            CreateObjectFromPrefab(menuCommand, "Prefabs/UI/Settings/Slider", "SSlider");
+        }
+
+        [MenuItem("GameObject/UI/SmartifyOS/More/Settings/New Page", false, 1180)]
+        public static void CreateSNewPage(MenuCommand menuCommand)
+        {
+            CreateObjectFromPrefab(menuCommand, "Prefabs/UI/Settings/NewPage", "NewPage");
+        }
+
+        [MenuItem("GameObject/UI/SmartifyOS/More/Quick Settings/Toggle", false, 1180)]
+        public static void CreateSToggle(MenuCommand menuCommand)
+        {
+            CreateObjectFromPrefab(menuCommand, "Prefabs/UI/Settings/ToggleButton", "QsToggle");
         }
 
         [MenuItem("GameObject/UI/SmartifyOS/More/Quick Settings/Button", false, 1180)]

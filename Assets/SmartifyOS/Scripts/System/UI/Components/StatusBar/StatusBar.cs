@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Policy;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace SmartifyOS.StatusBar
 {
@@ -25,13 +26,17 @@ namespace SmartifyOS.StatusBar
 
         public static StatusEntry AddStatus(Sprite sprite)
         {
+            Debug.Log("AddStatus");
             StatusEntry statusEntry = new StatusEntry(sprite);
             return statusEntry;
         }
 
         private GameObject InstantiateStatusEntry(Sprite sprite)
         {
-            return Instantiate(statusEntryPrefab, statusEntryParent);
+            var statusEntry = Instantiate(statusEntryPrefab, statusEntryParent);
+            statusEntry.GetComponent<Image>().sprite = sprite;
+            statusEntry.SetActive(true);
+            return statusEntry;
         }
 
         public class StatusEntry

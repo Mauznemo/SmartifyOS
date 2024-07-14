@@ -14,7 +14,12 @@ namespace SmartifyOS.UI.Components
     {
         public event Action onClick;
 
-        public string text = "Button";
+        [SerializeField] private string _text = "Button";
+        public string text
+        {
+            get => _text;
+            set => SetText(value);
+        }
 
         [SerializeField] private bool _interactable = true;
         public bool interactable
@@ -45,7 +50,7 @@ namespace SmartifyOS.UI.Components
         {
             if (!Application.isPlaying)
             {
-                label.SetIfNotNull(text);
+                label.SetIfNotNull(_text);
             }
         }
 
@@ -59,6 +64,11 @@ namespace SmartifyOS.UI.Components
         {
             if(!_interactable) return;
             onClick?.Invoke();
+        }
+
+        private void SetText(string text){
+            _text = text;
+            label.text = text;
         }
 
         private void SetInteractable(bool interactable)

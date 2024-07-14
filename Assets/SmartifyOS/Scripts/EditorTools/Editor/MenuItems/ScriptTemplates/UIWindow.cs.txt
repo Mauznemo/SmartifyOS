@@ -1,3 +1,5 @@
+using SmartifyOS.UI;
+
 public class #SCRIPTNAME# : BaseUIWindow
 {
     private void Start()

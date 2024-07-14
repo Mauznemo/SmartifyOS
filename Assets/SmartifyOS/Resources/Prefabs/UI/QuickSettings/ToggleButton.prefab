@@ -409,11 +409,14 @@ MonoBehaviour:
   title: Toggle
   stateTextTrue: ON
   stateTextFalse: OFF
+  _interactable: 1
   iconSource: {fileID: 0}
+  iconSourceFalse: {fileID: 0}
   isOn: 0
   onTextColor: {r: 0.122641504, g: 0.122641504, b: 0.122641504, a: 1}
   onColor: {r: 1, g: 1, b: 1, a: 0.5}
   offColor: {r: 1, g: 1, b: 1, a: 0.133}
+  disabledColor: {r: 0, g: 0, b: 0, a: 0.31}
   iconImage: {fileID: 3472258780727081638}
   stateText: {fileID: 6951429550500773441}
   titleText: {fileID: 3456923596399315110}
@@ -437,7 +440,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 100d5727b1babc14bac90fe9c56af800, type: 3}
   m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
