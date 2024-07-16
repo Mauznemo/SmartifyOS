@@ -16,6 +16,33 @@ namespace SmartifyOS.UI
         public static event Action<BaseUIWindow> OnWindowOpened;
         public static event Action<BaseUIWindow> OnWindowClosed;
 
+        public T GetUIWindowInstance<T>() where T : BaseUIWindow
+        {
+            T window = windowInstances.OfType<T>().FirstOrDefault();
+
+            if (window != null)
+            {
+                return window;
+            }
+            else
+            {
+                Debug.LogError("Window has no instance");
+                return null;
+            }
+        }
+
+        public void ShowUIWindow(BaseUIWindow window)
+        {
+            if (window != null)
+            {
+                window.Show();
+            }
+            else
+            {
+                Debug.LogError("Window has no instance");
+            }
+        }
+
         public void ShowUIWindow<T>() where T : BaseUIWindow
         {
             BaseUIWindow window = windowInstances.OfType<T>().FirstOrDefault();

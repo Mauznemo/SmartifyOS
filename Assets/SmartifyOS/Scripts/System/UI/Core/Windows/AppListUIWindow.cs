@@ -6,18 +6,13 @@ using UnityEngine;
 
 public class AppListUIWindow : BaseUIWindow
 {
-    [SerializeField] private Type type;
+
+
     [SerializeField] private IconButton androidAutoButton;
-    [SerializeField] private IconButton reverseCameraButton;
-    [SerializeField] private IconButton realtimeInfoButton;
-    [SerializeField] private IconButton ambientButton;
-    [SerializeField] private IconButton mediaPlayerButton;
-    [SerializeField] private IconButton settingsButton;
 
     private void Awake()
     {
-        mediaPlayerButton.onClick += () => {UIManager.Instance.ShowUIWindow<FilePlayer>(); Hide(); };
-        settingsButton.onClick += () => {UIManager.Instance.ShowUIWindow<SettingsUIWindow>(); Hide(); };
+        androidAutoButton.onClick += () => {Debug.Log("Android Auto Button Clicked");};
     }
 
     private void Start()

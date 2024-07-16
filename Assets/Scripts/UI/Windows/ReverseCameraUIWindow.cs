@@ -1,5 +1,6 @@
 using System.IO;
 using SmartifyOS.SaveSystem;
+using SmartifyOS.SystemEvents;
 using SmartifyOS.UI;
 using TMPro;
 using UnityEngine;
@@ -58,14 +59,22 @@ public class ReverseCameraUIWindow : BaseUIWindow
 
         Graphics.Blit(webcamTexture, webcamRenderTexture);
     }
+    
 
     //Only needed if Unity doesn't work with your camera
+    protected override void OnShow()
+    {
+        EnableCameraConverter(true);
+    }
+
+    protected override void OnHide()
+    {
+        EnableCameraConverter(false);
+    }
+
     private void EnableCameraConverter(bool enable)
     {
-        if(!SaveManager.Load().system.eventPaths.setReverseCamConverter.IsNullOrEmpty())
-        {
-            File.WriteAllText(SaveManager.Load().system.eventPaths.setReverseCamConverter, enable.ToString().ToLower());
-        }
+        SystemEventManager.CallEvent(SaveManager.Load().system.eventPaths.setReverseCamConverter, enable.ToString().ToLower());
     }
     
 }
