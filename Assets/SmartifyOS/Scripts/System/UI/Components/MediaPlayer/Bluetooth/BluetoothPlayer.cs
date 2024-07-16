@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using SmartifyOS.LinuxBluetooth;
+using SmartifyOS.Settings;
 using SmartifyOS.UI.Components;
 using TMPro;
 using UnityEngine;
@@ -12,6 +13,7 @@ namespace SmartifyOS.UI.MediaPlayer
         [SerializeField] private IconButton previousButton;
         [SerializeField] private IconButton nextButton;
         [SerializeField] private IconButton playButton;
+        [SerializeField] private IconButton settingsButton;
 
         [SerializeField] private TMP_Text titleText;
         [SerializeField] private TMP_Text artistText;
@@ -44,6 +46,13 @@ namespace SmartifyOS.UI.MediaPlayer
                     BluetoothManager.Instance.PlayerPlay();
                     playButton.SetIcon(playingSprite);
                 }
+
+                playing = !playing;
+            };
+
+            settingsButton.onClick += () =>
+            {
+                SettingsManager.Instance.ShowSettingsPage<BluetoothSettingsPage>();
             };
         }
 

@@ -16,7 +16,7 @@ namespace SmartifyOS.SaveSystem
         public EventPaths eventPaths;
     }
 
-    public partial struct EventPaths
+    public partial class EventPaths
     {
         public string onUsbDeviceConnected;
     }

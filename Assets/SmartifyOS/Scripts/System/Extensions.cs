@@ -19,6 +19,11 @@ public static class Extensions
         return window is T;
     }*/
 
+    public static bool IsNullOrEmpty(this string value)
+    {
+        return string.IsNullOrEmpty(value);
+    }
+
     public static void SetIfNotNull(this TMP_Text textComponent, string value)
     {
         if (textComponent != null)

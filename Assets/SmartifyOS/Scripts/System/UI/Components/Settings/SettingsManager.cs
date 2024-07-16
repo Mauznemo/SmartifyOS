@@ -65,6 +65,21 @@ namespace SmartifyOS.Settings
             pageHistory.RemoveAt(pageHistory.Count - 1);
         }
 
+        public void ShowSettingsPage<T>() where T : BaseSettingsPage
+        {
+            BaseSettingsPage page = settingsPages.OfType<T>().FirstOrDefault();
+
+            if (page != null)
+            {
+                Open();
+                page.Open();
+            }
+            else
+            {
+                Debug.LogError("Page has no instance");
+            }
+        }
+
 
         public void OpenPage(BaseSettingsPage page)
         {
@@ -77,16 +92,6 @@ namespace SmartifyOS.Settings
             }
 
             pageHistory.Add(page);
-        }
-
-        public void OpenPage<T>(T page) where T : BaseSettingsPage
-        {
-            GetSettingsPageByType<T>().Open();
-        }
-
-        private T GetSettingsPageByType<T>() where T : BaseSettingsPage
-        {
-            return settingsPages.OfType<T>().FirstOrDefault();
         }
     }
 }

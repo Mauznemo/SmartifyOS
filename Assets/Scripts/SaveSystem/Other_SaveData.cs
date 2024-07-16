@@ -7,6 +7,8 @@ namespace SmartifyOS.SaveSystem
         //Add your custom structs here as a public variable
         public Statistics statistics;
         public InteriorLighting interiorLighting;
+        public Popups popups;
+        public Camera camera;
     }
 
     //You can add new structs here
@@ -28,5 +30,16 @@ namespace SmartifyOS.SaveSystem
     public struct Popups
     {
         public bool allowModifyingWhileOn;
+    }
+
+    public struct Camera
+    {
+        public int currentCameraIndex;
+        public bool autoFullscreen;
+    }
+
+    public partial class EventPaths
+    {
+        public string setReverseCamConverter;
     }
 }
