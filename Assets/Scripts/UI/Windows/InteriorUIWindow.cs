@@ -1,14 +1,15 @@
 using System;
+using Cinemachine;
 using SmartifyOS.UI;
 using SmartifyOS.UI.Components;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using Button = UnityEngine.UI.Button;
 
 public class InteriorUIWindow : BaseUIWindow
 {
-    public event Action<Color> OnColorChanged;
+    //public event Action<Color> OnColorChanged;
 
     public Color color;
 
@@ -35,6 +36,12 @@ public class InteriorUIWindow : BaseUIWindow
     [SerializeField] private IconButton moreButton;
     [SerializeField] private SmartifyOS.UI.Components.Button sameColorButton;
     [SerializeField] private SmartifyOS.UI.Components.Button settingsButton;
+    [SerializeField] private Button backButton;
+
+    [SerializeField] private CinemachineVirtualCamera virtualCamera;
+    [SerializeField] private GameObject interiorOnlyObjects;
+    [SerializeField] private Light leftLight;
+    [SerializeField] private Light rightLight;
 
     private Texture2D hueTexture;
     private float currentHue;
@@ -48,6 +55,8 @@ public class InteriorUIWindow : BaseUIWindow
 
     private void Awake()
     {
+        currentVal = 1;
+
         hueSlider.onValueChanged.AddListener((value) =>
         {
             currentHue = value;
@@ -86,7 +95,17 @@ public class InteriorUIWindow : BaseUIWindow
         leftLedSelectButton.onClick += () => { SelectSource(SelectedLightSource.LeftFeet); };
         rightLedSelectButton.onClick += () => { SelectSource(SelectedLightSource.RightFeet); };
         //TODO: Toggle lamp
-        lampSelectButton.onClick += () => {  };
+        lampSelectButton.onClick += () => { };
+
+        backButton.onClick.AddListener(() =>
+        {
+            selectedLightText.text = "Ambient";
+
+            isSelectionPage = true;
+            backButton.gameObject.SetActive(false);
+            selectionScreen.SetActive(true);
+            colorScreen.SetActive(false);
+        });
 
     }
 
@@ -94,13 +113,44 @@ public class InteriorUIWindow : BaseUIWindow
     {
         Init();
 
-        colorScreen.SetActive(false);
-
         CreateHueImage();
+
+        interiorOnlyObjects.SetActive(false);
+    }
+
+    protected override void OnShow()
+    {
+        virtualCamera.Priority = 100;
+
+        interiorOnlyObjects.SetActive(true);
+
+        colorScreen.SetActive(false);
+        selectionScreen.SetActive(false);
+        backButton.gameObject.SetActive(false);
+        selectedLightText.text = "Ambient";
+
+        isSelectionPage = true;
+
+        Invoke(nameof(ShowSelectionScreen), 2f);
+    }
+
+    private void ShowSelectionScreen()
+    {
+        selectionScreen.SetActive(true);
+    }
+
+    protected override void OnHide()
+    {
+        virtualCamera.Priority = 0;
+
+        interiorOnlyObjects.SetActive(false);
     }
 
     private void SelectSource(SelectedLightSource source)
     {
+        isSelectionPage = false;
+        backButton.gameObject.SetActive(true);
+
         selectedLightSource = source;
 
         selectionScreen.SetActive(false);
@@ -109,10 +159,10 @@ public class InteriorUIWindow : BaseUIWindow
         switch (source)
         {
             case SelectedLightSource.LeftFeet:
-                selectedLightText.text = "LEDs Left Feet";
+                selectedLightText.text = "      LEDs Left Feet";
                 break;
             case SelectedLightSource.RightFeet:
-                selectedLightText.text = "LEDs Right Feet";
+                selectedLightText.text = "      LEDs Right Feet";
                 break;
         }
     }
@@ -141,7 +191,21 @@ public class InteriorUIWindow : BaseUIWindow
     {
         color = Color.HSVToRGB(currentHue, 1, currentVal);
         previewImage.color = color;
-        OnColorChanged?.Invoke(color);
+        //OnColorChanged?.Invoke(color);
+        OnColorChanged(color);
+    }
+
+    private void OnColorChanged(Color color)
+    {
+        switch (selectedLightSource)
+        {
+            case SelectedLightSource.LeftFeet:
+                leftLight.color = color;
+                break;
+            case SelectedLightSource.RightFeet:
+                rightLight.color = color;
+                break;
+        }
     }
 
     public void SetColor(Color color)
@@ -150,6 +214,14 @@ public class InteriorUIWindow : BaseUIWindow
         Color.RGBToHSV(color, out currentHue, out currentSat, out currentVal);
         satSlider.value = currentVal;
         hueSlider.value = currentHue;
+    }
+
+    protected override void HandleWindowOpened(BaseUIWindow window)
+    {
+        if (window.IsWindowOfType(typeof(AppListUIWindow)))
+        {
+            Hide(true);
+        }
     }
 
     private enum SelectedLightSource
