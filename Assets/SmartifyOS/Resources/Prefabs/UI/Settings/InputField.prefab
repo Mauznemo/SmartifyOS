@@ -536,7 +536,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 60}
+  m_SizeDelta: {x: 800, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3035064688450433248
 CanvasRenderer:
@@ -558,8 +558,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93844ce10252c0e4a958191058e7a3ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  text: Settings InputFiled
+  label: Settings InputFiled
   placeholder: Enter Text...
+  text: 
   _interactable: 1
   normalColor: {r: 1, g: 1, b: 1, a: 0.133}
   disabledColor: {r: 0, g: 0, b: 0, a: 0.31}

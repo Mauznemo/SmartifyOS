@@ -6,19 +6,13 @@ namespace SmartifyOS.SaveSystem
 {
     public partial class SaveData
     {
-        public System system;
+        public System system = new System();
     }
 
-    public struct System
+    public partial class System
     {
-        public float audioVolume;
+        public float audioVolume = 50;
         public bool autoplayOnConnect;
-        public EventPaths eventPaths;
-    }
-
-    public partial class EventPaths
-    {
-        public string onUsbDeviceConnected;
     }
 }
 

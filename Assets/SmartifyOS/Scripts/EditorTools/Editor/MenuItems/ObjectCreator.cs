@@ -40,7 +40,7 @@ namespace SmartifyOS.Editor
         [MenuItem("GameObject/UI/SmartifyOS/More/Settings/Toggle", false, 1180)]
         public static void CreateQsToggle(MenuCommand menuCommand)
         {
-            CreateObjectFromPrefab(menuCommand, "Prefabs/UI/QuickSettings/ToggleButton", "SToggle");
+            CreateObjectFromPrefab(menuCommand, "Prefabs/UI/Settings/ToggleButton", "SToggle");
         }
 
         [MenuItem("GameObject/UI/SmartifyOS/More/Settings/Button", false, 1180)]

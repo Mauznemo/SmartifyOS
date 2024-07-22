@@ -9,6 +9,8 @@ namespace SmartifyOS.SaveSystem
         public InteriorLighting interiorLighting;
         public Popups popups;
         public Camera camera;
+        public Timezone timezone;
+        public Notifications notifications = new Notifications();
     }
 
     //You can add new structs here
@@ -20,8 +22,8 @@ namespace SmartifyOS.SaveSystem
 
     public struct InteriorLighting
     {
-        public Color leftFeet;
-        public Color rightFeet;
+        public Color? leftFeet;
+        public Color? rightFeet;
 
         public bool activateLightOnDoorOpen;
         public bool activateLedStripOnDoorOpen;
@@ -29,6 +31,7 @@ namespace SmartifyOS.SaveSystem
 
     public struct Popups
     {
+        public bool autoCloseOnPowerOff;
         public bool allowModifyingWhileOn;
     }
 
@@ -38,8 +41,16 @@ namespace SmartifyOS.SaveSystem
         public bool autoFullscreen;
     }
 
-    public partial class EventPaths
+    public struct Timezone
     {
-        public string setReverseCamConverter;
+        public int hourOffset;
+        public int minuteOffset;
+    }
+
+    public class Notifications
+    {
+        public bool doorWarningWhenDriving = true;
+        public bool trunkWarningWhenDriving = true;
+        public bool ignoreErrors;
     }
 }

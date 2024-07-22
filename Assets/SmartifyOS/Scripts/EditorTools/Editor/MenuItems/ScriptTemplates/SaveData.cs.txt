@@ -2,8 +2,8 @@ namespace SmartifyOS.SaveSystem
 {
     public partial class SaveData
     {
-        //Add your custom structs here as a public variable
+        //Add your custom variables here (public)
     }
 
-    //You can add new structs here
+    //You can add new structs or classes here
 }

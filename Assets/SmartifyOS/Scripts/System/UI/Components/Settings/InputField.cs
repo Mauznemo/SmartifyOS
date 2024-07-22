@@ -12,10 +12,11 @@ namespace SmartifyOS.Settings
     [RequireComponent(typeof(Image))]
     public class InputField : MonoBehaviour
     {
-        public event Action<string> onValeChanged;
+        public event Action<string> onValueChanged;
 
-        public string text = "Settings InputFiled";
-        public string placeholder = "Enter Text...";
+        [SerializeField] private string label = "Settings InputFiled";
+        [SerializeField] private string placeholder = "Enter Text...";
+        [SerializeField] private string text = "";
 
         [SerializeField] private bool _interactable = true;
         public bool interactable
@@ -40,8 +41,8 @@ namespace SmartifyOS.Settings
 
         private void Awake()
         {
-            if(inputField != null)
-                inputField.onValueChanged.AddListener((value) => onValeChanged?.Invoke(value));
+            if (inputField != null)
+                inputField.onValueChanged.AddListener((value) => onValueChanged?.Invoke(value));
         }
 
         private void OnEnable()
@@ -53,13 +54,24 @@ namespace SmartifyOS.Settings
         {
             if (!Application.isPlaying)
             {
-                labelText.SetIfNotNull(text);
+                labelText.SetIfNotNull(label);
                 placeholderText.SetIfNotNull(placeholder);
 
-                if(inputField != null)
+                inputField.text = text;
+
+                if (inputField != null)
                 {
                     inputField.interactable = _interactable;
                 }
+            }
+        }
+
+        public void SetText(string text)
+        {
+            this.text = text;
+            if (inputField != null)
+            {
+                inputField.text = text;
             }
         }
 

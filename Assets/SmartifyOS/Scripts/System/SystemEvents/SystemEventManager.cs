@@ -8,10 +8,15 @@ namespace SmartifyOS.SystemEvents
 {
     public class SystemEventManager
     {
-
+        private static string GetUserPath()
+        {
+            return Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+        }
 
         public static void CallEvent(string eventPath, string content, bool createIfNotExists = false)
         {
+            eventPath = Path.Combine(GetUserPath(), eventPath);
+
             if (!File.Exists(eventPath))
             {
                 if (!createIfNotExists)
@@ -28,6 +33,8 @@ namespace SmartifyOS.SystemEvents
 
         public static void SubscribeToEvent(string eventPath, Action<string> onEvent)
         {
+            eventPath = Path.Combine(GetUserPath(), eventPath);
+            
             if (!File.Exists(eventPath))
             {
                 Debug.LogError("Event not found: " + eventPath);

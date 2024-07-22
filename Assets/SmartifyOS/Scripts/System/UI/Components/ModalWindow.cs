@@ -81,6 +81,30 @@ namespace SmartifyOS.UI
             gameObject.SetActive(true);
         }
 
+        public void Init(string title, string content, string confirmText, string cancelText, Action confirm, Action cancel)
+        {
+            titleText.text = title;
+            contentText.text = content;
+            CreateButton(confirmText, () =>
+            {
+                Close();
+                confirm();
+            });
+
+            CreateButton(cancelText, () =>
+            {
+                Close();
+                cancel();
+            });
+
+            gameObject.SetActive(true);
+        }
+
+        public void UpdateContent(string content)
+        {
+            contentText.text = content;
+        }
+
         public void Close()
         {
             Destroy(gameObject);

@@ -74,7 +74,7 @@ public class ReverseCameraUIWindow : BaseUIWindow
 
     private void EnableCameraConverter(bool enable)
     {
-        SystemEventManager.CallEvent(SaveManager.Load().system.eventPaths.setReverseCamConverter, enable.ToString().ToLower());
+        SystemEventManager.CallEvent("SmartifyOS/Events/SetReverseCamConverter", enable.ToString().ToLower());
     }
     
 }

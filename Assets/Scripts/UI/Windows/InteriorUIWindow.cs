@@ -43,6 +43,10 @@ public class InteriorUIWindow : BaseUIWindow
     [SerializeField] private Light leftLight;
     [SerializeField] private Light rightLight;
 
+    [SerializeField] private MeshRenderer lightMeshRenderer;
+    [SerializeField] private Material onMaterial;
+    [SerializeField] private Material offMaterial;
+
     private Texture2D hueTexture;
     private float currentHue;
     private float currentSat;
@@ -94,8 +98,19 @@ public class InteriorUIWindow : BaseUIWindow
 
         leftLedSelectButton.onClick += () => { SelectSource(SelectedLightSource.LeftFeet); };
         rightLedSelectButton.onClick += () => { SelectSource(SelectedLightSource.RightFeet); };
-        //TODO: Toggle lamp
-        lampSelectButton.onClick += () => { };
+        lampSelectButton.onClick += () => 
+        {
+            if(LedManager.interiorLightOn)
+            {
+                LedManager.Instance.SetInteriorLight(false);
+                lightMeshRenderer.material = offMaterial;
+            }
+            else
+            {
+                LedManager.Instance.SetInteriorLight(true);
+                lightMeshRenderer.material = onMaterial;
+            }
+        };
 
         backButton.onClick.AddListener(() =>
         {
@@ -131,6 +146,8 @@ public class InteriorUIWindow : BaseUIWindow
 
         isSelectionPage = true;
 
+        InitPointLights();
+
         Invoke(nameof(ShowSelectionScreen), 2f);
     }
 
@@ -155,6 +172,8 @@ public class InteriorUIWindow : BaseUIWindow
 
         selectionScreen.SetActive(false);
         colorScreen.SetActive(true);
+
+        SetColor(LedManager.Instance.GetSavedColor(LightSourceToLedStrip(source)));
 
         switch (source)
         {
@@ -197,6 +216,22 @@ public class InteriorUIWindow : BaseUIWindow
 
     private void OnColorChanged(Color color)
     {
+        UpdatePointLight();
+        LedManager.Instance.SetLedColor(LightSourceToLedStrip(selectedLightSource), color);
+    }
+
+    public void SetColor(Color color)
+    {
+        this.color = color;
+        Color.RGBToHSV(color, out currentHue, out currentSat, out currentVal);
+        satSlider.value = currentVal;
+        hueSlider.value = currentHue;
+
+        UpdatePointLight();
+    }
+
+    private void UpdatePointLight()
+    {
         switch (selectedLightSource)
         {
             case SelectedLightSource.LeftFeet:
@@ -208,12 +243,36 @@ public class InteriorUIWindow : BaseUIWindow
         }
     }
 
-    public void SetColor(Color color)
+    private void InitPointLights()
     {
-        this.color = color;
-        Color.RGBToHSV(color, out currentHue, out currentSat, out currentVal);
-        satSlider.value = currentVal;
-        hueSlider.value = currentHue;
+        leftLight.color = LedManager.Instance.GetSavedColor(LedStrip.Left);
+        rightLight.color = LedManager.Instance.GetSavedColor(LedStrip.Right);
+    }
+
+    private SelectedLightSource LedStripToLightSource(LedStrip ledStrip)
+    {
+        switch (ledStrip)
+        {
+            case LedStrip.Left:
+                return SelectedLightSource.LeftFeet;
+            case LedStrip.Right:
+                return SelectedLightSource.RightFeet;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(ledStrip), ledStrip, null);
+        }
+    }
+
+    private LedStrip LightSourceToLedStrip(SelectedLightSource selectedLightSource)
+    {
+        switch (selectedLightSource)
+        {
+            case SelectedLightSource.LeftFeet:
+                return LedStrip.Left;
+            case SelectedLightSource.RightFeet:
+                return LedStrip.Right;
+            default:
+                throw new ArgumentOutOfRangeException(nameof(selectedLightSource), selectedLightSource, null);
+        }
     }
 
     protected override void HandleWindowOpened(BaseUIWindow window)

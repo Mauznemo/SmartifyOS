@@ -10,11 +10,18 @@ namespace SmartifyOS.SaveSystem
     {
         private const string SAVE_NAME = "settings.json";
 
+        private static readonly JsonSerializerSettings settings = new JsonSerializerSettings
+        {
+            Converters = { new ColorConverter() }
+        };
+
         private static SaveData saveData;
 
         public static void Save()
         {
-            string json = JsonConvert.SerializeObject(saveData, Formatting.Indented);
+            string json = JsonConvert.SerializeObject(saveData, Formatting.Indented, settings);
+
+            Debug.Log(json);
 
             File.WriteAllText(Application.persistentDataPath + "/" + SAVE_NAME, json);
         }
@@ -43,7 +50,7 @@ namespace SmartifyOS.SaveSystem
             if (Exists(SAVE_NAME))
             {
                 var fileContent = File.ReadAllText(Application.persistentDataPath + "/" + SAVE_NAME);
-                return JsonConvert.DeserializeObject<SaveData>(fileContent);
+                return JsonConvert.DeserializeObject<SaveData>(fileContent, settings);
             }
             else
             {

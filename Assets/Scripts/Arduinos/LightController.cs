@@ -18,6 +18,10 @@ public class LightController : BaseSerialCommunication
 
     public event Action<bool> OnWavingStateChanged;
 
+    //REMOVE THIS LATER
+    [SerializeField] private bool OnLeftLightStateChangedButton;
+    [SerializeField] private bool OnRightLightStateChangedButton;
+
     private LightState leftLightState;
     private LightState rightLightState;
 
@@ -32,6 +36,28 @@ public class LightController : BaseSerialCommunication
     private void Update()
     {
         ReadMessage();
+
+        if (OnLeftLightStateChangedButton)
+        {
+            if(leftLightState == LightState.Up)
+                leftLightState = LightState.Down;
+            else
+                leftLightState = LightState.Up;
+
+            OnLeftLightStateChanged?.Invoke(leftLightState);
+            OnLeftLightStateChangedButton = false;
+        }
+
+        if (OnRightLightStateChangedButton)
+        {
+            if (rightLightState == LightState.Up)
+                rightLightState = LightState.Down;
+            else
+                rightLightState = LightState.Up;
+
+            OnRightLightStateChanged?.Invoke(rightLightState);
+            OnRightLightStateChangedButton = false;
+        }
     }
 
     public override void Received(string message)
