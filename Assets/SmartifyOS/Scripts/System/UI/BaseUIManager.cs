@@ -16,6 +16,11 @@ namespace SmartifyOS.UI
         public static event Action<BaseUIWindow> OnWindowOpened;
         public static event Action<BaseUIWindow> OnWindowClosed;
 
+        public bool IsWindowOpened<T>() where T : BaseUIWindow
+        {
+            return openWindows.OfType<T>().Any();
+        }
+
         public T GetUIWindowInstance<T>() where T : BaseUIWindow
         {
             T window = windowInstances.OfType<T>().FirstOrDefault();

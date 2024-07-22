@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using SmartifyOS.Audio;
+using SmartifyOS.SaveSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,5 +19,10 @@ public class AudioVolumeSlider : MonoBehaviour
             await AudioManager.Instance.SetSystemVolume(volume * 100);
             slider.interactable = true;
         });
+    }
+
+    private void Start()
+    {
+        slider.value = SaveManager.Load().system.audioVolume / 100;
     }
 }

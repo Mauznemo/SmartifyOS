@@ -1,5 +1,6 @@
 using System;
 using Cinemachine;
+using SmartifyOS.Settings;
 using SmartifyOS.UI;
 using SmartifyOS.UI.Components;
 using TMPro;
@@ -95,6 +96,13 @@ public class InteriorUIWindow : BaseUIWindow
         {
             morePanel.SetActive(!morePanel.activeSelf);
         };
+
+        sameColorButton.onClick += () =>
+        {
+            
+        };
+
+        settingsButton.onClick += () => { SettingsManager.Instance.ShowSettingsPage<InteriorLightingSettingsPage>(); };
 
         leftLedSelectButton.onClick += () => { SelectSource(SelectedLightSource.LeftFeet); };
         rightLedSelectButton.onClick += () => { SelectSource(SelectedLightSource.RightFeet); };

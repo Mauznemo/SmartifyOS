@@ -133,10 +133,10 @@ namespace SmartifyOS.UI.MediaPlayer
         protected override void HandleWindowOpened(BaseUIWindow window)
         {
             //Add all windows that should hide this window when they open
-            //if (window.IsWindowOfType(typeof(UIWindow1), typeof(UIWindow2)))
-            //{
-            //    Hide(true);
-            //}
+            if (window.IsWindowOfType(typeof(InteriorUIWindow)))
+            {
+                Hide(true);
+            }
         }
 
         protected override void HandleWindowClosed(BaseUIWindow window)
@@ -144,10 +144,10 @@ namespace SmartifyOS.UI.MediaPlayer
             if (!wasOpen) { return; }
 
             //Add all windows that should trigger this window to reopen when they close
-            //if (window.IsWindowOfType(typeof(UIWindow1), typeof(UIWindow2)))
-            //{
-            //    Show();
-            //}
+            if (window.IsWindowOfType(typeof(InteriorUIWindow)))
+            {
+                Show();
+            }
         }
 
         public static string FormatTime(float timeInSeconds)

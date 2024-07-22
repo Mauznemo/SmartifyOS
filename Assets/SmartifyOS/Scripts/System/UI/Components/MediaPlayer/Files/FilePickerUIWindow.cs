@@ -7,6 +7,7 @@ using System.Linq;
 using System.IO;
 using SmartifyOS.UI.MediaPlayer;
 using TMPro;
+using System;
 
 public class FilePickerUIWindow : BaseUIWindow
 {
@@ -15,26 +16,74 @@ public class FilePickerUIWindow : BaseUIWindow
 
     [SerializeField] private List<FileDir> dirList;
 
+    [SerializeField] private List<DirectoryInfo> drivesList = new List<DirectoryInfo>();
+
+    [SerializeField] private GameObject selectDriveScreen;
+    [SerializeField] private GameObject selectFileScreen;
+
+    [SerializeField] private Button driveButtonPrefab;
+    [SerializeField] private Transform driveParent;
+
     [SerializeField] private Button folderButtonPrefab;
     [SerializeField] private Button fileButtonPrefab;
     [SerializeField] private Transform parent;
 
-    private List<GameObject> spawnedButtons = new List<GameObject>();
+    private List<GameObject> spawnedObjects = new List<GameObject>();
 
     protected override void OnShow()
     {
-        Invoke(nameof(SearchAudioFiles), 0.2f);
+        GetDrivesLinux();
     }
 
-    private void SearchAudioFiles(){
-        foreach (var button in spawnedButtons)
+    private void GetDrivesLinux()
+    {
+        DestroySpawnedObjects();
+
+        selectDriveScreen.SetActive(true);
+        selectFileScreen.SetActive(false);
+
+        drivesList.Clear();
+
+        var drivesString = LinuxCommand.Run("df -h | grep -E '^/dev/' | awk '{print $NF}'");
+        string[] drives = drivesString.Split('\n');
+
+
+        foreach (var drive in drives)
         {
-            Destroy(button);
+            if (drive == "/boot/efi" || string.IsNullOrEmpty(drive))
+            {
+                continue;
+            }
+            var driveInfo = new DirectoryInfo(drive);
+            drivesList.Add(driveInfo);
         }
 
-        spawnedButtons.Clear();
 
-        string files = LinuxCommand.Run("find ~/ -type f \\( -iname \"*.mp3\" -o -iname \"*.flac\" -o -iname \"*.wav\" -o -iname \"*.aac\" -o -iname \"*.ogg\" -o -iname \"*.m4a\" \\)");
+        foreach (var drive in drivesList)
+        {
+            Button driveButton = Instantiate(driveButtonPrefab, driveParent);
+            driveButton.gameObject.SetActive(true);
+            driveButton.text = drive.Name;
+            driveButton.onClick += () => SelectDrive(drive.FullName);
+            spawnedObjects.Add(driveButton.gameObject);
+        }
+
+    }
+
+    private void SelectDrive(string fullName)
+    {
+        selectDriveScreen.SetActive(false);
+        selectFileScreen.SetActive(true);
+        SearchAudioFiles(fullName);
+    }
+
+    private void SearchAudioFiles(string searchDir)
+    {
+        searchingText.gameObject.SetActive(true);
+        
+        DestroySpawnedObjects();
+
+        string files = LinuxCommand.Run($"find {searchDir} -type f \\( -iname \"*.mp3\" -o -iname \"*.flac\" -o -iname \"*.wav\" -o -iname \"*.aac\" -o -iname \"*.ogg\" -o -iname \"*.m4a\" \\)");
 
         string[] fileArray = files.Split('\n');
         Debug.Log("FileArray Length: " + fileArray.Length);
@@ -45,7 +94,7 @@ public class FilePickerUIWindow : BaseUIWindow
             Button folderButton = Instantiate(folderButtonPrefab, parent);
             folderButton.gameObject.SetActive(true);
             folderButton.text = new FileInfo(dir.path).Name;
-            spawnedButtons.Add(folderButton.gameObject);
+            spawnedObjects.Add(folderButton.gameObject);
 
             folderButton.onClick += () => OpenFolder(dir.path);
         }
@@ -58,36 +107,45 @@ public class FilePickerUIWindow : BaseUIWindow
         FileDir? directory = GetDirectory(path, dirList);
         if (directory == null) { return; }
 
-        foreach (var button in spawnedButtons)
+        foreach (var button in spawnedObjects)
         {
             Destroy(button);
         }
 
-        spawnedButtons.Clear();
+        spawnedObjects.Clear();
 
         for (int i = 0; i < directory?.files.Count; i++)
         {
             Button button = Instantiate(fileButtonPrefab, parent);
             button.gameObject.SetActive(true);
             button.text = directory?.files[i];
-            spawnedButtons.Add(button.gameObject);
+            spawnedObjects.Add(button.gameObject);
 
             var filePath = directory?.path + "/" + directory?.files[i];
 
             button.onClick += () =>
             {
                 filePlayer.SelectAndPlay(filePath);
-                foreach (var button in spawnedButtons)
+                foreach (var button in spawnedObjects)
                 {
                     Destroy(button);
                 }
 
-                spawnedButtons.Clear();
+                spawnedObjects.Clear();
                 Hide();
             };
         }
     }
 
+    private void DestroySpawnedObjects()
+    {
+        foreach (var button in spawnedObjects)
+        {
+            Destroy(button);
+        }
+
+        spawnedObjects.Clear();
+    }
     private void Start()
     {
         Init();

@@ -1,14 +1,31 @@
+using SmartifyOS.SaveSystem;
+using UnityEngine;
+
 namespace SmartifyOS.Settings
 {
     public class InteriorLightingSettingsPage : BaseSettingsPage
     {
-        //Put your page logic here or leave empty if page only lists link buttons
+        [SerializeField] private ToggleButton activateLightOnDoorOpenToggle;
+        [SerializeField] private ToggleButton activateLedStripOnDoorOpenToggle;
 
-        //Gets called when the page opens
-        /*protected override void OnOpened()
+        private void Awake()
         {
-            
-        }*/
+            activateLightOnDoorOpenToggle.onValueChanged += (value) => 
+            {
+                SaveManager.Load().interiorLighting.activateLightOnDoorOpen = value;
+            };
+
+            activateLedStripOnDoorOpenToggle.onValueChanged += (value) =>
+            {
+                SaveManager.Load().interiorLighting.activateLedStripOnDoorOpen = value;
+            };
+        }
+
+        private void Start()
+        {
+            activateLightOnDoorOpenToggle.SetToggle(SaveManager.Load().interiorLighting.activateLightOnDoorOpen);
+            activateLedStripOnDoorOpenToggle.SetToggle(SaveManager.Load().interiorLighting.activateLedStripOnDoorOpen);
+        }
     }
 
 }

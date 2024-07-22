@@ -27,6 +27,12 @@ namespace SmartifyOS.StatusBar
             movedUp = true;
         }
 
+        public void MoveUp()
+        {
+            LeanTween.moveY(rectTransform, upperSnap, 0.23f).setEaseInOutCubic();
+            movedUp = true;
+        }
+
         public void OnBeginDrag(PointerEventData eventData)
         {
             offset = eventData.position - (Vector2)rectTransform.position;
@@ -41,14 +47,16 @@ namespace SmartifyOS.StatusBar
         {
             if(Mathf.Abs((lastPos.y + offset.y) - eventData.position.y) > 50 && movedUp)
             {
-                rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, lowerSnap);
+                //rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, lowerSnap);
                 lastPos = rectTransform.position;
+                LeanTween.moveY(rectTransform, lowerSnap, 0.23f).setEaseInOutCubic();
                 movedUp = false;
             }
             else if(Mathf.Abs((lastPos.y + offset.y) - eventData.position.y) > 50 && !movedUp)
             {
-                rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, upperSnap);
+                //rectTransform.anchoredPosition = new Vector2(rectTransform.anchoredPosition.x, upperSnap);
                 lastPos = rectTransform.position;
+                LeanTween.moveY(rectTransform, upperSnap, 0.23f).setEaseInOutCubic();
                 movedUp = true;
             }
             else

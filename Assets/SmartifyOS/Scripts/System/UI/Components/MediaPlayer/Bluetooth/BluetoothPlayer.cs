@@ -100,6 +100,26 @@ namespace SmartifyOS.UI.MediaPlayer
             playButton.SetIcon(playingSprite);
             playing = true;
         }
+
+        protected override void HandleWindowOpened(BaseUIWindow window)
+        {
+            //Add all windows that should hide this window when they open
+            if (window.IsWindowOfType(typeof(InteriorUIWindow)))
+            {
+                Hide(true);
+            }
+        }
+
+        protected override void HandleWindowClosed(BaseUIWindow window)
+        {
+            if (!wasOpen) { return; }
+
+            //Add all windows that should trigger this window to reopen when they close
+            if (window.IsWindowOfType(typeof(InteriorUIWindow)))
+            {
+                Show();
+            }
+        }
     }
 
 }
