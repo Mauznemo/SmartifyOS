@@ -13,6 +13,7 @@ namespace SmartifyOS.SaveSystem
     {
         public float audioVolume = 50;
         public bool autoplayOnConnect;
+        public float brightness = 1;
     }
 }
 

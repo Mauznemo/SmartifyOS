@@ -32,6 +32,8 @@ namespace SmartifyOS.LinuxBluetooth
         public static event Action<string> OnDeviceNotAvailable;
         public static event Action<string> OnConfirmPasskey;
 
+        public static event Action<bool> OnSoftBlockedChanged;
+
         private void Awake()
         {
             Instance = this;
@@ -67,6 +69,7 @@ namespace SmartifyOS.LinuxBluetooth
 
         public void SetBluetoothBlock(bool blocked)
         {
+            OnSoftBlockedChanged?.Invoke(blocked);
             string command = blocked ? "rfkill block bluetooth" : "rfkill unblock bluetooth";
             LinuxCommand.Run(command);
         }

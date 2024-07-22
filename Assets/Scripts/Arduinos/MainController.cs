@@ -20,6 +20,8 @@ public class MainController : BaseSerialCommunication
     public static event Action<bool> OnRightDoorOpened;
     public static event Action<bool> OnTrunkOpened;
 
+    public static Action<bool> OnInteriorLightChanged;
+
     public static bool leftDoorOpen;
     public static bool rightDoorOpen;
     public static bool trunkOpen;
@@ -231,6 +233,7 @@ public class MainController : BaseSerialCommunication
         {
             Send("ld");
         }
+        OnInteriorLightChanged?.Invoke(on);
     }
 
     public void SetLedColor(Color color, LedStrip ledStrip)

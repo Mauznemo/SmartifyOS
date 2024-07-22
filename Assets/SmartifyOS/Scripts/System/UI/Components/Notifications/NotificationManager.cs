@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using SmartifyOS.SaveSystem;
 using UnityEngine;
 
 namespace SmartifyOS.Notifications
@@ -43,6 +44,15 @@ namespace SmartifyOS.Notifications
             }
         }
 
+        //REMOVE THIS LATER
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.O))
+            {
+                SendNotification(NotificationType.Info, "Test");
+            }
+        }
+
         void OnEnable()
         {
             // Subscribe to error messages
@@ -59,6 +69,11 @@ namespace SmartifyOS.Notifications
         {
             if (type == LogType.Error || type == LogType.Exception)
             {
+                if(SaveManager.Load().notifications.ignoreErrors)
+                {
+                    return;
+                }
+
                 SendNotification(NotificationType.Error, logString);
             }
         }

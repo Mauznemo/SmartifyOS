@@ -2,11 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 namespace SmartifyOS.Notifications
 {
-    public class PushNotification : MonoBehaviour
+    public class PushNotification : MonoBehaviour, IDragHandler, IEndDragHandler, IBeginDragHandler
     {
         [SerializeField] private Sprite infoIcon;
         [SerializeField] private Sprite warningIcon;
@@ -21,8 +22,15 @@ namespace SmartifyOS.Notifications
 
         private UnityEngine.UI.Outline outline;
         private CanvasGroup canvasGroup;
+
+        private Vector2 startPos;
+        private Vector2 offset;
+        private Vector2 moveDir;
+
         public void Init(NotificationType type, string text, float showTime)
         {
+            startPos = transform.position;
+            
             outline = GetComponent<UnityEngine.UI.Outline>();
             canvasGroup = GetComponent<CanvasGroup>();
 
@@ -49,6 +57,24 @@ namespace SmartifyOS.Notifications
             }
 
             Invoke(nameof(Delete), showTime);
+        }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            offset = eventData.position - (Vector2)transform.position;
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            transform.position = eventData.position - offset;
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            CancelInvoke();
+            LeanTween.scale(gameObject, Vector3.zero, 0.2f).setEaseInOutSine();
+            Delete();
+
         }
 
         private void Delete()

@@ -106,8 +106,8 @@ public class LiveDataController : BaseLiveSerialCommunication
                     highestRpm = LiveDataController.rpm;
                 }
 
-                infoDisplay.SetFirstText(LiveDataController.speedKmh.ToString("0"));
-                infoDisplay.SetFirstText(LiveDataController.rpm.ToString("0.00"));
+                infoDisplay.SetFirstText(LiveDataController.speedKmh, "km/h", "0");
+                infoDisplay.SetFirstText(LiveDataController.rpm, "K RPM", "0.00");
             }
             catch (Exception)
             {

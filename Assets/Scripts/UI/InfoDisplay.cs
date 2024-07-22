@@ -14,20 +14,20 @@ public class InfoDisplay : MonoBehaviour, IPointerClickHandler
     private bool isMain = true;
 
 
-    public void SetFirstText(string text)
+    public void SetFirstText(float value, string extension, string format = "0.00")
     {
         if (isMain)
-            firstText.text = text;
+            firstText.text = value.ToString(format) + " " + extension;
         else
-            secondText.text = text;
+            secondText.text = value.ToString(format);
     }
 
-    public void SetSecondText(string text)
+    public void SetSecondText(float value, string extension, string format = "0.00")
     {
-        if (!isMain)
-            firstText.text = text;
+        if (isMain)
+            firstText.text = value.ToString(format) + " " + extension;
         else
-            secondText.text = text;
+            secondText.text = value.ToString(format);
     }
 
     public void OnPointerClick(PointerEventData eventData)
