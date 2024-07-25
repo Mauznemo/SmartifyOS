@@ -10,7 +10,14 @@ namespace SmartifyOS.Audio
     {
         public static AudioManager Instance { get; private set; }
 
-        [SerializeField] private AudioConfig_SO audioConfig_SO;
+        public static bool playingWarningSound { get; private set; }
+
+        public static AudioConfig_SO audioConfig_SO => Instance._audioConfig_SO;
+
+        [SerializeField] private AudioConfig_SO _audioConfig_SO;
+
+        [SerializeField] private AudioSource soundAudioSource;
+        [SerializeField] private AudioSource warningAudioSource;
 
         private void Awake()
         {
@@ -19,7 +26,27 @@ namespace SmartifyOS.Audio
 
         private void Start()
         {
-            
+            warningAudioSource.loop = true;
+            warningAudioSource.clip = audioConfig_SO.notificationSounds.warningLoop;
+        }
+
+        public void PlaySound(AudioClip audioClip)
+        {
+            soundAudioSource.PlayOneShot(audioClip);
+        }
+
+        public void StartWarningSound()
+        {
+            playingWarningSound = true;
+
+            warningAudioSource.Play();
+        }
+
+        public void StopWarningSound()
+        {
+            playingWarningSound = false;
+
+            warningAudioSource.Stop();
         }
 
         public async Task SetSystemVolume(float volume)

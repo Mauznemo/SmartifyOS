@@ -18,6 +18,7 @@ namespace SmartifyOS.Audio
         public AudioClip info;
         public AudioClip warning;
         public AudioClip error;
+        public AudioClip warningLoop;
     }
 
     [System.Serializable]

@@ -13,11 +13,16 @@ public class LiveDataController : BaseLiveSerialCommunication
     public static event Action<string> OnDateAndTime;
     public static event Action<bool> OnGpsSignal;
 
+    public static event Action OnStartedDriving;
+    public static event Action OnStoppedDriving;
+
     public static float speedKmh { get; private set; }
     public static float rpm { get; private set; }
     public static float highestRpm { get; private set; }
     public static float steeringWheelAngle { get; private set; }
     public static float wheelAngle { get; private set; }
+
+    public static bool isDriving { get; private set; }
 
     private float _speedKmh;
     private float _rpm;
@@ -38,6 +43,9 @@ public class LiveDataController : BaseLiveSerialCommunication
     private List<float> steeringWheelAngleReadings = new List<float>();
 
     private bool hasGpsSignal = false;
+
+    private float drivingTriggerTime = 3f;
+    private float drivingTriggerTimer = 3f;
 
     private int messagesToIgnore = 10;
     private int messagesReceived;
@@ -89,6 +97,8 @@ public class LiveDataController : BaseLiveSerialCommunication
                     _speedKmh = speedKmhRaw;
                     speedKmh = GetSmoothedSpeed();
 
+                    DetermineDrivingState();
+
                     if (!hasGpsSignal)
                     {
                         hasGpsSignal = true;
@@ -115,6 +125,31 @@ public class LiveDataController : BaseLiveSerialCommunication
             }
         }
 
+    }
+
+    private void DetermineDrivingState()
+    {
+        if (isDriving)
+        {
+            if (speedKmh <= 2f)
+            {
+                drivingTriggerTimer = drivingTriggerTime;
+                isDriving = false;
+                OnStoppedDriving?.Invoke();
+            }
+        }
+        else
+        {
+            if (speedKmh > 10f)
+            {
+                drivingTriggerTimer -= Time.deltaTime;
+                if (drivingTriggerTimer <= 0)
+                {
+                    isDriving = true;
+                    OnStartedDriving?.Invoke();
+                }
+            }
+        }
     }
 
     private float GetSmoothedRpm()
