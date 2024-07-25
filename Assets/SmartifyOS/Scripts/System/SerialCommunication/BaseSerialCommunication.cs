@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO.Ports;
+using System;
 
 namespace SmartifyOS.SerialCommunication
 {
@@ -11,11 +12,22 @@ namespace SmartifyOS.SerialCommunication
         [SerializeField] protected string portName;
         [SerializeField] protected int baudRate = 9600;
 
+        [HideInInspector]
+        public bool emulationMode = false;
+        [HideInInspector]
+        public Action<string> emulationResponse;
+
         /// <summary>
         /// Initialize the serial communication. Set the <see cref="portName"/> first.
         /// </summary>
         protected void Init()
         {
+            if (emulationMode)
+            {
+                Debug.Log("Emulation Mode Active");
+                return;
+            }
+
             if (string.IsNullOrEmpty(portName))
             {
                 Debug.LogError($"Port for Arduino is null");
@@ -32,6 +44,11 @@ namespace SmartifyOS.SerialCommunication
         /// <returns><see cref="true"/> if open/connected</returns>
         public bool IsConnected()
         {
+            if (emulationMode)
+            {
+                return true;
+            }
+
             return serialPort != null && serialPort.IsOpen;
         }
 
@@ -81,6 +98,12 @@ namespace SmartifyOS.SerialCommunication
         /// <param name="message">Message to send</param>
         public void Send(string message)
         {
+            if (emulationMode)
+            {
+                emulationResponse?.Invoke(message);
+                return;
+            }
+
             if (serialPort != null && serialPort.IsOpen)
             {
                 serialPort.Write(message + "\n");
