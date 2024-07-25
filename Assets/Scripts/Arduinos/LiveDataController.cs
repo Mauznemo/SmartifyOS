@@ -62,13 +62,13 @@ public class LiveDataController : BaseLiveSerialCommunication
 
     public override void Received(string message)
     {
-        if(messagesReceived < messagesToIgnore)
+        if (messagesReceived < messagesToIgnore)
         {
             messagesReceived++;
             return;
         }
 
-        if(!string.IsNullOrEmpty(message))
+        if (!string.IsNullOrEmpty(message))
         {
             if (message.Contains("time"))
             {
@@ -82,14 +82,14 @@ public class LiveDataController : BaseLiveSerialCommunication
 
                 float rpm = float.Parse(values[0], CultureInfo.InvariantCulture);
                 float speedKmh = float.Parse(values[1], CultureInfo.InvariantCulture);
-                float steeringWheelAngle = float.Parse(values[1], CultureInfo.InvariantCulture);
+                float steeringWheelAngle = float.Parse(values[2], CultureInfo.InvariantCulture);
 
-                if(speedKmh != -1)
+                if (speedKmh != -1)
                 {
                     _speedKmh = speedKmh;
                     LiveDataController.speedKmh = GetSmoothedSpeed();
 
-                    if(!hasGpsSignal)
+                    if (!hasGpsSignal)
                     {
                         hasGpsSignal = true;
                         OnGpsSignal?.Invoke(true);
@@ -101,7 +101,7 @@ public class LiveDataController : BaseLiveSerialCommunication
                 _steeringWheelAngle = -steeringWheelAngle;
                 LiveDataController.steeringWheelAngle = GetSteeringWheelAngle();
 
-                if(LiveDataController.rpm > highestRpm)
+                if (LiveDataController.rpm > highestRpm)
                 {
                     highestRpm = LiveDataController.rpm;
                 }
@@ -119,14 +119,14 @@ public class LiveDataController : BaseLiveSerialCommunication
 
     private float GetSmoothedRpm()
     {
-        if(_rpm == lastRpm)
+        if (_rpm == lastRpm)
             return rpm;
-        
+
         lastRpm = _rpm;
 
         rpmReadings.Add(_rpm);
 
-        if(rpmReadings.Count > smoothingFactorRpm)
+        if (rpmReadings.Count > smoothingFactorRpm)
             rpmReadings.RemoveAt(0);
 
         return rpmReadings.Average();
@@ -134,14 +134,14 @@ public class LiveDataController : BaseLiveSerialCommunication
 
     private float GetSteeringWheelAngle()
     {
-        if(_steeringWheelAngle == lastSteeringWheelAngle)
+        if (_steeringWheelAngle == lastSteeringWheelAngle)
             return _steeringWheelAngle;
-        
+
         lastSteeringWheelAngle = _steeringWheelAngle;
 
         steeringWheelAngleReadings.Add(_steeringWheelAngle);
 
-        if(steeringWheelAngleReadings.Count > smoothingFactorSteeringWheelAngle)
+        if (steeringWheelAngleReadings.Count > smoothingFactorSteeringWheelAngle)
             steeringWheelAngleReadings.RemoveAt(0);
 
         return steeringWheelAngleReadings.Average();
@@ -149,14 +149,14 @@ public class LiveDataController : BaseLiveSerialCommunication
 
     private float GetSmoothedSpeed()
     {
-        if(_speedKmh == lastSpeedKmh)
+        if (_speedKmh == lastSpeedKmh)
             return _speedKmh;
-        
+
         lastSpeedKmh = _speedKmh;
 
         speedKmhReadings.Add(_speedKmh);
 
-        if(speedKmhReadings.Count > smoothingFactorSpeedKmh)
+        if (speedKmhReadings.Count > smoothingFactorSpeedKmh)
             speedKmhReadings.RemoveAt(0);
 
         return speedKmhReadings.Average();
