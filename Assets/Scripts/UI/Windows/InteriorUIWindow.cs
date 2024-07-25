@@ -99,16 +99,33 @@ public class InteriorUIWindow : BaseUIWindow
 
         sameColorButton.onClick += () =>
         {
-            
+            if (isSelectionPage)
+                return;
+
+            var color = Color.magenta;
+
+            switch (selectedLightSource)
+            {
+                case SelectedLightSource.LeftFeet:
+                    color = LedManager.Instance.GetSavedColor(LedStrip.Right);
+                    break;
+                case SelectedLightSource.RightFeet:
+                    color = LedManager.Instance.GetSavedColor(LedStrip.Left);
+                    break;
+            }
+
+            SetColor(color);
+
+            morePanel.SetActive(false);
         };
 
-        settingsButton.onClick += () => { SettingsManager.Instance.ShowSettingsPage<InteriorLightingSettingsPage>(); };
+        settingsButton.onClick += () => { SettingsManager.Instance.ShowSettingsPage<InteriorLightingSettingsPage>(); morePanel.SetActive(false); };
 
         leftLedSelectButton.onClick += () => { SelectSource(SelectedLightSource.LeftFeet); };
         rightLedSelectButton.onClick += () => { SelectSource(SelectedLightSource.RightFeet); };
-        lampSelectButton.onClick += () => 
+        lampSelectButton.onClick += () =>
         {
-            if(LedManager.interiorLightOn)
+            if (LedManager.interiorLightOn)
             {
                 LedManager.Instance.SetInteriorLight(false);
                 lightMeshRenderer.material = offMaterial;
@@ -128,9 +145,11 @@ public class InteriorUIWindow : BaseUIWindow
             backButton.gameObject.SetActive(false);
             selectionScreen.SetActive(true);
             colorScreen.SetActive(false);
+            morePanel.SetActive(false);
         });
 
     }
+
 
     private void Start()
     {
@@ -139,6 +158,20 @@ public class InteriorUIWindow : BaseUIWindow
         CreateHueImage();
 
         interiorOnlyObjects.SetActive(false);
+
+        MainController.OnInteriorLightChanged += MainController_OnInteriorLightChanged;
+    }
+
+    private void MainController_OnInteriorLightChanged(bool isOn)
+    {
+        if (isOn)
+        {
+            lightMeshRenderer.material = onMaterial;
+        }
+        else
+        {
+            lightMeshRenderer.material = offMaterial;
+        }
     }
 
     protected override void OnShow()
@@ -155,6 +188,8 @@ public class InteriorUIWindow : BaseUIWindow
         isSelectionPage = true;
 
         InitPointLights();
+
+        morePanel.SetActive(false);
 
         Invoke(nameof(ShowSelectionScreen), 2f);
     }

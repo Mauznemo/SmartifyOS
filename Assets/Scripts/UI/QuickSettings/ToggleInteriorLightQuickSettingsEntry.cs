@@ -19,6 +19,7 @@ public class ToggleInteriorLightQuickSettingsEntry : BaseQuickSettingsEntry
     //Executed if this script is on a gameobject together with QuickSettings.ToggleButton component
     protected override void OnToggleValueChanged(bool isOn)
     {
-        MainController.Instance.ActivateLight(isOn);
+        //MainController.Instance.ActivateLight(isOn);
+        LedManager.Instance.SetInteriorLight(isOn);
     }
 }
