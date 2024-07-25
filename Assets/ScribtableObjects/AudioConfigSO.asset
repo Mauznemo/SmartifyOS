@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: AudioConfigSO
   m_EditorClassIdentifier: 
   notificationSounds:
-    info: {fileID: 0}
-    warning: {fileID: 0}
-    error: {fileID: 0}
+    info: {fileID: 8300000, guid: 583c0b4d2cd601c5e9e53a4e8d1935e6, type: 3}
+    warning: {fileID: 8300000, guid: c85eeadb00b6dd83e9b1c9c02dc5506b, type: 3}
+    error: {fileID: 8300000, guid: c7bddac365fdc03e78a35ad1a35ba8fe, type: 3}
+    warningLoop: {fileID: 8300000, guid: 6e6132dcd44fa8fddab54da1b7171f10, type: 3}
   bluetoothSounds:
-    connect: {fileID: 0}
-    disconnect: {fileID: 0}
+    connect: {fileID: 8300000, guid: 4f18ca7f9d96a9592b3deb76548529b4, type: 3}
+    disconnect: {fileID: 8300000, guid: 56fd315e38f7330eabb4519c16fbc2d6, type: 3}

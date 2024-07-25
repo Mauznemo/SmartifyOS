@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using SmartifyOS.Audio;
 using SmartifyOS.SaveSystem;
 using UnityEngine;
 
@@ -33,13 +34,15 @@ namespace SmartifyOS.Notifications
             switch (notificationType)
             {
                 case NotificationType.Info:
-                    //AudioManager.Instance.PlayInfoNotification();
+                    AudioManager.Instance.PlaySound(AudioManager.audioConfig_SO.notificationSounds.info);
                     break;
                 case NotificationType.Warning:
                     //AudioManager.Instance.PlayWarningNotification();
+                    AudioManager.Instance.PlaySound(AudioManager.audioConfig_SO.notificationSounds.warning);
                     break;
                 case NotificationType.Error:
                     //AudioManager.Instance.PlayErrorNotification();
+                    AudioManager.Instance.PlaySound(AudioManager.audioConfig_SO.notificationSounds.error);
                     break;
             }
         }
@@ -69,7 +72,7 @@ namespace SmartifyOS.Notifications
         {
             if (type == LogType.Error || type == LogType.Exception)
             {
-                if(SaveManager.Load().notifications.ignoreErrors)
+                if (SaveManager.Load().notifications.ignoreErrors)
                 {
                     return;
                 }

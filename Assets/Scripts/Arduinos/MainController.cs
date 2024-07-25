@@ -31,11 +31,6 @@ public class MainController : BaseSerialCommunication
 
     [SerializeField] private Sprite noPowerIconSprite;
 
-    //REMOVE THIS LATER
-    [SerializeField] private bool OnLeftDoorOpenedButton;
-    [SerializeField] private bool OnRightDoorOpenedButton;
-    [SerializeField] private bool OnTrunkOpenedButton;
-
     private bool cancelShutdown;
     private ModalWindow warningModalWindow;
     private StatusBar.StatusEntry noPowerStatusEntry;
@@ -66,30 +61,6 @@ public class MainController : BaseSerialCommunication
     private void Update()
     {
         ReadMessage();
-
-        if(OnLeftDoorOpenedButton)
-        {
-            leftDoorOpen = !leftDoorOpen;
-            OnLeftDoorOpened?.Invoke(leftDoorOpen);
-            OnLeftDoorOpenedButton = false;
-            Debug.Log("Left door opened: " + leftDoorOpen);
-        }
-
-        if (OnRightDoorOpenedButton)
-        {
-            rightDoorOpen = !rightDoorOpen;
-            OnRightDoorOpened?.Invoke(rightDoorOpen);
-            OnRightDoorOpenedButton = false;
-            Debug.Log("Right door opened: " + rightDoorOpen);
-        }
-
-        if (OnTrunkOpenedButton)
-        {
-            trunkOpen = !trunkOpen;
-            OnTrunkOpened?.Invoke(trunkOpen);
-            OnTrunkOpenedButton = false;
-            Debug.Log("Trunk opened: " + trunkOpen);
-        }
     }
 
     public override void Received(string message)
@@ -135,28 +106,28 @@ public class MainController : BaseSerialCommunication
                 OnActionButton2?.Invoke(true);
                 break;
             case "ldo":
-                OnLeftDoorOpened?.Invoke(true);
                 leftDoorOpen = true;
+                OnLeftDoorOpened?.Invoke(true);
                 break;
             case "ldc":
-                OnLeftDoorOpened?.Invoke(false);
                 leftDoorOpen = false;
+                OnLeftDoorOpened?.Invoke(false);
                 break;
             case "rdo":
-                OnRightDoorOpened?.Invoke(true);
                 rightDoorOpen = true;
+                OnRightDoorOpened?.Invoke(true);
                 break;
             case "rdc":
-                OnRightDoorOpened?.Invoke(false);
                 rightDoorOpen = false;
+                OnRightDoorOpened?.Invoke(false);
                 break;
             case "to":
-                OnTrunkOpened?.Invoke(true);
                 trunkOpen = true;
+                OnTrunkOpened?.Invoke(true);
                 break;
             case "tc":
-                OnTrunkOpened?.Invoke(false);
                 trunkOpen = false;
+                OnTrunkOpened?.Invoke(false);
                 break;
         }
 

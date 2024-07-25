@@ -14,6 +14,12 @@ namespace SmartifyOS.SerialCommunication
         {
             Init();
 
+            if (emulationMode)
+            {
+                isRunning = true;
+                return;
+            }
+
             StartSerialThread();
         }
 
@@ -43,6 +49,8 @@ namespace SmartifyOS.SerialCommunication
         protected void StopSerialThread()
         {
             isRunning = false;
+            if (emulationMode)
+                return;
             serialThread.Join();
         }
     }

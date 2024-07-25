@@ -1111,7 +1111,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 55860237}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13640845, y: -0.28938204, z: 0.041704252, w: 0.94652605}
+  m_LocalRotation: {x: 0.13640846, y: -0.28938204, z: 0.041704252, w: 0.94652605}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1423,6 +1423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portName: 
   baudRate: 9600
+  emulationMode: 1
   OnLeftLightStateChangedButton: 0
   OnRightLightStateChangedButton: 0
 --- !u!4 &59105534
@@ -1777,7 +1778,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portName: 
   baudRate: 9600
-  noPowerIconSprite: {fileID: 0}
+  emulationMode: 1
+  noPowerIconSprite: {fileID: 21300000, guid: 49afbefdab054b54db1ef6e19f17b73f, type: 3}
   OnLeftDoorOpenedButton: 0
   OnRightDoorOpenedButton: 0
   OnTrunkOpenedButton: 0
@@ -2620,7 +2622,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 323536.22}
+  m_AnchoredPosition: {x: 0, y: 384746.53}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &158427254
@@ -2999,7 +3001,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175533262}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.119214654, y: -0.29009098, z: 0.036447577, w: 0.9488449}
+  m_LocalRotation: {x: 0.11921465, y: -0.290091, z: 0.03644758, w: 0.9488449}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -3350,7 +3352,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 100
+  m_text: --
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 56eef02ce32cbb24e8a8681afd15ac44, type: 2}
   m_sharedMaterial: {fileID: 1074816618652731235, guid: 56eef02ce32cbb24e8a8681afd15ac44,
@@ -5779,7 +5781,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13125475, y: -0.2896047, z: 0.040128604, w: 0.9472545}
+  m_LocalRotation: {x: 0.13125476, y: -0.28960472, z: 0.04012861, w: 0.9472545}
   m_LocalPosition: {x: 5.246718, y: 3.136827, z: -7.778579}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -6010,6 +6012,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portName: 
   baudRate: 9600
+  emulationMode: 0
 --- !u!1 &353569488
 GameObject:
   m_ObjectHideFlags: 0
@@ -16238,7 +16241,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 79646.14}
+  m_AnchoredPosition: {x: 0, y: 156199.2}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1171074961
@@ -19116,10 +19119,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portName: 
   baudRate: 9600
+  emulationMode: 1
   infoDisplay: {fileID: 1631118711}
   smoothingFactorSpeedKmh: 5
   smoothingFactorRpm: 5
   smoothingFactorSteeringWheelAngle: 5
+  noGpsSprite: {fileID: 21300000, guid: 4cd4bc6fc7cd40a499df4ce87d17f493, type: 3}
 --- !u!1 &1409011398
 GameObject:
   m_ObjectHideFlags: 0
@@ -22188,6 +22193,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e85d0edcb1b7fab9c85b2b9bac6ad087, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  WarningIconSprite: {fileID: 21300000, guid: a1b59472152ce804bb441ff047ffe847, type: 3}
 --- !u!1 &1571215804
 GameObject:
   m_ObjectHideFlags: 0

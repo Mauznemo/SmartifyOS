@@ -5,6 +5,7 @@ using System.Globalization;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SmartifyOS.StatusBar;
 
 public class LiveDataController : BaseLiveSerialCommunication
 {
@@ -34,6 +35,10 @@ public class LiveDataController : BaseLiveSerialCommunication
     [SerializeField] private int smoothingFactorRpm = 5;
     [SerializeField] private int smoothingFactorSteeringWheelAngle = 5;
 
+    [SerializeField] private Sprite noGpsSprite;
+
+    private StatusBar.StatusEntry noGpsSignalStatusEntry;
+
     private float lastSpeedKmh;
     private float lastRpm;
     private float lastSteeringWheelAngle;
@@ -57,10 +62,18 @@ public class LiveDataController : BaseLiveSerialCommunication
 
     private void Start()
     {
+        noGpsSignalStatusEntry = StatusBar.AddStatus(noGpsSprite);
+
         if (string.IsNullOrEmpty(portName))
             portName = SaveManager.Load().liveController.arduinoPort;
 
         InitLive();
+    }
+
+    private void Update()
+    {
+        //REMOVE THIS LATER
+        DetermineDrivingState();
     }
 
     private void OnDestroy()
@@ -102,6 +115,7 @@ public class LiveDataController : BaseLiveSerialCommunication
                     if (!hasGpsSignal)
                     {
                         hasGpsSignal = true;
+                        noGpsSignalStatusEntry.Hide();
                         OnGpsSignal?.Invoke(true);
                     }
                 }
@@ -117,7 +131,7 @@ public class LiveDataController : BaseLiveSerialCommunication
                 }
 
                 infoDisplay.SetFirstText(speedKmh, "km/h", "0");
-                infoDisplay.SetFirstText(rpm, "K RPM", "0.00");
+                infoDisplay.SetSecondText(rpm, "K RPM", "0.00");
             }
             catch (Exception)
             {
@@ -131,11 +145,12 @@ public class LiveDataController : BaseLiveSerialCommunication
     {
         if (isDriving)
         {
-            if (speedKmh <= 2f)
+            if (speedKmh <= 10f)
             {
                 drivingTriggerTimer = drivingTriggerTime;
                 isDriving = false;
                 OnStoppedDriving?.Invoke();
+                Debug.Log("Stopped Driving");
             }
         }
         else
@@ -147,6 +162,7 @@ public class LiveDataController : BaseLiveSerialCommunication
                 {
                     isDriving = true;
                     OnStartedDriving?.Invoke();
+                    Debug.Log("Started Driving");
                 }
             }
         }
@@ -164,7 +180,7 @@ public class LiveDataController : BaseLiveSerialCommunication
         if (rpmReadings.Count > smoothingFactorRpm)
             rpmReadings.RemoveAt(0);
 
-        return rpmReadings.Average();
+        return WeightedMovingAverage(rpmReadings);
     }
 
     private float GetSteeringWheelAngle()
@@ -179,7 +195,7 @@ public class LiveDataController : BaseLiveSerialCommunication
         if (steeringWheelAngleReadings.Count > smoothingFactorSteeringWheelAngle)
             steeringWheelAngleReadings.RemoveAt(0);
 
-        return steeringWheelAngleReadings.Average();
+        return WeightedMovingAverage(steeringWheelAngleReadings);
     }
 
     private float GetSmoothedSpeed()
@@ -194,6 +210,22 @@ public class LiveDataController : BaseLiveSerialCommunication
         if (speedKmhReadings.Count > smoothingFactorSpeedKmh)
             speedKmhReadings.RemoveAt(0);
 
-        return speedKmhReadings.Average();
+        return WeightedMovingAverage(speedKmhReadings);
+    }
+
+    private float WeightedMovingAverage(List<float> readings)
+    {
+        int count = readings.Count;
+        float weightedSum = 0;
+        int weightTotal = 0;
+
+        for (int i = 0; i < count; i++)
+        {
+            int weight = i + 1;
+            weightedSum += readings[i] * weight;
+            weightTotal += weight;
+        }
+
+        return weightedSum / weightTotal;
     }
 }
