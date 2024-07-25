@@ -1,4 +1,5 @@
 using System;
+using SmartifyOS.Linux;
 using SmartifyOS.UI;
 using SmartifyOS.UI.Components;
 using SmartifyOS.UI.MediaPlayer;
@@ -12,7 +13,7 @@ public class AppListUIWindow : BaseUIWindow
 
     private void Awake()
     {
-        androidAutoButton.onClick += () => {Debug.Log("Android Auto Button Clicked");};
+        androidAutoButton.onClick += () => { RunLinuxShellScript.Run("~/SmartifyOS/android-auto/start.sh"); };
     }
 
     private void Start()
@@ -20,5 +21,5 @@ public class AppListUIWindow : BaseUIWindow
         Init();
     }
 
-    
+
 }
