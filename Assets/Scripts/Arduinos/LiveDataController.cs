@@ -80,14 +80,14 @@ public class LiveDataController : BaseLiveSerialCommunication
             {
                 string[] values = message.Split('_');
 
-                float rpm = float.Parse(values[0], CultureInfo.InvariantCulture);
-                float speedKmh = float.Parse(values[1], CultureInfo.InvariantCulture);
-                float steeringWheelAngle = float.Parse(values[2], CultureInfo.InvariantCulture);
+                float rpmRaw = float.Parse(values[0], CultureInfo.InvariantCulture);
+                float speedKmhRaw = float.Parse(values[1], CultureInfo.InvariantCulture);
+                float steeringWheelAngleRaw = float.Parse(values[2], CultureInfo.InvariantCulture);
 
-                if (speedKmh != -1)
+                if (speedKmhRaw != -1)
                 {
-                    _speedKmh = speedKmh;
-                    LiveDataController.speedKmh = GetSmoothedSpeed();
+                    _speedKmh = speedKmhRaw;
+                    speedKmh = GetSmoothedSpeed();
 
                     if (!hasGpsSignal)
                     {
@@ -96,18 +96,18 @@ public class LiveDataController : BaseLiveSerialCommunication
                     }
                 }
 
-                _rpm = rpm;
-                LiveDataController.rpm = GetSmoothedRpm();
-                _steeringWheelAngle = -steeringWheelAngle;
-                LiveDataController.steeringWheelAngle = GetSteeringWheelAngle();
+                _rpm = rpmRaw;
+                rpm = GetSmoothedRpm();
+                _steeringWheelAngle = -steeringWheelAngleRaw;
+                steeringWheelAngle = GetSteeringWheelAngle();
 
-                if (LiveDataController.rpm > highestRpm)
+                if (rpm > highestRpm)
                 {
-                    highestRpm = LiveDataController.rpm;
+                    highestRpm = rpm;
                 }
 
-                infoDisplay.SetFirstText(LiveDataController.speedKmh, "km/h", "0");
-                infoDisplay.SetFirstText(LiveDataController.rpm, "K RPM", "0.00");
+                infoDisplay.SetFirstText(speedKmh, "km/h", "0");
+                infoDisplay.SetFirstText(rpm, "K RPM", "0.00");
             }
             catch (Exception)
             {
