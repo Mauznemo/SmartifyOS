@@ -8,6 +8,7 @@ using System.IO;
 using SmartifyOS.UI.MediaPlayer;
 using TMPro;
 using System;
+using System.Collections;
 
 public class FilePickerUIWindow : BaseUIWindow
 {
@@ -35,6 +36,12 @@ public class FilePickerUIWindow : BaseUIWindow
         GetDrivesLinux();
     }
 
+    private static string GetMyMusicPath()
+    {
+        return Environment.GetFolderPath(Environment.SpecialFolder.MyMusic);
+    }
+
+
     private void GetDrivesLinux()
     {
         DestroySpawnedObjects();
@@ -50,7 +57,7 @@ public class FilePickerUIWindow : BaseUIWindow
 
         foreach (var drive in drives)
         {
-            if (drive == "/boot/efi" || string.IsNullOrEmpty(drive))
+            if (drive.Trim() == "/boot/efi" || drive.Trim() == "/" || string.IsNullOrEmpty(drive))
             {
                 continue;
             }
@@ -58,29 +65,33 @@ public class FilePickerUIWindow : BaseUIWindow
             drivesList.Add(driveInfo);
         }
 
+        var musicDirInfo = new DirectoryInfo(GetMyMusicPath());
+        drivesList.Add(musicDirInfo);
+
 
         foreach (var drive in drivesList)
         {
             Button driveButton = Instantiate(driveButtonPrefab, driveParent);
             driveButton.gameObject.SetActive(true);
             driveButton.text = drive.Name;
-            driveButton.onClick += () => SelectDrive(drive.FullName);
+            driveButton.onClick += () => StartCoroutine(SelectDrive(drive.FullName));
             spawnedObjects.Add(driveButton.gameObject);
         }
 
     }
 
-    private void SelectDrive(string fullName)
+    private IEnumerator SelectDrive(string fullName)
     {
         selectDriveScreen.SetActive(false);
         selectFileScreen.SetActive(true);
+        yield return new WaitForEndOfFrame();
         SearchAudioFiles(fullName);
     }
 
     private void SearchAudioFiles(string searchDir)
     {
         searchingText.gameObject.SetActive(true);
-        
+
         DestroySpawnedObjects();
 
         string files = LinuxCommand.Run($"find {searchDir} -type f \\( -iname \"*.mp3\" -o -iname \"*.flac\" -o -iname \"*.wav\" -o -iname \"*.aac\" -o -iname \"*.ogg\" -o -iname \"*.m4a\" \\)");

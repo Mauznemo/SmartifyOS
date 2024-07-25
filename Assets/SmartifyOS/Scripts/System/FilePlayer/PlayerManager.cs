@@ -19,6 +19,8 @@ namespace SmartifyOS.LinuxFilePlayer
         public static event Action<SongMetadata> OnMetadataChanged;
         public static event Action<float> OnDurationChanged;
 
+        public static event Action OnEndOfFile;
+
         private const string SOCKET = "/tmp/mpvsocket";
 
         private Process process;
@@ -79,19 +81,21 @@ namespace SmartifyOS.LinuxFilePlayer
         {
             if (e.Data.Contains("Exiting"))
             {
+                hasInstance = false;
+
                 if (e.Data.Contains("Errors when loading file"))
                 {
                     UnityEngine.Debug.LogError("Errors while loading file");
                 }
                 else if (e.Data.ToLower().Contains("end"))
                 {
-                    UnityEngine.Debug.Log("End of file");
+                    UnityEngine.Debug.Log("End of file reached");
+                    OnEndOfFile?.Invoke();
                 }
 
-                hasInstance = false;
             }
 
-            UnityEngine.Debug.Log(e.Data);
+            //UnityEngine.Debug.Log(e.Data);
         }
 
         private void ErrorDataReceived(object sender, DataReceivedEventArgs e)
@@ -112,7 +116,7 @@ namespace SmartifyOS.LinuxFilePlayer
         public void StopPlayerInstance()
         {
             hasInstance = false;
-            if (process != null)
+            if (process != null && !process.HasExited)
             {
                 process.Kill();
             }
@@ -120,7 +124,7 @@ namespace SmartifyOS.LinuxFilePlayer
 
         public void SkipTo(float time)
         {
-            if (process != null)
+            if (process != null && !process.HasExited)
             {
                 string output = LinuxCommand.Run("echo '{ \\\"command\\\": [\\\"seek\\\", \\\"" + time.ToString().Replace(",", ".") + "\\\", \\\"absolute\\\"] }' | socat - " + SOCKET);
             }
@@ -133,7 +137,7 @@ namespace SmartifyOS.LinuxFilePlayer
 
         private void RequestDuration()
         {
-            if (process != null)
+            if (process != null && !process.HasExited)
             {
                 string output = LinuxCommand.Run("echo '{ \\\"command\\\": [\\\"get_property\\\", \\\"duration\\\"] }' | socat - " + SOCKET);
                 dynamic data = JsonConvert.DeserializeObject<dynamic>(output);
@@ -142,12 +146,16 @@ namespace SmartifyOS.LinuxFilePlayer
                     duration = data.data;
                     OnDurationChanged?.Invoke(duration);
                 }
+                else
+                {
+                    Invoke(nameof(RequestDuration), 1f);
+                }
             }
         }
 
         private void RequestMetadata()
         {
-            if (process != null)
+            if (process != null && !process.HasExited)
             {
                 string output = LinuxCommand.Run("echo '{ \\\"command\\\": [\\\"get_property\\\", \\\"metadata\\\"] }' | socat - " + SOCKET);
                 dynamic data = JsonConvert.DeserializeObject<dynamic>(output);

@@ -30,12 +30,20 @@ namespace SmartifyOS.UI.MediaPlayer
         [SerializeField] private FilePickerUIWindow filePicker;
         [SerializeField] private IconButton pickFileButton;
 
+        [SerializeField] private float timeUntilClosing = 20f;
+
         private bool playing = false;
         private float timer = 0;
 
         private void Start()
         {
             Init();
+
+            playButton.interactable = false;
+
+            PlayerManager.OnMetadataChanged += PlayerManager_OnMetadataChanged;
+            PlayerManager.OnDurationChanged += PlayerManager_OnDurationChanged;
+            PlayerManager.OnEndOfFile += PlayerManager_OnEndOfFile;
         }
 
         private void Awake()
@@ -76,14 +84,32 @@ namespace SmartifyOS.UI.MediaPlayer
                 timer = timeStamp;
                 PlayerManager.Instance.SkipTo(timeStamp);
             };
-
-            PlayerManager.OnMetadataChanged += PlayerManager_OnMetadataChanged;
-            PlayerManager.OnDurationChanged += PlayerManager_OnDurationChanged;
         }
+
         public void SelectAndPlay(string path)
         {
             filePath = path;
             InstantiatePlayer();
+
+            playButton.interactable = true;
+        }
+
+        private void PlayerManager_OnEndOfFile()
+        {
+            UnityMainThreadDispatcher.GetInstance().Enqueue(EndOfFile);
+        }
+
+        private void EndOfFile()
+        {
+            playing = false;
+            playButton.SetIcon(pausedSprite);
+
+            Invoke(nameof(AutoHide), timeUntilClosing);
+        }
+
+        private void AutoHide()
+        {
+            Hide();
         }
 
         private void PlayerManager_OnDurationChanged(float duration)
@@ -110,10 +136,12 @@ namespace SmartifyOS.UI.MediaPlayer
             playing = true;
             PlayerManager.Instance.StartPlayerInstance(filePath);
             playButton.SetIcon(playingSprite);
+            CancelInvoke(nameof(AutoHide));
         }
 
         private void Update()
         {
+            Debug.Log($"hasInstance: {PlayerManager.hasInstance} - playing: {playing}");
             if (PlayerManager.hasInstance && playing)
             {
                 timer += Time.deltaTime;
