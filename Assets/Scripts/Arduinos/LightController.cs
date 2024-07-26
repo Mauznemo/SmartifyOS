@@ -3,6 +3,7 @@ using SmartifyOS.SerialCommunication;
 using System;
 using TMPro;
 using SmartifyOS.SaveSystem;
+using SmartifyOS.Notifications;
 
 public class LightController : BaseSerialCommunication
 {
@@ -18,9 +19,6 @@ public class LightController : BaseSerialCommunication
 
     public event Action<bool> OnWavingStateChanged;
 
-    //REMOVE THIS LATER
-    [SerializeField] private bool OnLeftLightStateChangedButton;
-    [SerializeField] private bool OnRightLightStateChangedButton;
 
     private LightState leftLightState;
     private LightState rightLightState;
@@ -30,34 +28,14 @@ public class LightController : BaseSerialCommunication
     private void Start()
     {
         portName = SaveManager.Load().lightController.arduinoPort;
+        Debug.Log("Light controller port: " + portName);
         Init();
+        Debug.Log("Light controller connected: " + IsConnected());
     }
 
     private void Update()
     {
         ReadMessage();
-
-        if (OnLeftLightStateChangedButton)
-        {
-            if(leftLightState == LightState.Up)
-                leftLightState = LightState.Down;
-            else
-                leftLightState = LightState.Up;
-
-            OnLeftLightStateChanged?.Invoke(leftLightState);
-            OnLeftLightStateChangedButton = false;
-        }
-
-        if (OnRightLightStateChangedButton)
-        {
-            if (rightLightState == LightState.Up)
-                rightLightState = LightState.Down;
-            else
-                rightLightState = LightState.Up;
-
-            OnRightLightStateChanged?.Invoke(rightLightState);
-            OnRightLightStateChangedButton = false;
-        }
     }
 
     public override void Received(string message)
@@ -67,7 +45,7 @@ public class LightController : BaseSerialCommunication
             case "ru":
                 rightLightState = LightState.Up;
                 OnRightLightStateChanged?.Invoke(rightLightState);
-                break;       
+                break;
             case "rd":
                 rightLightState = LightState.Down;
                 OnRightLightStateChanged?.Invoke(rightLightState);

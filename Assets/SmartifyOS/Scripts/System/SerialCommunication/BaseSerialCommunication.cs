@@ -30,7 +30,7 @@ namespace SmartifyOS.SerialCommunication
 
             if (string.IsNullOrEmpty(portName))
             {
-                Debug.LogError($"Port for Arduino is null");
+                Debug.Log($"Port for Arduino is null");
                 return;
             }
 
@@ -110,7 +110,7 @@ namespace SmartifyOS.SerialCommunication
             }
             else
             {
-                Debug.LogError($"Arduino on {portName} not connected!");
+                Debug.Log($"Arduino on {portName} not connected!");
             }
         }
 

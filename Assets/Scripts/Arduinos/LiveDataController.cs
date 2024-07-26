@@ -64,10 +64,12 @@ public class LiveDataController : BaseLiveSerialCommunication
     {
         noGpsSignalStatusEntry = StatusBar.AddStatus(noGpsSprite);
 
-        if (string.IsNullOrEmpty(portName))
-            portName = SaveManager.Load().liveController.arduinoPort;
+        portName = SaveManager.Load().liveController.arduinoPort;
 
+        Debug.Log("Live controller port: " + portName);
         InitLive();
+
+        Debug.Log("Live controller connected: " + IsConnected());
     }
 
     private void Update()

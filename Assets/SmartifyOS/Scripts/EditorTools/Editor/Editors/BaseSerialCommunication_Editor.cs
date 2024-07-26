@@ -117,6 +117,8 @@ namespace SmartifyOS.UI
                 if (GUILayout.Button("Deactivate Emulation Mode"))
                 {
                     script.emulationMode = false;
+                    EditorUtility.SetDirty(target);
+
                 }
             }
             else
@@ -124,6 +126,7 @@ namespace SmartifyOS.UI
                 if (GUILayout.Button("Activate Serial Emulation Mode"))
                 {
                     script.emulationMode = true;
+                    EditorUtility.SetDirty(target);
                 }
             }
         }

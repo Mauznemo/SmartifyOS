@@ -42,7 +42,10 @@ public class MainController : BaseSerialCommunication
 
     private void Start()
     {
+        portName = SaveManager.Load().mainController.arduinoPort;
+        Debug.Log("Main controller port: " + portName);
         Init();
+        Debug.Log("Main controller connected: " + IsConnected());
 
         noPowerStatusEntry = StatusBar.AddStatus(noPowerIconSprite);
         noPowerStatusEntry.Hide();

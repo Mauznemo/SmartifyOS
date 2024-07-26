@@ -1,6 +1,7 @@
 using UnityEngine;
 using SmartifyOS.SerialCommunication;
 using System;
+using SmartifyOS.SaveSystem;
 
 public class LockController : BaseSerialCommunication
 {
@@ -17,8 +18,10 @@ public class LockController : BaseSerialCommunication
 
     private void Start()
     {
-        //portName = "COM1"; //You can also set the port from code
+        portName = SaveManager.Load().lockController.arduinoPort;
+        Debug.Log("Lock controller port: " + portName);
         Init();
+        Debug.Log("Lock controller connected: " + IsConnected());
     }
 
     private void Update()

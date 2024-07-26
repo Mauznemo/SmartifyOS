@@ -1,4 +1,5 @@
 using System.Threading;
+using UnityEngine;
 
 namespace SmartifyOS.SerialCommunication
 {
@@ -13,6 +14,12 @@ namespace SmartifyOS.SerialCommunication
         protected void InitLive()
         {
             Init();
+
+            if (string.IsNullOrEmpty(portName))
+            {
+                Debug.Log($"Port for Arduino is null");
+                return;
+            }
 
             if (emulationMode)
             {

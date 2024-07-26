@@ -1111,7 +1111,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 55860237}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13640846, y: -0.28938204, z: 0.041704252, w: 0.94652605}
+  m_LocalRotation: {x: 0.13640845, y: -0.28938204, z: 0.041704252, w: 0.94652605}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -1423,9 +1423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portName: 
   baudRate: 9600
-  emulationMode: 1
-  OnLeftLightStateChangedButton: 0
-  OnRightLightStateChangedButton: 0
+  emulationMode: 0
 --- !u!4 &59105534
 Transform:
   m_ObjectHideFlags: 0
@@ -1778,11 +1776,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portName: 
   baudRate: 9600
-  emulationMode: 1
+  emulationMode: 0
   noPowerIconSprite: {fileID: 21300000, guid: 49afbefdab054b54db1ef6e19f17b73f, type: 3}
-  OnLeftDoorOpenedButton: 0
-  OnRightDoorOpenedButton: 0
-  OnTrunkOpenedButton: 0
 --- !u!1 &96274012
 GameObject:
   m_ObjectHideFlags: 0
@@ -2622,7 +2617,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 384746.53}
+  m_AnchoredPosition: {x: 0, y: 410122.97}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &158427254
@@ -3001,7 +2996,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 175533262}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.11921465, y: -0.290091, z: 0.03644758, w: 0.9488449}
+  m_LocalRotation: {x: 0.119214654, y: -0.29009098, z: 0.036447577, w: 0.9488449}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5781,7 +5776,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.13125476, y: -0.28960472, z: 0.04012861, w: 0.9472545}
+  m_LocalRotation: {x: 0.13125475, y: -0.2896047, z: 0.040128604, w: 0.9472545}
   m_LocalPosition: {x: 5.246718, y: 3.136827, z: -7.778579}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -16241,7 +16236,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 156199.2}
+  m_AnchoredPosition: {x: 0, y: 187878.48}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1171074961
@@ -19119,7 +19114,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   portName: 
   baudRate: 9600
-  emulationMode: 1
+  emulationMode: 0
   infoDisplay: {fileID: 1631118711}
   smoothingFactorSpeedKmh: 5
   smoothingFactorRpm: 5

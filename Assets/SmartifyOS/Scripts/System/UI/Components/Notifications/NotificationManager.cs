@@ -56,19 +56,19 @@ namespace SmartifyOS.Notifications
             }
         }
 
-        void OnEnable()
+        void Start()
         {
             // Subscribe to error messages
-            Application.logMessageReceived += HandleLogMessage;
+            //Application.logMessageReceived += HandleLogMessage;
         }
 
-        void OnDisable()
+        void OnDestroy()
         {
             // Unsubscribe from error messages
-            Application.logMessageReceived -= HandleLogMessage;
+            //Application.logMessageReceived -= HandleLogMessage;
         }
 
-        void HandleLogMessage(string logString, string stackTrace, LogType type)
+        /*void HandleLogMessage(string logString, string stackTrace, LogType type)
         {
             if (type == LogType.Error || type == LogType.Exception)
             {
@@ -79,7 +79,7 @@ namespace SmartifyOS.Notifications
 
                 SendNotification(NotificationType.Error, logString);
             }
-        }
+        }*/
     }
 
     public enum NotificationType
