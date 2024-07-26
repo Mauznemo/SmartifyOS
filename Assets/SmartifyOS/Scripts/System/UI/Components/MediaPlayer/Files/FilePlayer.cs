@@ -141,7 +141,6 @@ namespace SmartifyOS.UI.MediaPlayer
 
         private void Update()
         {
-            Debug.Log($"hasInstance: {PlayerManager.hasInstance} - playing: {playing}");
             if (PlayerManager.hasInstance && playing)
             {
                 timer += Time.deltaTime;
