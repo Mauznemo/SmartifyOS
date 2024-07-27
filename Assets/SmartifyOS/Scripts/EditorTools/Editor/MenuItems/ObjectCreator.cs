@@ -1,6 +1,6 @@
 using UnityEditor;
 using UnityEngine;
-using SmartifyOS.UI.TranslucentImage;
+using SmartifyOS.UI;
 
 namespace SmartifyOS.Editor
 {
