@@ -13,7 +13,7 @@ public class AppListUIWindow : BaseUIWindow
 
     private void Awake()
     {
-        androidAutoButton.onClick += () => { RunLinuxShellScript.Run("~/SmartifyOS/android-auto/start.sh"); };
+        androidAutoButton.onClick += () => { RunLinuxShellScript.Run("~/SmartifyOS/Scripts/StartAndroidAuto.sh"); };
     }
 
     private void Start()
