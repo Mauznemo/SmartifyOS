@@ -4,6 +4,7 @@ using System;
 using TMPro;
 using SmartifyOS.SaveSystem;
 using SmartifyOS.Notifications;
+using System.Collections;
 
 public class LightController : BaseSerialCommunication
 {
@@ -31,6 +32,18 @@ public class LightController : BaseSerialCommunication
         Debug.Log("Light controller port: " + portName);
         Init();
         Debug.Log("Light controller connected: " + IsConnected());
+
+        StartCoroutine(RequestData());
+    }
+
+    private IEnumerator RequestData()
+    {
+        yield return new WaitForSeconds(1f);
+
+        if (!IsConnected())
+            yield break;
+
+        Send("ss");
     }
 
     private void Update()

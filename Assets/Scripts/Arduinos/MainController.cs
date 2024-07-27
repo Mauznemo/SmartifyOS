@@ -49,6 +49,8 @@ public class MainController : BaseSerialCommunication
 
         noPowerStatusEntry = StatusBar.AddStatus(noPowerIconSprite);
         noPowerStatusEntry.Hide();
+
+        StartCoroutine(RequestData());
     }
 
     private IEnumerator RequestData()
