@@ -22,6 +22,8 @@ public class MainController : BaseSerialCommunication
 
     public static Action<bool> OnInteriorLightChanged;
 
+    public static bool isInReverse { get; private set; }
+
     public static bool leftDoorOpen;
     public static bool rightDoorOpen;
     public static bool trunkOpen;
@@ -94,9 +96,11 @@ public class MainController : BaseSerialCommunication
                 break;
             case "re": //in reverse
                 OnReverse?.Invoke();
+                isInReverse = true;
                 break;
             case "rd": //not in reverse
                 OnForward?.Invoke();
+                isInReverse = false;
                 break;
             case "a1u":
                 OnActionButton1?.Invoke(false); //Down is true

@@ -126,6 +126,7 @@ public class LiveDataController : BaseLiveSerialCommunication
                 rpm = GetSmoothedRpm();
                 _steeringWheelAngle = -steeringWheelAngleRaw;
                 steeringWheelAngle = GetSteeringWheelAngle();
+                wheelAngle = steeringWheelAngle / 15f;
 
                 if (rpm > highestRpm)
                 {
