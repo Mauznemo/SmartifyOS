@@ -8,6 +8,7 @@ namespace SmartifyOS.UI
     public abstract class BaseUIWindow : MonoBehaviour
     {
         protected bool wasOpen;
+        protected bool isOpen;
 
         protected void Init()
         {
@@ -55,6 +56,7 @@ namespace SmartifyOS.UI
             UIManager.Instance.AddOpenWindow(this);
 
             wasOpen = true;
+            isOpen = true;
 
             //transform.localScale = Vector3.one;
             LeanTween.scale(gameObject, Vector3.one, 0.2f).setEaseInOutCubic();
@@ -74,6 +76,8 @@ namespace SmartifyOS.UI
 
             if (!internalUpdate)
                 wasOpen = false;
+
+            isOpen = false;
 
             //transform.localScale = Vector3.zero;
             LeanTween.scale(gameObject, Vector3.zero, 0.2f).setEaseInOutCubic();
