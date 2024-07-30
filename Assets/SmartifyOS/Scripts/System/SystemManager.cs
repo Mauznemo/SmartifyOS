@@ -36,11 +36,21 @@ namespace SmartifyOS
 
         private void OnUsbDeviceConnected(string content)
         {
+            SearchForUpdate();
+        }
+
+        public void SearchForUpdate(bool clearHistory = false)
+        {
             if (locked)
             {
                 return;
             }
             locked = true;
+
+            if (clearHistory)
+            {
+                notifiedDirectories.Clear();
+            }
 
             StartCoroutine(SearchForDirectory());
         }

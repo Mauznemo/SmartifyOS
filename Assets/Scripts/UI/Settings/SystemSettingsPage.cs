@@ -9,13 +9,19 @@ namespace SmartifyOS.Settings
     public class SystemSettingsPage : BaseSettingsPage
     {
         [SerializeField] private Button resetSaveDataButton;
-        
+        [SerializeField] private Button searchUpdateButton;
+
         private void Awake()
         {
-            resetSaveDataButton.onClick += () => 
-            { 
+            resetSaveDataButton.onClick += () =>
+            {
 
-                ModalWindow.Create().Init("Are you sure", "Are you sure you want to reset all your data?", ModalWindow.ModalType.YesNo, () => SaveManager.Remove(), () =>{});
+                ModalWindow.Create().Init("Are you sure", "Are you sure you want to reset all your data?", ModalWindow.ModalType.YesNo, () => SaveManager.Remove(), () => { });
+            };
+
+            searchUpdateButton.onClick += () =>
+            {
+                SystemManager.Instance.SearchForUpdate(true);
             };
         }
     }
