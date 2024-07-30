@@ -29,6 +29,7 @@ public class LiveDataController : BaseLiveSerialCommunication
     private float _rpm;
     private float _steeringWheelAngle;
 
+    [SerializeField] private AnimationCurve speedDisplayRemap;
     [SerializeField] private InfoDisplay infoDisplay;
 
     [SerializeField] private int smoothingFactorSpeedKmh = 5;
@@ -133,7 +134,7 @@ public class LiveDataController : BaseLiveSerialCommunication
                     highestRpm = rpm;
                 }
 
-                infoDisplay.SetFirstText(speedKmh, "km/h", "0");
+                infoDisplay.SetFirstText(GetRemappedSpeed(speedKmh), "km/h", "0");
                 infoDisplay.SetSecondText(rpm / 1000f, "K RPM", "0.00");
             }
             catch (Exception)
@@ -169,6 +170,31 @@ public class LiveDataController : BaseLiveSerialCommunication
                 }
             }
         }
+    }
+
+    private float GetRemappedSpeed(float speed)
+    {
+        float remappedSpeed = speedDisplayRemap.Evaluate(speed);
+
+        if (speed > GetMaxTimeOfCurve(speedDisplayRemap))
+            return speed;
+        else
+            return remappedSpeed;
+    }
+
+    private float GetMaxTimeOfCurve(AnimationCurve curve)
+    {
+        float maxTime = 0f;
+
+        foreach (Keyframe key in curve.keys)
+        {
+            if (key.time > maxTime)
+            {
+                maxTime = key.time;
+            }
+        }
+
+        return maxTime;
     }
 
     private float GetSmoothedRpm()

@@ -19642,6 +19642,39 @@ MonoBehaviour:
   portName: 
   baudRate: 9600
   emulationMode: 0
+  speedDisplayRemap:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 2.9894867
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 136
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 10
+      value: 10
+      inSlope: 3.7979722
+      outSlope: 3.7979722
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.09039545
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   infoDisplay: {fileID: 1631118711}
   smoothingFactorSpeedKmh: 5
   smoothingFactorRpm: 5
