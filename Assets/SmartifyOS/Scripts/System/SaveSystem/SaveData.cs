@@ -12,6 +12,7 @@ namespace SmartifyOS.SaveSystem
     public partial class System
     {
         public float audioVolume = 50;
+        public bool allowOverAmplification = false;
         public bool autoplayOnConnect;
         public float brightness = 1;
     }

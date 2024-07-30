@@ -51,7 +51,10 @@ namespace SmartifyOS.Audio
 
         public async Task SetSystemVolume(float volume)
         {
-            await LinuxCommand.RunAsync($"amixer -D pulse sset Master {Mathf.Round(volume)}%");
+            float maxClamp = SaveManager.Load().system.allowOverAmplification ? 100 : 150;
+            volume = Mathf.Clamp(volume, 0, maxClamp);
+
+            await LinuxCommand.RunAsync($"pactl set-sink-volume 0 {Mathf.Round(volume)}%");
             SaveManager.Load().system.audioVolume = volume;
         }
     }
