@@ -9,7 +9,61 @@ namespace SmartifyOS.Linux
 {
     public class RunLinuxShellScript
     {
-        public static void Run(string path, string args = "" /*Action<string> OutputDataReceived, Action<string> ErrorDataReceived*/)
+        public static string Run(string path, string args = "")
+        {
+
+            if (path.StartsWith("~"))
+            {
+                path = path.Replace("~", Environment.GetFolderPath(Environment.SpecialFolder.Personal));
+            }
+
+            // Get the directory of the path
+            string scriptDirectory = Path.GetDirectoryName(path);
+            string scriptName = Path.GetFileName(path);
+
+            if (!File.Exists(path))
+            {
+                UnityEngine.Debug.LogError("File not found: " + path);
+                return "file_not_found";
+            }
+
+            UnityEngine.Debug.Log("Script Directory: " + scriptDirectory);
+
+            ProcessStartInfo psi = new ProcessStartInfo("/bin/bash", "-c \"./" + scriptName + " " + args + "\"")
+            {
+                UseShellExecute = false,
+                RedirectStandardOutput = true, // Capture standard output
+                RedirectStandardError = true,  // Capture standard error
+                WorkingDirectory = scriptDirectory,
+                CreateNoWindow = true           // Hide the window if running on a GUI system
+            };
+
+            // Start the process
+            Process process = new Process
+            {
+                StartInfo = psi
+            };
+
+            //process.OutputDataReceived += (sender, args) => UnityEngine.Debug.Log(args.Data); // Log output
+            //process.ErrorDataReceived += (sender, args) => UnityEngine.Debug.LogError(args.Data); // Log errors
+
+            process.Start();
+            //process.BeginOutputReadLine();
+            //process.BeginErrorReadLine();
+
+
+            // Optionally, wait for the process to exit
+            process.WaitForExit();
+
+            string output = process.StandardOutput.ReadToEnd();
+            // Check the exit code
+            int exitCode = process.ExitCode;
+            UnityEngine.Debug.Log($"Process exited with code {exitCode}");
+
+            return output;
+        }
+
+        public static void RunWithWindow(string path, string args = "")
         {
 
             if (path.StartsWith("~"))
@@ -29,15 +83,30 @@ namespace SmartifyOS.Linux
 
             UnityEngine.Debug.Log("Script Directory: " + scriptDirectory);
 
-            UnityEngine.Debug.Log("/bin/bash -c \"./" + scriptName + "\"");
+            string[] terminalEmulators = { "gnome-terminal", "xterm", "konsole", "mate-terminal", "xfce4-terminal", "lxterminal" };
+            string terminalCommand = null;
 
-            ProcessStartInfo psi = new ProcessStartInfo("/bin/bash", "-c \"./" + scriptName + "\"")
+            foreach (var terminal in terminalEmulators)
             {
-                UseShellExecute = false,
-                RedirectStandardOutput = true, // Capture standard output
-                RedirectStandardError = true,  // Capture standard error
+                if (File.Exists($"/usr/bin/{terminal}"))
+                {
+                    terminalCommand = $"{terminal} -- bash -c 'cd {scriptDirectory} && ./{scriptName} {args}; exit'";
+                    UnityEngine.Debug.Log(terminalCommand);
+                    break;
+                }
+            }
+
+            if (terminalCommand == null)
+            {
+                UnityEngine.Debug.LogError("No suitable terminal emulator found.");
+                return;
+            }
+
+            ProcessStartInfo psi = new ProcessStartInfo("/bin/bash", "-c \"" + terminalCommand + "\"")
+            {
+                UseShellExecute = true,
                 WorkingDirectory = scriptDirectory,
-                CreateNoWindow = true           // Hide the window if running on a GUI system
+                CreateNoWindow = false
             };
 
             // Start the process
@@ -46,40 +115,9 @@ namespace SmartifyOS.Linux
                 StartInfo = psi
             };
 
-            process.OutputDataReceived += (sender, args) => UnityEngine.Debug.Log(args.Data); // Log output
-            process.ErrorDataReceived += (sender, args) => UnityEngine.Debug.LogError(args.Data); // Log errors
-
             process.Start();
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
 
-            // Optionally, wait for the process to exit
-            process.WaitForExit();
-
-            // Check the exit code
-            int exitCode = process.ExitCode;
-            UnityEngine.Debug.Log($"Process exited with code {exitCode}");
-            /*
-                        // Optional: Handle process output and errors asynchronously
-                        process.OutputDataReceived += (sender, e) =>
-                        {
-                            if (!string.IsNullOrEmpty(e.Data))
-                            {
-                                UnityEngine.Debug.Log("Output: " + e.Data);
-                                // OutputDataReceived?.Invoke(e.Data);
-                            }
-                        };
-                        process.ErrorDataReceived += (sender, e) =>
-                        {
-                            if (!string.IsNullOrEmpty(e.Data))
-                            {
-                                UnityEngine.Debug.LogError("Error: " + e.Data);
-                                //ErrorDataReceived?.Invoke(e.Data);
-                            }
-                        };
-
-                        process.BeginOutputReadLine();
-                        process.BeginErrorReadLine();*/
+            return;
         }
     }
 }

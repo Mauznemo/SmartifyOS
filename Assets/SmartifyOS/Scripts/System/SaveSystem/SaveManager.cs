@@ -23,6 +23,12 @@ namespace SmartifyOS.SaveSystem
 
             Debug.Log(json);
 
+            //Temporary fix for sometimes saving null
+            if (json.Trim() == "null")
+            {
+                return;
+            }
+
             File.WriteAllText(Application.persistentDataPath + "/" + SAVE_NAME, json);
         }
 

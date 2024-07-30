@@ -11,6 +11,7 @@ namespace SmartifyOS.Notifications
         private static NotificationManager Instance;
 
         [SerializeField] private PushNotification pushNotificationPrefab;
+        [SerializeField] private UpdateNotification updateNotificationPrefab;
 
         private void Awake()
         {
@@ -47,6 +48,18 @@ namespace SmartifyOS.Notifications
             }
         }
 
+        public static void SendUpdateNotification(string usbName)
+        {
+            Instance.NewUpdateNotification(usbName);
+        }
+
+        private void NewUpdateNotification(string usbName)
+        {
+            UpdateNotification notification = Instantiate(updateNotificationPrefab, transform);
+            notification.gameObject.SetActive(true);
+            notification.Init($"Found new update on \"{usbName}\"", 20f);
+        }
+
         //REMOVE THIS LATER
         private void Update()
         {
@@ -58,17 +71,16 @@ namespace SmartifyOS.Notifications
 
         void Start()
         {
-            // Subscribe to error messages
-            //Application.logMessageReceived += HandleLogMessage;
+            Application.logMessageReceived += HandleLogMessage;
+            SystemManager.OnUpdateAvailable += SendUpdateNotification;
         }
 
         void OnDestroy()
         {
-            // Unsubscribe from error messages
-            //Application.logMessageReceived -= HandleLogMessage;
+            Application.logMessageReceived -= HandleLogMessage;
         }
 
-        /*void HandleLogMessage(string logString, string stackTrace, LogType type)
+        void HandleLogMessage(string logString, string stackTrace, LogType type)
         {
             if (type == LogType.Error || type == LogType.Exception)
             {
@@ -79,7 +91,7 @@ namespace SmartifyOS.Notifications
 
                 SendNotification(NotificationType.Error, logString);
             }
-        }*/
+        }
     }
 
     public enum NotificationType
