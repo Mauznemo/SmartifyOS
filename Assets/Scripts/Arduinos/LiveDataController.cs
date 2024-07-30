@@ -173,10 +173,8 @@ public class LiveDataController : BaseLiveSerialCommunication
 
     private float GetSmoothedRpm()
     {
-        if (_rpm == lastRpm)
+        if (rpm == _rpm)
             return rpm;
-
-        lastRpm = _rpm;
 
         rpmReadings.Add(_rpm);
 
@@ -188,10 +186,8 @@ public class LiveDataController : BaseLiveSerialCommunication
 
     private float GetSteeringWheelAngle()
     {
-        if (_steeringWheelAngle == lastSteeringWheelAngle)
+        if (steeringWheelAngle == _steeringWheelAngle)
             return _steeringWheelAngle;
-
-        lastSteeringWheelAngle = _steeringWheelAngle;
 
         steeringWheelAngleReadings.Add(_steeringWheelAngle);
 
@@ -203,10 +199,9 @@ public class LiveDataController : BaseLiveSerialCommunication
 
     private float GetSmoothedSpeed()
     {
-        if (_speedKmh == lastSpeedKmh)
-            return _speedKmh;
+        if (speedKmh == _speedKmh)
+            return speedKmh;
 
-        lastSpeedKmh = _speedKmh;
 
         speedKmhReadings.Add(_speedKmh);
 
