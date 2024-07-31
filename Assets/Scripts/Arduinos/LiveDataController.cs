@@ -24,6 +24,7 @@ public class LiveDataController : BaseLiveSerialCommunication
     public static float wheelAngle { get; private set; }
 
     public static bool isDriving { get; private set; }
+    public static bool hasGpsSignal { get; private set; }
 
     private float _speedKmh;
     private float _rpm;
@@ -48,7 +49,6 @@ public class LiveDataController : BaseLiveSerialCommunication
     private List<float> speedKmhReadings = new List<float>();
     private List<float> steeringWheelAngleReadings = new List<float>();
 
-    private bool hasGpsSignal = false;
 
     private float drivingTriggerTime = 3f;
     private float drivingTriggerTimer = 3f;
