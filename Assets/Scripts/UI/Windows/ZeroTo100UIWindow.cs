@@ -48,6 +48,11 @@ public class ZeroTo100UIWindow : BaseUIWindow
         StartCoroutine(WaitForStop());
     }
 
+    protected override void OnHide()
+    {
+        stopwatch.Stop();
+    }
+
     private IEnumerator WaitForStop()
     {
         yield return new WaitUntil(() => LiveDataController.speedKmh < 5f);
@@ -90,5 +95,14 @@ public class ZeroTo100UIWindow : BaseUIWindow
     private string FormatElapsedTime(TimeSpan timeSpan)
     {
         return string.Format("{0:D2}.{1:D3}", timeSpan.Seconds, timeSpan.Milliseconds);
+    }
+
+    protected override void HandleWindowOpened(BaseUIWindow window)
+    {
+        //Add all windows that should hide this window when they open
+        if (window.IsWindowOfType(typeof(AppListUIWindow)))
+        {
+            Hide(true);
+        }
     }
 }

@@ -36,4 +36,13 @@ public class RealtimeInfoUIWindow : BaseUIWindow
 
         steeringAngleText.text = $"Steering Angle: {LiveDataController.steeringWheelAngle}°";
     }
+
+    protected override void HandleWindowOpened(BaseUIWindow window)
+    {
+        //Add all windows that should hide this window when they open
+        if (window.IsWindowOfType(typeof(AppListUIWindow)))
+        {
+            Hide(true);
+        }
+    }
 }

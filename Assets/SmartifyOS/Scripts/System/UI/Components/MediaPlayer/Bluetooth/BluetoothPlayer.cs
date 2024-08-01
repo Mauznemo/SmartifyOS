@@ -23,6 +23,7 @@ namespace SmartifyOS.UI.MediaPlayer
         [SerializeField] private Sprite pausedSprite;
 
         private bool playing = false;
+        private bool allowAutoOpen = true;
 
         private void Awake()
         {
@@ -89,14 +90,16 @@ namespace SmartifyOS.UI.MediaPlayer
 
         private void OnPlayerPaused()
         {
-            Show();
+            if (allowAutoOpen)
+                Show();
             playButton.SetIcon(pausedSprite);
             playing = false;
         }
 
         private void OnPlayerPlaying()
         {
-            Show();
+            if (allowAutoOpen)
+                Show();
             playButton.SetIcon(playingSprite);
             playing = true;
         }
