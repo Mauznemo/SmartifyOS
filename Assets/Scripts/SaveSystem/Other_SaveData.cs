@@ -13,11 +13,11 @@ namespace SmartifyOS.SaveSystem
         public Notifications notifications = new Notifications();
     }
 
-    //You can add new structs here
     public struct Statistics
     {
         public float topSpeed;
-        public double totalMinutes;
+        public int totalMinutes;
+        public double best0To100Ms;
     }
 
     public struct InteriorLighting

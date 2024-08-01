@@ -3,7 +3,6 @@ using System.Collections;
 using System.Diagnostics;
 using SmartifyOS.UI;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class ZeroTo100UIWindow : BaseUIWindow
@@ -71,6 +70,11 @@ public class ZeroTo100UIWindow : BaseUIWindow
         resultScreen.SetActive(true);
 
         resultTimeText.text = FormatElapsedTime(stopwatch.Elapsed);
+
+
+        UnityEngine.Debug.Log("Total time: " + stopwatch.Elapsed.TotalMilliseconds);
+        if (StatisticsManager.GetBest0To100() > stopwatch.Elapsed.TotalMilliseconds || StatisticsManager.GetBest0To100() == 0)
+            StatisticsManager.SetBest0To100(stopwatch.Elapsed.TotalMilliseconds);
     }
 
     private void Update()
