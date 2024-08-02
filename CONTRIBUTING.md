@@ -2,17 +2,6 @@
 
 Thank you for your interest in contributing to my project! Please take a moment to review our guidelines for contributing.
 
-## Pull Request Guidelines
-
-1. **Title:**
-   - Use a clear and descriptive title for the pull request that describes the change being made.
-
-2. **Description:**
-   - Provide a detailed description of the changes in the pull request.
-
-3. **Referencing Issues:**
-   - If the pull request addresses an open issue, link to the issue by using the format `Closes #issue_number`.
-
 ## Commit Message Guidelines
 
 For your commit messages please follow [Conventional Commits](https://www.conventionalcommits.org/).
@@ -42,6 +31,17 @@ For your commit messages please follow [Conventional Commits](https://www.conven
      BREAKING CHANGE: refactor authentication middleware
      Closes #123
      ```
+## Pull Request Guidelines
+
+1. **Title:**
+   - Use a clear and descriptive title for the pull request that describes the change being made.
+
+2. **Description:**
+   - Provide a detailed description of the changes in the pull request.
+
+3. **Referencing Issues:**
+   - If the pull request addresses an open issue, link to the issue by using the format `Closes #issue_number`.
+
 
 ## Additional Tips
 
