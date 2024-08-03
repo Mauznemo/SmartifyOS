@@ -46,6 +46,7 @@ If you want to contribute to this project by for example fixing a bug or adding 
 3. Clone your new repo `git clone https://github.com/your-username/SmartifyOS.git`
 4. Cd into its directory `cd SmartifyOS`
 5. Add the Main Repository as a Remote `git remote add upstream https://github.com/Mauznemo/SmartifyOS.git`
+6. Open Unity Hub, click `Add` and select the path of the repo you just cloned
 
 ### For only testing and finding bugs:
 If you don't plan to modify any code and only want to help find bugs or suggest features to add you can do it like this:
@@ -58,7 +59,7 @@ If you don't plan to modify any code and only want to help find bugs or suggest 
 First have a look at the **[Contribution guidelines for this project](CONTRIBUTING.md)**.
 
 ### Setting up project
-Then if you haven't Installed it yet follow the steps here: [Installation For contribution (modifying code)](for-contribution-modifying-code)
+Then if you haven't Installed it yet follow the steps here: [Installation For contribution (modifying code)](#for-contribution-modifying-code)
 
 If you're now in the project folder of your fork you can add a new branch for the feature you want to add or change: `git checkout -b your-branch-name`
 
