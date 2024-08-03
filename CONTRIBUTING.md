@@ -47,3 +47,4 @@ For your commit messages please follow [Conventional Commits](https://www.conven
 
 - Follow the project's coding style and conventions.
 - Make sure to pull the latest changes from the main branch before submitting your pull request.
+- Don't make multiply different changes in one pull request
