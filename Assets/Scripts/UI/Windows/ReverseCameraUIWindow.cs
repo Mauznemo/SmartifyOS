@@ -9,6 +9,8 @@ public class ReverseCameraUIWindow : BaseUIWindow
 {
     public bool updateCameraFeed;
 
+    [SerializeField] private UIReverseOverlay uiReverseOverlay;
+
     [SerializeField] private RenderTexture webcamRenderTexture;
 
     [SerializeField] private GameObject warningScreen;
@@ -59,6 +61,8 @@ public class ReverseCameraUIWindow : BaseUIWindow
             return;
 
         Graphics.Blit(webcamTexture, webcamRenderTexture);
+
+        uiReverseOverlay.steeringAngle = LiveDataController.wheelAngle / 36f;
     }
 
 

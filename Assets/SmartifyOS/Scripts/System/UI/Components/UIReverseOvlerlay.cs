@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public class UIReverseOverlay : MaskableGraphic
 {
-    [SerializeField] private float steeringAngle = 0f; // Value between -1 and 1 to indicate how bend the lines should be
+    public float steeringAngle = 0f; // Value between -1 and 1 to indicate how bend the lines should be
     [SerializeField] private float lineThickness = 10f; // How thick each line should be
     [SerializeField] private float lineHeight = 200f; // Height of the lines
     [SerializeField] private float bendStrength = 0.5f; // Multiplier for the bend strength
