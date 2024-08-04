@@ -10,6 +10,10 @@ For your commit messages please follow [Conventional Commits](https://www.conven
 1. **Structure:**
    - Use the following format for commit messages:
      ```
+     type: subject
+     ```
+     or
+     ```
      type(scope): subject
      ```
 
