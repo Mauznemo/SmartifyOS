@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class ReverseCameraUIWindow : BaseUIWindow
 {
-    public static bool updateCameraFeed;
+    public bool updateCameraFeed;
 
     [SerializeField] private RenderTexture webcamRenderTexture;
 
@@ -32,7 +32,7 @@ public class ReverseCameraUIWindow : BaseUIWindow
     {
         WebCamDevice[] devices = WebCamTexture.devices;
 
-        if(devices.Length == 0)
+        if (devices.Length == 0)
         {
             warningScreen.SetActive(true);
             warningText.text = "No camera found!";
@@ -40,41 +40,46 @@ public class ReverseCameraUIWindow : BaseUIWindow
             return;
         }
 
-        if(devices.Length - 1 < SaveManager.Load().camera.currentCameraIndex)
+        if (devices.Length - 1 < SaveManager.Load().camera.currentCameraIndex)
         {
             warningScreen.SetActive(true);
             warningText.text = "Camera index out of range!";
 
             return;
-        }       
+        }
 
-        webcamTexture = new WebCamTexture(devices[2].name);
-            webcamTexture.Play();
+        Debug.Log($"Using camera: {devices[SaveManager.Load().camera.currentCameraIndex].name} at index: {SaveManager.Load().camera.currentCameraIndex}");
+        webcamTexture = new WebCamTexture(devices[SaveManager.Load().camera.currentCameraIndex].name);
+        webcamTexture.Play();
     }
 
     private void UpdateCameraFeed()
     {
-        if(!updateCameraFeed || webcamTexture == null)
+        if (!updateCameraFeed || webcamTexture == null)
             return;
 
         Graphics.Blit(webcamTexture, webcamRenderTexture);
     }
-    
 
-    //Only needed if Unity doesn't work with your camera
+
     protected override void OnShow()
     {
         EnableCameraConverter(true);
+
+        updateCameraFeed = true;
     }
 
     protected override void OnHide()
     {
         EnableCameraConverter(false);
+
+        updateCameraFeed = false;
     }
 
+    //Only needed if Unity doesn't work with your camera
     private void EnableCameraConverter(bool enable)
     {
-        SystemEventManager.CallEvent("SmartifyOS/Events/SetReverseCamConverter", enable.ToString().ToLower());
+        SystemEventManager.CallEvent("SmartifyOS/Events/SetReverseCam", enable.ToString().ToLower());
     }
-    
+
 }
