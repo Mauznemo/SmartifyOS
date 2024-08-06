@@ -1,30 +1,278 @@
-# Personal Use License
+SOFTWARE LICENSE AGREEMENT
 
-This license is granted to any individual who obtains a copy of this software and associated documentation files (the "Software"), to use the Software for personal, non-commercial purposes only, subject to the following conditions:
+This Software License Agreement is between "SmartifyOS" ("Software") and you (either as an
+individual, a single corporation, or other single legal entity that purchases the applicable
+Software) ("Licensee").
 
-1. **Permitted Uses**:
-   - The Software may be used, copied, modified, merged, and published for personal, non-commercial purposes.
-   - Users may create forks of the Software within GitHub and submit pull requests to the original repository.
-   - Users may open and respond to issues related to the Software on GitHub.
-   - Users may create and use local copies of the Software on their personal devices.
+THIS AGREEMENT CONSTITUTES A LEGAL AGREEMENT
+BETWEEN YOU AND US ("LICENSOR"). BY CLICKING ON THE APPLICABLE "I AGREE"
+BUTTON, DOWNLOADING, INSTALLING, AND/OR USING THE SOFTWARE (DEFINED
+BELOW), YOU (DEFINED BELOW) AGREE TO BE BOUND BY THE TERMS OF THIS
+AGREEMENT. IF YOU DO NOT AGREE TO THE TERMS OF THIS AGREEMENT, YOU MUST
+NOT DOWNLOAD, INSTALL, OR USE THE SOFTWARE, AND YOU MUST DELETE OR
+RETURN THE UNUSED SOFTWARE.
 
-2. **Prohibited Uses**:
-   - The Software may not be used for any commercial purpose or monetary gain.
-   - Distribution, sublicensing, and/or selling of the Software, in part or in whole, is strictly prohibited.
-   - The Software may not be included in any commercial product or service.
-   - Redistribution of the Software, in original or modified form, outside of GitHub repositories is prohibited.
+Definitions
 
-3. **License Retention**:
-   - This license text must be included in all copies or substantial portions of the Software.
+   a. "Software" means the SmartifyOS project and its source code versions, together with
+      the updates, new releases or versions, modifications or enhancements; any associated
+      documentation, files, or media, owned and provided by us to You pursuant to this
+      Agreement.
 
-4. **Ownership**:
-   - The original copyright holder retains all rights, title, and interest in the Software.
-   - This license does not grant you any ownership rights to the Software.
+   b. "You" (or "Your") means an individual or entity using the Software.
 
-5. **Disclaimer of Warranty**:
-   - The Software is provided "as is", without warranty of any kind, express or implied, including but not limited to the warranties of merchantability, fitness for a particular purpose, and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages, or other liability, whether in an action of contract, tort, or otherwise, arising from, out of, or in connection with the Software or the use or other dealings in the Software.
+   c. "Personal Use" means the use of the Software by an individual solely for personal,
+      non-commercial purposes.
 
-6. **Termination**:
-   - This license is effective until terminated. Your rights under this license will terminate automatically without notice if you fail to comply with any terms of this license. Upon termination, you must cease all use of the Software and destroy all copies, full or partial, of the Software.
+   d. "Modification" means any alteration, enhancement, adaptation, or derivation of the
+      Software or its source code.
 
-By using the Software, you agree to the terms and conditions set forth in this license.
+   e. "Distribution" means the act of making the Software or its copies available to others.
+
+   f. "Confidential Information" means information, whether or not in physical form, all oral
+      communications, documents and other information, disclosed by a party to the other
+      which: (a) is a trade secret or by its nature or circumstances surrounding its disclosure
+      is, or could reasonably be expected to be regarded as, confidential to the disclosing
+      Party; (b) is marked or otherwise designated "confidential" by the disclosing Party; or (c)
+      the disclosing Party informs the receiving Party is confidential or a trade secret;
+
+   g. "Physical Media" means the physical media or hardware containing or enabling
+      Software
+
+   h. "Software License" means a license for the Software granted under this Software
+      License Agreement to the Licensee.
+
+   i. "License Fees" means all non-refundable fees payable by Licensee to the Licensor with
+      respect to the granting of Software Licenses;
+
+   j. "Agreement" shall mean this Software License agreement with regard to the SmartifyOS
+      software license.
+
+
+Ownership of Software
+
+   a. This Agreement does not constitute a sale of the Software. All ownership, intellectual
+      property rights, and any other rights and interests in and to the Software remain
+      exclusively with the Licensor. The Licensee is granted a limited, non-exclusive,
+      non-transferable, and revocable license to use the Software in accordance with the
+      terms and conditions of this agreement. The Licensee shall not acquire any ownership
+      interest in the Software through this Agreement.
+
+   b. All modifications, derivative works, and any other changes made to the Software by the
+      Licensee shall be considered part of the Software and shall remain the exclusive
+      property of the Licensor. The Licensee agrees that the Licensor will own all rights, title,
+      and interest in and to such modifications, derivative works, and changes.
+
+
+Grant of License
+
+   a. Upon continuous compliance with the terms and conditions of this Agreement, the
+      licensor hereby grants You a non-exclusive, non-transferable, royalty-free license to use,
+      modify, and distribute the Software for Personal Use only. The licensee is permitted to
+      make donations towards the software by contracting the Licensor.
+
+   b. The Licensee is permitted to utilize GitHub features, including but not limited to pull
+      requests, forks, and modifications/customizations, provided that such use is strictly for
+      Personal Use. The Licensee agrees that any contributions, modifications, or
+      customizations made via including but not limited to GitHub must not be used for
+      commercial purposes or distributed beyond the scope of Personal Use.
+
+   c. The Licensee is permitted to use the name "SmartifyOS" in forks and modifications.
+      However, this does not grant any trademark rights, and all use of the name must comply
+      with the terms of this Agreement.
+
+   d. The licensee is permitted to do the following actions:
+
+      i. The Licensee may submit pull requests to the original repository, but any
+         changes incorporated into the Software must remain for Personal Use.
+
+      ii. The Licensee may create forks of the Software repository for personal
+         development and experimentation. However, these forks must not be used for
+         commercial purposes or shared with others outside of Personal Use.
+
+      iii. The Licensee may modify or customize the Software to better suit personal
+         needs, provided such modifications/customizations are not distributed or used
+         commercially.
+
+   e. The Licensee is required to ensure that any use of these GitHub features complies with
+      the terms of this Agreement and does not infringe upon the proprietary rights of the
+      Licensor. The Licensee must also include all original proprietary notices and disclaimers
+      in any copies or versions of the Software created or modified using these features.
+
+   f. You may use the Software on any single Computer, unless indicated otherwise; and
+      copy the Software for backup and archival purposes, provided any copy must contain all
+      of the original Software's proprietary notices and a notice that it will not be used for
+      commercial transfer, distribution or sale.
+
+   g. Any copies, modifications, derivative works, or changes of the Software made by the
+      Licensee must include this same License in its entirety. The Licensee shall ensure that
+      every copy, modification, or derivative of the Software that is distributed, transferred, or
+      otherwise made available retains this License, ensuring that all recipients are bound by
+      the same terms and conditions.
+
+
+Authorized copies
+
+   a. Licensee may make as many copies of the Software as necessary for it to use the
+      Software as licensed. Each public copy of the Software made by the Licensee must
+      expressly mention the original repository and contain the same copyright and other
+      notices that appear on the original copy.
+
+   b. Any public fork or modification must include an acknowledgement of the original
+      repository.
+
+
+Restrictions
+
+   a. The Software shall not be utilized for any commercial purposes under any
+      circumstances. This includes, but is not limited to, using the Software for financial gain,
+      business activities, or any other commercial endeavors.
+
+   b. Any forks, copies, or modifications of the Software that the Licensee creates must be
+      used exclusively for Personal Use. These forks, copies, or modifications must retain this
+      License in its entirety and must be subject to the same terms and conditions as outlined
+      in this Agreement. The Licensee is prohibited from using or distributing any such forks,
+      copies, or modifications for commercial purposes or any activities beyond Personal Use.
+
+   c. The Licensee shall not:
+
+      i. assign, transfer, give, distribute, reproduce, transmit, sell, lease, license,
+         sublicense, publicly display or perform, redistribute or encumber the Software by
+         any means for commercial purposes to any party;
+
+      ii. rent, loan, or use the Software for service bureau or time-sharing purposes, or allow
+         third parties to access or exploit the Software.
+
+      iii. use the Software, in whole or in part, to create a competitive offering;
+
+      iv. charge a fee to any party for access to or use of the Software;
+
+      v. use the Software in a manner inconsistent with this Agreement.
+
+
+Applicable law and jurisdiction
+
+   a. This License shall be governed by and construed in accordance with the laws of
+      Germany. Any disputes arising out of or in connection with this License shall be subject
+      to the exclusive jurisdiction of the courts in Germany.
+
+
+No Commercial Use
+
+   a. The Software is licensed solely for Personal Use and may not be incorporated into, or
+      utilized as part of, any commercial product or service. This prohibition includes, but is not
+      limited to, selling, licensing, or offering the Software as part of any commercial offering.
+
+   b. For any commercial use of the Software, you must contact the Licensor to obtain a
+      separate license. The issuance of such a license is at the sole discretion of the Licensor
+      and may be subject to additional terms and conditions.
+
+
+Severability
+
+   a. If any provision of this License is found to be unenforceable or invalid, that provision will
+      be limited or eliminated to the minimum extent necessary so that the License will
+      otherwise remain in full force and effect.
+
+
+Limitation of Liability
+
+   a. To the fullest extent permitted by law, the Licensor shall not be liable for any indirect,
+      incidental, consequential, special, or punitive damages, or for any loss of profits or data,
+      arising out of or in connection with your use of the Software, even if advised of the possibility
+      of such damages. This includes, but is not limited to, damages resulting from the inability to
+      use the Software or loss of data.
+
+   b. Nothing in this clause shall exclude or limit the Licensor's liability for damages arising
+      from injury to life, body, or health, or for damages arising from willful intent or gross
+      negligence by the Licensor or its agents. The Licensor’s liability for breach of essential
+      contractual obligations (Kardinalpflichten) shall remain unaffected.
+
+   c. If damage or loss is attributable both to fault by the Licensor and to fault by Licensee,
+      Licensee must allow its contributory negligence to be taken into account. In particular, Licensee
+      is responsible for regular backup of its data and protecting its operating environment for the Software
+      against malware.
+
+   d. In the event of a loss of data due to Licensor's fault, the Licensor shall be liable only for
+      the costs of copying data from backup copies and for reconstructing data that would have been
+      lost even if backup copies had been created regularly.
+
+   e. In cases where liability is not excluded or limited by mandatory legal provisions, the Licensor’s
+      liability for damages shall be limited to those that are foreseeable and typical at the time of the
+      agreement.
+
+
+Intellectual Property indemnification
+
+   a. You will indemnify and hold the Licensor harmless from any third party claim brought
+      against the Licensor claiming that the Software infringes or misappropriates patent,
+      copyright, trademark, trade secret, or other intellectual property rights of a third party due
+      to modifications or usage by You.
+
+
+Termination
+
+   a. The Licensor may terminate this agreement immediately by providing written notice to
+      the Licensee. This includes, but is not limited to, situations where the Licensee breaches
+      any term or condition of this agreement. Such termination shall be effective as of the
+      date specified in the notice of termination.
+
+   b. The Licensee may terminate this agreement at any time by providing written notice to the
+      Licensor. Upon termination of this Software license agreement, the Licensee’s rights to
+      use the Software shall immediately cease. Upon termination, the Licensee must cease
+      all use of the Software and destroy or return all copies of the Software and any related
+      documentation.
+
+   c. Termination of this agreement shall not affect any rights or obligations that have accrued
+      prior to the date of termination. Provisions of this agreement that by their nature should
+      survive termination shall continue in full force and effect, including but not limited to
+      clauses related to limitations of liability, indemnification, and confidentiality.
+
+
+Complete Agreement
+
+   a. This agreement constitutes the entire agreement between you and the Licensor regarding the
+      Software, superseding all prior communications and proposals. In case of any conflict between
+      this agreement and any other policies or programs related to support services provided by the
+      Licensor, the terms of this agreement shall prevail.
+
+
+Change in terms
+
+   a. The Licensor reserves the right to modify, amend, or update the terms and conditions of
+      this agreement at any time. Any such modifications will be effective upon the date of
+      publication on the Licensor's website or other communication to the Licensee.
+
+   b. The Licensor will provide the Licensee with notice of any material changes to this
+      agreement by posting a notice on the Licensor’s website or through other reasonable means.
+      It is the Licensee’s responsibility to review the agreement periodically for any changes.
+
+
+Waiver
+
+   a. Any waiver of this agreement must be in writing and signed by the Licensor. No waiver of
+      any breach shall be deemed a waiver of any other breach. Delay or omission in exercising any
+      right does not waive that right.
+
+   b. The failure to enforce any right or provision shall not constitute a waiver of such right or
+      provision and does not limit the right to enforce it later.
+
+   c. All rights and remedies of the Licensor are cumulative and in addition to any other rights available
+      at law or in equity.
+
+
+Disclaimer of Warranty
+
+   a. The Software is provided on an "as is" basis without warranty of any kind, express,
+      implied, statutory or otherwise, including without limitation the implied warranties of title,
+      non-infringement, merchantability, or fitness for a particular purpose.
+
+   b. Without limiting the foregoing, the Licensor makes no warranty that:
+
+      i. The Software will meet your specific requirements or expectations.
+
+      ii. The Software will operate in conjunction with any other software, hardware, or
+         systems.
+
+      iii. The Software will be free from defects, inaccuracies, or vulnerabilities, or that any
+         defects or errors will be corrected.
