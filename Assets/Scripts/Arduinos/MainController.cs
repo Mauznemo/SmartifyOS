@@ -20,7 +20,9 @@ public class MainController : BaseSerialCommunication
     public static event Action<bool> OnRightDoorOpened;
     public static event Action<bool> OnTrunkOpened;
 
-    public static Action<bool> OnInteriorLightChanged;
+    public static event Action<bool> OnInteriorLightChanged;
+
+    public static event Action<float> OnNewBatteryVoltage;
 
     public static bool isInReverse { get; private set; }
 
@@ -72,6 +74,13 @@ public class MainController : BaseSerialCommunication
 
     public override void Received(string message)
     {
+        if (message.StartsWith("v_"))
+        {
+            float voltage = float.Parse(message.Substring(2), System.Globalization.CultureInfo.InvariantCulture);
+            OnNewBatteryVoltage?.Invoke(voltage);
+
+            return;
+        }
 
         switch (message)
         {
