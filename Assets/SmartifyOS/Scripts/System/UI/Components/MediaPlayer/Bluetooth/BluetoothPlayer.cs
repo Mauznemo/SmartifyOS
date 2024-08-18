@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using SmartifyOS.LinuxBluetooth;
+using SmartifyOS.SaveSystem;
 using SmartifyOS.Settings;
 using SmartifyOS.UI.Components;
 using TMPro;
@@ -66,6 +67,16 @@ namespace SmartifyOS.UI.MediaPlayer
             BluetoothManager.OnPlayerStopped += OnPlayerStopped;
 
             Invoke(nameof(GetPlayer), 0.5f);
+        }
+
+        protected override void OnShow()
+        {
+            if (SaveManager.Load().system.autoplayOnConnect)
+            {
+                BluetoothManager.Instance.PlayerPlay();
+                playButton.SetIcon(playingSprite);
+                playing = true;
+            }
         }
 
         private void OnPlayerStopped()
