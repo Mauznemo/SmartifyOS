@@ -197,6 +197,10 @@ public class MainController : BaseSerialCommunication
 
     private void ShutdownSystem()
     {
+        if (SaveManager.Load().popups.autoCloseOnPowerOff)
+        {
+            LightController.Instance.Down();
+        }
         SaveManager.Save();
         Send("off");
         //LeanTween.alphaCanvas(canvasGroup, 1, 0.5f);
