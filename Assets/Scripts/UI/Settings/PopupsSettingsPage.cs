@@ -16,9 +16,10 @@ namespace SmartifyOS.Settings
                 SaveManager.Load().popups.autoCloseOnPowerOff = value;
             };
 
-            allowModifyingWhileOnToggle.onValueChanged += (value) =>    
+            allowModifyingWhileOnToggle.onValueChanged += (value) =>
             {
-                SaveManager.Load().popups.allowModifyingWhileOn = value;    
+                SaveManager.Load().popups.allowModifyingWhileOn = value;
+                LightController.Instance.AllowModifyingLightsWhileOn(value);
             };
         }
 

@@ -51,6 +51,35 @@ public class LightController : BaseSerialCommunication
         ReadMessage();
     }
 
+    private bool canTriggerLightError = true;
+    private float lightErrorCooldown = 0.2f;
+
+    private void OnLightError()
+    {
+        if (!canTriggerLightError)
+        {
+            return;
+        }
+
+        if (SaveManager.Load().popups.allowModifyingWhileOn)
+        {
+            NotificationManager.SendNotification(NotificationType.Warning, "The light is still on!");
+        }
+        else
+        {
+            NotificationManager.SendNotification(NotificationType.Warning, "You can't modify the light while it's on!");
+        }
+
+        StartCoroutine(StartLightErrorCooldown());
+    }
+
+    private IEnumerator StartLightErrorCooldown()
+    {
+        canTriggerLightError = false;
+        yield return new WaitForSeconds(lightErrorCooldown);
+        canTriggerLightError = true;
+    }
+
     public override void Received(string message)
     {
         switch (message)
@@ -82,7 +111,7 @@ public class LightController : BaseSerialCommunication
                 break;
 
             case "el": //error light (when trying to change light motor state while light is on)
-                //OnLightError();
+                OnLightError();
                 break;
         }
     }
@@ -125,6 +154,18 @@ public class LightController : BaseSerialCommunication
     public void Up()
     {
         Send("up");
+    }
+
+    public void AllowModifyingLightsWhileOn(bool allow)
+    {
+        if (allow)
+        {
+            Send("am");
+        }
+        else
+        {
+            Send("dm");
+        }
     }
 
     public enum LightState
