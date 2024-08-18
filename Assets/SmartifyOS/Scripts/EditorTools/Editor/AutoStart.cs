@@ -11,7 +11,7 @@ namespace SmartifyOS.Editor
         static AutoStart()
         {
             EditorApplication.update += Update;
-            
+
         }
 
         public static void Update()
@@ -19,7 +19,9 @@ namespace SmartifyOS.Editor
             if (!SessionState.GetBool("FirstInitDone", false))
             {
                 SessionState.SetBool("FirstInitDone", true);
-                Welcome.ShowWindow();
+                bool isFirstLaunch = PlayerPrefs.GetInt("SmartifyOSWelcome", 0) == 0;
+                if (isFirstLaunch)
+                    Welcome.ShowWindow();
                 EditorApplication.update -= Update;
 
             }

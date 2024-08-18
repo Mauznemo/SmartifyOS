@@ -30,6 +30,17 @@ namespace SmartifyOS.Editor
             licenseContent = System.IO.File.ReadAllText(licensePath);
         }
 
+        private void OnDestroy()
+        {
+            if (pageIndex == 4)
+                return;
+
+            var newWin = Instantiate<Welcome>(this);
+            newWin.pageIndex = pageIndex;
+            newWin.SetSize(900, 500);
+            newWin.Show();
+        }
+
         private void OnGUI()
         {
             var headingStyle = new GUIStyle(EditorStyles.label)
@@ -54,7 +65,11 @@ namespace SmartifyOS.Editor
                     License();
                     break;
                 case 3:
-                    //TODO: Save to not show on next launch
+                    Donation();
+                    break;
+                case 4:
+                    PlayerPrefs.SetInt("SmartifyOSWelcome", 1);
+                    PlayerPrefs.Save();
                     Close();
                     break;
             }
@@ -91,7 +106,7 @@ namespace SmartifyOS.Editor
 
         private void Disclaimer()
         {
-            GUILayout.Space(10);
+            GUILayout.Space(20);
             scrollPosition = GUILayout.BeginScrollView(scrollPosition);
 
             var headingStyle = new GUIStyle(EditorStyles.label)
@@ -157,6 +172,7 @@ namespace SmartifyOS.Editor
 
         private void License()
         {
+            GUILayout.Space(20);
             buttonText = "Agree and Continue";
             scrollPosition2 = GUILayout.BeginScrollView(scrollPosition2);
             var textStyle = new GUIStyle(EditorStyles.label)
@@ -170,6 +186,48 @@ namespace SmartifyOS.Editor
             //GUI.enabled = true;
             EditorGUILayout.LabelField(licenseContent, textStyle);
             GUILayout.EndScrollView();
+        }
+
+        private void Donation()
+        {
+            buttonText = "Finish";
+            GUILayout.FlexibleSpace();
+
+            var headingStyle = new GUIStyle(EditorStyles.label)
+            {
+                fontStyle = FontStyle.Bold,
+                fontSize = 30,
+                padding = new RectOffset(50, 0, -5, -5),
+            };
+
+            var textStyle = new GUIStyle(EditorStyles.label)
+            {
+                fontSize = 14,
+                wordWrap = true,
+                padding = new RectOffset(50, 50, 0, 0)
+            };
+
+            GUIStyle buttonStyle = new GUIStyle(GUI.skin.button)
+            {
+                fontStyle = FontStyle.Bold,
+                fontSize = 16,
+                margin = new RectOffset(50, 50, 0, 0),
+            };
+
+            EditorGUILayout.LabelField("Support the project!", headingStyle);
+
+            GUILayout.Space(20);
+
+            EditorGUILayout.LabelField("Become a GitHub Sponsor to support the project", textStyle);
+
+            GUILayout.Space(20);
+
+            if (GUILayout.Button("Become a Sponsor ❤️", buttonStyle, GUILayout.Height(40)))
+            {
+                Application.OpenURL("https://github.com/sponsors/Mauznemo");
+            }
+
+            GUILayout.FlexibleSpace();
         }
     }
 }
