@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using SmartifyOS.Audio;
+using SmartifyOS.SaveSystem;
 using SmartifyOS.StatusBar;
 using UnityEngine;
 
@@ -36,7 +37,7 @@ public class WarningManager : MonoBehaviour
 
     private void MainController_OnTrunkOpened(bool open)
     {
-        if (open)
+        if (open && SaveManager.Load().notifications.trunkWarningWhenDriving)
         {
             TryStartWarningSound();
         }
@@ -48,7 +49,7 @@ public class WarningManager : MonoBehaviour
 
     private void MainController_OnLeftDoorOpened(bool open)
     {
-        if (open)
+        if (open && SaveManager.Load().notifications.doorWarningWhenDriving)
         {
             TryStartWarningSound();
         }
@@ -60,7 +61,7 @@ public class WarningManager : MonoBehaviour
 
     private void MainController_OnRightDoorOpened(bool open)
     {
-        if (open)
+        if (open && SaveManager.Load().notifications.doorWarningWhenDriving)
         {
             TryStartWarningSound();
         }
@@ -75,7 +76,10 @@ public class WarningManager : MonoBehaviour
         if (AudioManager.playingWarningSound || !LiveDataController.isDriving)
             return;
 
-        if (!MainController.leftDoorOpen && !MainController.rightDoorOpen && !MainController.trunkOpen)
+        if (!MainController.leftDoorOpen && !MainController.rightDoorOpen && SaveManager.Load().notifications.doorWarningWhenDriving)
+            return;
+
+        if (!MainController.trunkOpen && SaveManager.Load().notifications.trunkWarningWhenDriving)
             return;
 
         StartWarningSound();
@@ -83,7 +87,10 @@ public class WarningManager : MonoBehaviour
 
     private void TryStopWarningSound()
     {
-        if (MainController.leftDoorOpen || MainController.rightDoorOpen || MainController.trunkOpen)
+        if ((MainController.leftDoorOpen || MainController.rightDoorOpen) && SaveManager.Load().notifications.doorWarningWhenDriving)
+            return;
+
+        if (MainController.trunkOpen && SaveManager.Load().notifications.trunkWarningWhenDriving)
             return;
 
         StopWarningSound();
