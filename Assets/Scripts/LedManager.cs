@@ -83,6 +83,11 @@ public class LedManager : MonoBehaviour
 
         SetLedColor(LedStrip.Left, GetSavedColor(LedStrip.Left));
         SetLedColor(LedStrip.Right, GetSavedColor(LedStrip.Right));
+
+        yield return new WaitForSeconds(0.2f);
+
+        MainController_OnRightDoorOpened(MainController.rightDoorOpen);
+        MainController_OnLeftDoorOpened(MainController.leftDoorOpen);
     }
 
     public Color GetSavedColor(LedStrip ledStrip)
@@ -91,7 +96,7 @@ public class LedManager : MonoBehaviour
         {
             case LedStrip.Left:
                 var colorL = SaveManager.Load().interiorLighting.leftFeet;
-                if(colorL == null)
+                if (colorL == null)
                 {
                     SaveManager.Load().interiorLighting.leftFeet = Color.magenta;
                     colorL = Color.magenta;
@@ -99,7 +104,7 @@ public class LedManager : MonoBehaviour
                 return colorL.Value;
             case LedStrip.Right:
                 var colorR = SaveManager.Load().interiorLighting.rightFeet;
-                if(colorR == null)
+                if (colorR == null)
                 {
                     SaveManager.Load().interiorLighting.rightFeet = Color.magenta;
                     colorR = Color.magenta;
