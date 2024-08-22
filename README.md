@@ -1,5 +1,7 @@
 # SmartifyOS
 
+![SmartifyOS Image](Assets/SmartifyOS/Scripts/EditorTools/Resources/Graphics/Welcome/SmartifyOS-welcome.png)
+
 >[!CAUTION]
 >**Disclaimer:** This software is currently in the development phase and is intended for developers. It is not suitable for general use in vehicles yet.
 
