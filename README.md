@@ -98,5 +98,7 @@ git checkout -b your-branch-name
 
 **[SmartifyOS-Documentation](https://github.com/Mauznemo/SmartifyOS-Documentation)** - documentation of all the SmartifyOS code and how to use it.
 
+**[SmartifyOS-App](https://github.com/Mauznemo/SmartifyOS-App)** - android app to lock and unlock the car from your phone.
+
 **[SmartMiata](https://github.com/Mauznemo/SmartMiata)** - all Arduino code I used for my Miata
 
