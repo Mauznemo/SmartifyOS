@@ -7,6 +7,7 @@ using System.IO;
 using SmartifyOS.Editor.Styles;
 using System;
 using SmartifyOS;
+using System.Linq;
 
 
 public class Export : EditorWindow
@@ -28,6 +29,7 @@ public class Export : EditorWindow
 
     private int selectedDrive = 0;
     private int selectedTarget = 0;
+    private bool exporting = false;
 
     private void OnEnable()
     {
@@ -77,20 +79,151 @@ public class Export : EditorWindow
 
         GUILayout.Space(20);
 
-        GUI.enabled = usbDrives.Count > 0;
+        if (selectedTarget == 1)
+        {
+            EditorGUILayout.LabelField("Linux Arm is not yet supported");
+        }
+
+        GUI.enabled = usbDrives.Count > 0 && selectedTarget != 1 && !exporting;
+
 
         if (GUILayout.Button("Export Installer", Style.Button, GUILayout.Height(30)))
         {
-
+            ExportInstaller();
         }
 
         if (GUILayout.Button("Export Update", Style.Button, GUILayout.Height(30)))
         {
-
+            ExportUpdate();
         }
 
         GUI.enabled = true;
 
+        if (exporting)
+        {
+            EditorGUILayout.LabelField("Exporting...");
+        }
+    }
+
+    private void ExportInstaller()
+    {
+        exporting = true;
+        string usbPath = usbDrives[selectedDrive].FullName;
+
+        if (!Directory.Exists(usbPath))
+            return;
+
+        //TODO: Clone "https://github.com/Mauznemo/SmartifyOS-Installer.git" on the usb drive
+        //   build the installer into "usbPath/SmartifyOS-Installer/SmartifyOS/GUI/" (crate GUI folder if it doesn't exist)
+
+        EditorUtility.DisplayDialog("Not Implemented", "Exporting an installer is not yet implemented", "Okay");
+
+        exporting = false;
+
+        throw new NotImplementedException();
+
+    }
+
+    private void ExportUpdate()
+    {
+        exporting = true;
+        string usbPath = usbDrives[selectedDrive].FullName;
+
+        if (!Directory.Exists(usbPath))
+            return;
+
+        string buildPath = usbPath + "/smartify_os_update/";
+
+        if (!Directory.Exists(buildPath))
+        {
+            Directory.CreateDirectory(buildPath);
+        }
+
+        BuildTo(buildPath);
+    }
+
+    private void BuildTo(string path)
+    {
+        if (!Directory.Exists(path))
+            return;
+        DeleteSubFolders(path);
+        BuildOptions buildOptions = BuildOptions.None;
+        string[] scenePaths = EditorBuildSettings.scenes
+                .Select(scene => scene.path)
+                .ToArray();
+        BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
+        {
+            scenes = scenePaths,
+            locationPathName = $"{path}SmartifyOS.x86_64",
+            target = BuildTarget.StandaloneLinux64,
+            options = buildOptions,
+            //subtarget = (int)buildSubtarget
+
+        };
+
+        var buildReport = BuildPipeline.BuildPlayer(buildPlayerOptions);
+
+        if (buildReport.summary.totalErrors == 0)
+        {
+            DeleteFoldersWithDoNotShip(path);
+
+            EditorUtility.DisplayDialog("Build Successful", "Build Successful", "Okay");
+        }
+        else
+        {
+            EditorUtility.DisplayDialog($"{buildReport.summary.totalErrors} Errors", $"{buildReport.summary.totalErrors} Errors during Build", "Okay");
+        }
+
+        exporting = false;
+    }
+
+    private void DeleteFoldersWithDoNotShip(string path)
+    {
+        DirectoryInfo directory = new DirectoryInfo(path);
+
+        if (!directory.Exists)
+        {
+            return;
+        }
+
+        foreach (DirectoryInfo subDirectory in directory.GetDirectories())
+        {
+            if (subDirectory.Name.ToLower().Contains("donotship"))
+            {
+                subDirectory.Delete(true);
+            }
+            else
+            {
+                DeleteFoldersWithDoNotShip(subDirectory.FullName);
+            }
+        }
+    }
+
+    private void DeleteSubFolders(string path)
+    {
+        DirectoryInfo directory = new DirectoryInfo(path);
+
+        if (!directory.Exists)
+        {
+            return;
+        }
+
+        foreach (DirectoryInfo subDirectory in directory.GetDirectories())
+        {
+            DeleteSubFolders(subDirectory.FullName);
+
+            foreach (FileInfo file in subDirectory.GetFiles())
+            {
+                file.Delete();
+            }
+
+            subDirectory.Delete(true);
+        }
+
+        foreach (FileInfo file in directory.GetFiles())
+        {
+            file.Delete();
+        }
     }
 
     private void Title()
@@ -141,8 +274,6 @@ public class Export : EditorWindow
         usbDriveTexts.Clear();
 
         DriveInfo[] allDrives = DriveInfo.GetDrives();
-
-        Debug.Log("Found " + allDrives.Length + " drives");
 
 
         foreach (DriveInfo drive in allDrives)
