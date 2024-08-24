@@ -91,6 +91,12 @@ namespace SmartifyOS.Editor
             WindowCreator.ShowWindow(menuCommand.context as GameObject);
         }
 
+        [MenuItem("GameObject/UI/SmartifyOS/Fullscreen Window", false)]
+        public static void CreateFullscreenWindow(MenuCommand menuCommand)
+        {
+            CreateObjectFromPrefab(menuCommand, "Prefabs/UI/FullscreenWindowPrefab", "FullscreenWindow");
+        }
+
         private static T CreateObjectWithComponent<T>(MenuCommand menuCommand, string name) where T : Component
         {
             GameObject customObject = new GameObject(name);
