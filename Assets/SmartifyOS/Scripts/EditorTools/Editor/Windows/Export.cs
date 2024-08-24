@@ -278,7 +278,6 @@ public class Export : EditorWindow
 
         foreach (DriveInfo drive in allDrives)
         {
-            Debug.Log(drive.Name + " " + drive.DriveType + " " + drive.TotalSize + " " + drive.TotalFreeSpace + " " + drive.IsReady + " " + drive.VolumeLabel + " " + drive.DriveFormat);
             if (drive.IsReady && drive.DriveType == DriveType.Removable)
             {
                 usbDrives.Add(new DirectoryInfo(drive.Name));
