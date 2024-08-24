@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using UnityEngine;
+using System.Collections;
 
 namespace SmartifyOS.LinuxBluetooth
 {
@@ -57,6 +58,10 @@ namespace SmartifyOS.LinuxBluetooth
                 OnDeviceConnected?.Invoke(devices[0].macAddress);
                 UnityEngine.Debug.Log($"<b><color=green>Connected to: {devices[0].macAddress}</color></b>");
                 statusEntry = StatusBar.StatusBar.AddStatus(bluetoothIconSprite);
+            }
+            else
+            {
+                StartCoroutine(AutoConnectTrusted());
             }
         }
 
@@ -184,6 +189,17 @@ namespace SmartifyOS.LinuxBluetooth
         public void RemoveDeviceFromList(string deviceAddress)
         {
             bluetoothDevices.RemoveAll(device => device.macAddress == deviceAddress);
+        }
+
+        public IEnumerator AutoConnectTrusted()
+        {
+            yield return new WaitForSeconds(1f);
+            List<BluetoothDevice> bluetoothDevices = ListTrustedDevices();
+            foreach (BluetoothDevice device in bluetoothDevices)
+            {
+                ConnectToDevice(device.macAddress);
+                yield return new WaitForSeconds(0.1f);
+            }
         }
 
         public void PlayerPlay()
