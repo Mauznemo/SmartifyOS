@@ -17,9 +17,9 @@ public class TogglePopupsQuickSettingsEntry : BaseQuickSettingsEntry
 
     protected override void OnToggleValueChanged(bool isOn)
     {
-        if(isOn)
-            LightController.Instance.Down();
-        else
+        if (isOn)
             LightController.Instance.Up();
+        else
+            LightController.Instance.Down();
     }
 }
