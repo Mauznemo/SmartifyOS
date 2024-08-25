@@ -76,8 +76,10 @@ public class MainController : BaseSerialCommunication
     {
         if (message.StartsWith("v_"))
         {
-            float voltage = float.Parse(message.Substring(2), System.Globalization.CultureInfo.InvariantCulture);
-            OnNewBatteryVoltage?.Invoke(voltage);
+            if (float.TryParse(message.Substring(2), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float voltage))
+            {
+                OnNewBatteryVoltage?.Invoke(voltage);
+            }
 
             return;
         }
