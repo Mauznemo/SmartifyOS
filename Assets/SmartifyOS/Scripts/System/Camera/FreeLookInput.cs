@@ -15,6 +15,9 @@ public class FreeLookInput : MonoBehaviour
 
     private Coroutine resetCoroutine;
 
+    [SerializeField] private float triggerTime = 0.2f;
+    private float triggerTimer;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -28,8 +31,17 @@ public class FreeLookInput : MonoBehaviour
     {
         if (Input.GetMouseButton(0) && !Utilities.IsOverUI())
         {
-            freeLookCamera.m_XAxis.m_InputAxisValue = -Input.GetAxis(XAxisName);
-            freeLookCamera.m_YAxis.m_InputAxisValue = -Input.GetAxis(YAxisName);
+            if (triggerTimer > 0)
+            {
+                triggerTimer -= Time.deltaTime;
+                freeLookCamera.m_XAxis.m_InputAxisValue = 0;
+                freeLookCamera.m_YAxis.m_InputAxisValue = 0;
+            }
+            else
+            {
+                freeLookCamera.m_XAxis.m_InputAxisValue = -Input.GetAxis(XAxisName);
+                freeLookCamera.m_YAxis.m_InputAxisValue = -Input.GetAxis(YAxisName);
+            }
         }
         else
         {
@@ -37,13 +49,9 @@ public class FreeLookInput : MonoBehaviour
             freeLookCamera.m_YAxis.m_InputAxisValue = 0;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetMouseButtonUp(0))
         {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-
-                SetRotation(new Vector2(180f, 0.6f));
-            }
+            triggerTimer = triggerTime;
         }
     }
 
