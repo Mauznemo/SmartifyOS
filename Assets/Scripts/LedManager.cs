@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using SmartifyOS.Notifications;
 using SmartifyOS.SaveSystem;
 using UnityEngine;
 
@@ -29,11 +30,11 @@ public class LedManager : MonoBehaviour
         {
             if (open)
             {
-                SetLedColor(LedStrip.Right, Color.white);
+                SetLedColorWithoutSave(LedStrip.Right, Color.white);
             }
             else
             {
-                SetLedColor(LedStrip.Right, GetSavedColor(LedStrip.Right));
+                SetLedColorWithoutSave(LedStrip.Right, GetSavedColor(LedStrip.Right));
             }
         }
 
@@ -56,11 +57,11 @@ public class LedManager : MonoBehaviour
         {
             if (open)
             {
-                SetLedColor(LedStrip.Left, Color.white);
+                SetLedColorWithoutSave(LedStrip.Left, Color.white);
             }
             else
             {
-                SetLedColor(LedStrip.Left, GetSavedColor(LedStrip.Left));
+                SetLedColorWithoutSave(LedStrip.Left, GetSavedColor(LedStrip.Left));
             }
         }
 
@@ -135,6 +136,11 @@ public class LedManager : MonoBehaviour
                 break;
         }
 
+    }
+
+    public void SetLedColorWithoutSave(LedStrip ledStrip, Color color)
+    {
+        MainController.Instance.SetLedColor(color, ledStrip);
     }
 }
 
