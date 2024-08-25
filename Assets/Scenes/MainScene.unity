@@ -13650,7 +13650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02767325ba2724747b3c5a1d7bbeb3a8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bluetoothIconSprite: {fileID: 21300000, guid: 8d079d2ccd9e51c4792cc96fa50b6705,
+  bluetoothIconSprite: {fileID: 21300000, guid: df3196f9269516e46b722caf544d9334,
     type: 3}
   bluetoothDevices: []
 --- !u!4 &816134119
