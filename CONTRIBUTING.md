@@ -36,6 +36,7 @@ For your commit messages please follow [Conventional Commits](https://www.conven
      Closes #123
      ```
 ## Pull Request Guidelines
+If you modified something in `Assets/SmartifyOS` keep in mind that anything in there should not be (too) project (car/setup) specific.
 
 1. **Title:**
    - Use a clear and descriptive title for the pull request that describes the change being made.

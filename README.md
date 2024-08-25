@@ -20,6 +20,14 @@ SmartifyOS is a base application (source code) that makes it easy for you to cre
 1. The SmartifyOS base application which is made so that it can be customized a lot and build on top of whatever you want
 2. The full software for my Miata build on-top of the SmartifyOS base application
 
+### Project structure:
+All scripts you can use as a base to make your own system are in `Assets/SmartifyOS` all other folders in `Assets` (manly `Scripts` and `ScriptableObjects`) are using the code from `Assets/SmartifyOS` as a base and are specific for my car and setup (like Arduinos and sensors).
+
+I also tried to make everything in `Assets/SmartifyOS` so that you shouldn't need to modify anything in it to work with your specific setup since all the project specific code is in `Scripts` and `ScriptableObjects`.
+
+Since SmartifyOS is still in the development phase the will probably be cases where you need to modify smoothing in `Assets/SmartifyOS`. Then just keep in mind that anything in there should not be (too) project (car/setup) specific.
+
+
 ## Supported Platforms
 ### Editor (Unity):
 
