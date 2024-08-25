@@ -5,6 +5,7 @@ using TMPro;
 using SmartifyOS.SaveSystem;
 using SmartifyOS.Notifications;
 using System.Collections;
+using SmartifyOS.StatusBar;
 
 public class LightController : BaseSerialCommunication
 {
@@ -26,12 +27,18 @@ public class LightController : BaseSerialCommunication
 
     private bool waving;
 
+    [SerializeField] private Sprite lightOnIconSprite;
+    private StatusBar.StatusEntry lightOnEntry;
+
     private void Start()
     {
         portName = SaveManager.Load().lightController.arduinoPort;
         Debug.Log("Light controller port: " + portName);
         Init();
         Debug.Log("Light controller connected: " + IsConnected());
+
+        lightOnEntry = StatusBar.AddStatus(lightOnIconSprite);
+        lightOnEntry.Hide();
 
         StartCoroutine(RequestData());
     }
@@ -109,7 +116,12 @@ public class LightController : BaseSerialCommunication
                 waving = false;
                 OnWavingStateChanged?.Invoke(waving);
                 break;
-
+            case "lie":
+                lightOnEntry.Show();
+                break;
+            case "lid":
+                lightOnEntry.Hide();
+                break;
             case "el": //error light (when trying to change light motor state while light is on)
                 OnLightError();
                 break;

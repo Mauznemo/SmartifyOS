@@ -1560,6 +1560,7 @@ MonoBehaviour:
   portName: 
   baudRate: 9600
   emulationMode: 0
+  lightOnIconSprite: {fileID: 21300000, guid: 7c536c3322895954c95d114305537088, type: 3}
 --- !u!4 &59105534
 Transform:
   m_ObjectHideFlags: 0
