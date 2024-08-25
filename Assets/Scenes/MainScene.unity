@@ -15643,6 +15643,8 @@ MonoBehaviour:
   realtimeInfoGraphs: {fileID: 1832577010}
   steeringAngleText: {fileID: 1947144119}
   batteryText: {fileID: 1189894923}
+  chargingSprite: {fileID: 21300000, guid: f72ba795190a05c428c0f053b2eebd48, type: 3}
+  lowBatterySprite: {fileID: 21300000, guid: 5ad0d9078bb4e6746a845cfaf729fa92, type: 3}
 --- !u!1 &965809087
 GameObject:
   m_ObjectHideFlags: 0

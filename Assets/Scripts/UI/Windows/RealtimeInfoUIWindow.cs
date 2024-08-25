@@ -1,4 +1,5 @@
 using System;
+using SmartifyOS.StatusBar;
 using SmartifyOS.UI;
 using TMPro;
 using UnityEngine;
@@ -9,7 +10,11 @@ public class RealtimeInfoUIWindow : BaseUIWindow
     [SerializeField] private TMP_Text steeringAngleText;
     [SerializeField] private TMP_Text batteryText;
 
+    [SerializeField] private Sprite chargingSprite;
+    [SerializeField] private Sprite lowBatterySprite;
 
+    private StatusBar.StatusEntry chargingEntry;
+    private StatusBar.StatusEntry lowBatteryEntry;
 
     private void Start()
     {
@@ -18,6 +23,11 @@ public class RealtimeInfoUIWindow : BaseUIWindow
         InvokeRepeating(nameof(UpdateOtherData), 0.1f, 0.2f);
 
         MainController.OnNewBatteryVoltage += MainController_OnNewBatteryVoltage;
+
+        chargingEntry = StatusBar.AddStatus(chargingSprite);
+        chargingEntry.Hide();
+        lowBatteryEntry = StatusBar.AddStatus(lowBatterySprite);
+        lowBatteryEntry.Hide();
     }
 
     private void MainController_OnNewBatteryVoltage(float voltage)
@@ -29,6 +39,16 @@ public class RealtimeInfoUIWindow : BaseUIWindow
         percentage = Mathf.Clamp(percentage, 0, 100);
 
         bool charging = voltage > maxVoltage + 0.1f;
+
+        if (charging)
+            chargingEntry.Show();
+        else
+            chargingEntry.Hide();
+
+        if (percentage < 20)
+            lowBatteryEntry.Show();
+        else
+            lowBatteryEntry.Hide();
 
         string percentageText = charging ? "charging" : $"{Mathf.Round(percentage)}%";
         batteryText.text = $"Battery: {voltage.ToString("0.00")}V ({percentageText})";
