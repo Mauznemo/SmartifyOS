@@ -26,8 +26,9 @@ public class RealtimeInfoUIWindow : BaseUIWindow
         float maxVoltage = 12.6f;  // Voltage corresponding to 100% battery
 
         float percentage = (voltage - minVoltage) / (maxVoltage - minVoltage) * 100;
+        percentage = Mathf.Clamp(percentage, 0, 100);
 
-        bool charging = voltage > maxVoltage + 0.4f;
+        bool charging = voltage > maxVoltage + 0.1f;
 
         string percentageText = charging ? "charging" : $"{Mathf.Round(percentage)}%";
         batteryText.text = $"Battery: {voltage.ToString("0.00")}V ({percentageText})";
