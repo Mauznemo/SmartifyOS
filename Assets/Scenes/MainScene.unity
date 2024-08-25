@@ -2670,7 +2670,7 @@ GameObject:
   - component: {fileID: 156485895}
   - component: {fileID: 156485896}
   m_Layer: 5
-  m_Name: Sorce
+  m_Name: Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2875,7 +2875,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 1214862}
+  m_AnchoredPosition: {x: 0, y: 1221794.5}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &158427254
@@ -19052,7 +19052,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 1307141.9}
+  m_AnchoredPosition: {x: 0, y: 1315781.2}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1171074961
@@ -21585,7 +21585,7 @@ GameObject:
   - component: {fileID: 1343314618}
   - component: {fileID: 1343314619}
   m_Layer: 5
-  m_Name: Sorce
+  m_Name: Source
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -22656,7 +22656,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pixel 8 Pro
+  m_text: --
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 61ba28727a7603a429a31096d3a98436, type: 2}
   m_sharedMaterial: {fileID: -9144054651512474976, guid: 61ba28727a7603a429a31096d3a98436,
@@ -28947,6 +28947,7 @@ MonoBehaviour:
   settingsButton: {fileID: 428371795}
   titleText: {fileID: 1479236751}
   artistText: {fileID: 157980230}
+  sourceText: {fileID: 1409011400}
   playingSprite: {fileID: 21300000, guid: e36eb343190726140bc5a38cf6b03d45, type: 3}
   pausedSprite: {fileID: 21300000, guid: 471c6c8f5f62c1a47964c4a6fd69f1e4, type: 3}
 --- !u!114 &1678463244
@@ -31624,7 +31625,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 535660.7}
+  m_AnchoredPosition: {x: 0, y: 546506.56}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1887336914

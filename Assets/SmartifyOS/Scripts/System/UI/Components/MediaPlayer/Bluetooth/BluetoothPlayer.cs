@@ -18,6 +18,7 @@ namespace SmartifyOS.UI.MediaPlayer
 
         [SerializeField] private TMP_Text titleText;
         [SerializeField] private TMP_Text artistText;
+        [SerializeField] private TMP_Text sourceText;
 
         //[SerializeField] private UnityEngine.UI.Image play
         [SerializeField] private Sprite playingSprite;
@@ -76,6 +77,12 @@ namespace SmartifyOS.UI.MediaPlayer
                 BluetoothManager.Instance.PlayerPlay();
                 playButton.SetIcon(playingSprite);
                 playing = true;
+            }
+
+            var connectedDevices = BluetoothManager.Instance.ListConnectedDevices();
+            if (connectedDevices.Count > 0)
+            {
+                sourceText.text = connectedDevices[0].name;
             }
         }
 
