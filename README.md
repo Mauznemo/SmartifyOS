@@ -25,7 +25,7 @@ All scripts you can use as a base to make your own system are in `Assets/Smartif
 
 I also tried to make everything in `Assets/SmartifyOS` so that you shouldn't need to modify anything in it to work with your specific setup since all the project specific code is in `Scripts` and `ScriptableObjects`.
 
-Since SmartifyOS is still in the development phase the will probably be cases where you need to modify smoothing in `Assets/SmartifyOS`. Then just keep in mind that anything in there should not be (too) project (car/setup) specific.
+Since SmartifyOS is still in the development phase there will probably be cases where you need to modify smoothing in `Assets/SmartifyOS`. Then just keep in mind that anything in there should not be (too) project (car/setup) specific.
 
 
 ## Supported Platforms
