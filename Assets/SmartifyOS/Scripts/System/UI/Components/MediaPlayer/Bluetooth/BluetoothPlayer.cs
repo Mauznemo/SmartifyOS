@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using SmartifyOS.LinuxBluetooth;
@@ -11,6 +12,7 @@ namespace SmartifyOS.UI.MediaPlayer
 {
     public class BluetoothPlayer : BaseUIWindow
     {
+        public event Action OnOpened;
         [SerializeField] private IconButton previousButton;
         [SerializeField] private IconButton nextButton;
         [SerializeField] private IconButton playButton;
@@ -84,6 +86,7 @@ namespace SmartifyOS.UI.MediaPlayer
             {
                 sourceText.text = connectedDevices[0].name;
             }
+            OnOpened?.Invoke();
         }
 
         private void OnPlayerStopped()
@@ -128,6 +131,7 @@ namespace SmartifyOS.UI.MediaPlayer
             if (window.IsWindowOfType(typeof(InteriorUIWindow)))
             {
                 Hide(true);
+                allowAutoOpen = false;
             }
         }
 
@@ -139,6 +143,7 @@ namespace SmartifyOS.UI.MediaPlayer
             if (window.IsWindowOfType(typeof(InteriorUIWindow)))
             {
                 Show();
+                allowAutoOpen = true;
             }
         }
     }

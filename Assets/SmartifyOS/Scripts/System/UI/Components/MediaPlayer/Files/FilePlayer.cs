@@ -30,6 +30,8 @@ namespace SmartifyOS.UI.MediaPlayer
         [SerializeField] private FilePickerUIWindow filePicker;
         [SerializeField] private IconButton pickFileButton;
 
+        [SerializeField] private BluetoothPlayer bluetoothPlayer;
+
         [SerializeField] private float timeUntilClosing = 20f;
 
         private bool playing = false;
@@ -44,6 +46,11 @@ namespace SmartifyOS.UI.MediaPlayer
             PlayerManager.OnMetadataChanged += PlayerManager_OnMetadataChanged;
             PlayerManager.OnDurationChanged += PlayerManager_OnDurationChanged;
             PlayerManager.OnEndOfFile += PlayerManager_OnEndOfFile;
+
+            bluetoothPlayer.OnOpened += () =>
+            {
+                Hide();
+            };
         }
 
         private void Awake()
