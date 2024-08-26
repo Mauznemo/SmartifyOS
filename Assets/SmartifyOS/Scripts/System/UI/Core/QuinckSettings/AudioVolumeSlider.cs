@@ -16,7 +16,7 @@ public class AudioVolumeSlider : MonoBehaviour
         slider.onValueChanged.AddListener(async (volume) =>
         {
             slider.interactable = false;
-            float multiplier = SaveManager.Load().system.allowOverAmplification ? 100 : 150;
+            float multiplier = SaveManager.Load().system.allowOverAmplification ? 150 : 100;
             await AudioManager.Instance.SetSystemVolume(volume * multiplier);
             slider.interactable = true;
         });
@@ -24,7 +24,7 @@ public class AudioVolumeSlider : MonoBehaviour
 
     private void Start()
     {
-        float multiplier = SaveManager.Load().system.allowOverAmplification ? 100 : 150;
+        float multiplier = SaveManager.Load().system.allowOverAmplification ? 150 : 100;
         slider.value = SaveManager.Load().system.audioVolume / multiplier;
     }
 }
