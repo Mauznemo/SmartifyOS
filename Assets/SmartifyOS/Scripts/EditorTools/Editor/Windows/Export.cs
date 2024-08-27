@@ -8,6 +8,8 @@ using SmartifyOS.Editor.Styles;
 using System;
 using SmartifyOS;
 using System.Linq;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 
 public class Export : EditorWindow
@@ -105,7 +107,7 @@ public class Export : EditorWindow
         }
     }
 
-    private void ExportInstaller()
+    private async void ExportInstaller()
     {
         exporting = true;
         string usbPath = usbDrives[selectedDrive].FullName;
@@ -113,15 +115,102 @@ public class Export : EditorWindow
         if (!Directory.Exists(usbPath))
             return;
 
-        //TODO: Clone "https://github.com/Mauznemo/SmartifyOS-Installer.git" on the usb drive
-        //   build the installer into "usbPath/SmartifyOS-Installer/SmartifyOS/GUI/" (crate GUI folder if it doesn't exist)
+        bool cloneSuccess = await CloneRepository("https://github.com/Mauznemo/SmartifyOS-Installer.git", $"{usbPath}/SmartifyOS-Installer/");
 
-        EditorUtility.DisplayDialog("Not Implemented", "Exporting an installer is not yet implemented", "Okay");
+        if (!cloneSuccess)
+        {
+            EditorUtility.DisplayDialog("Error", "Failed to clone repository", "Okay");
+            exporting = false;
+            return;
+        }
+
+        UnityEngine.Debug.Log("Cloned repository");
+
+        if (!Directory.Exists($"{usbPath}/SmartifyOS-Installer/"))
+        {
+            UnityEngine.Debug.LogError("Couldn't find SmartifyOS-Installer folder");
+            return;
+        }
+
+        if (!Directory.Exists($"{usbPath}/SmartifyOS-Installer/SmartifyOS/GUI/"))
+        {
+            Directory.CreateDirectory($"{usbPath}/SmartifyOS-Installer/SmartifyOS/GUI/");
+        }
+
+        BuildTo($"{usbPath}/SmartifyOS-Installer/SmartifyOS/GUI/");
 
         exporting = false;
+    }
 
-        throw new NotImplementedException();
+    private async Task<bool> CloneRepository(string url, string path)
+    {
+        if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(path))
+        {
+            UnityEngine.Debug.LogError("URL and path must not be empty");
+            return false;
+        }
 
+        // Ensure the target path is valid
+        if (!Directory.Exists(path))
+        {
+            Directory.CreateDirectory(path);
+        }
+
+        string command = $"clone {url} {path}";
+        try
+        {
+            await ExecuteGitCommand(command);
+            return true;
+        }
+        catch (Exception e)
+        {
+            UnityEngine.Debug.LogError($"Failed to clone repository: {e.Message}");
+            return false;
+        }
+    }
+
+    private async Task ExecuteGitCommand(string command)
+    {
+        ProcessStartInfo processInfo = new ProcessStartInfo();
+        Process process = new Process();
+
+        // Use different shell commands based on OS
+        if (Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            processInfo.FileName = "cmd.exe";
+            processInfo.Arguments = $"/c git {command}";
+        }
+        else if (Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.LinuxEditor)
+        {
+            processInfo.FileName = "/bin/bash";
+            processInfo.Arguments = $"-c \"git {command}\"";
+        }
+
+        processInfo.RedirectStandardOutput = true;
+        processInfo.RedirectStandardError = true;
+        processInfo.UseShellExecute = false;
+        processInfo.CreateNoWindow = true;
+
+        process.StartInfo = processInfo;
+        process.Start();
+
+        // Read the output
+        string output = await process.StandardOutput.ReadToEndAsync();
+        string error = await process.StandardError.ReadToEndAsync();
+
+        await Task.Run(() => process.WaitForExit());
+        process.Close();
+
+        // Log output and errors
+        if (!string.IsNullOrEmpty(output))
+        {
+            UnityEngine.Debug.Log(output);
+        }
+
+        if (!string.IsNullOrEmpty(error))
+        {
+            UnityEngine.Debug.LogError(error);
+        }
     }
 
     private void ExportUpdate()
