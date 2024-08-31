@@ -13,10 +13,16 @@ namespace SmartifyOS.Editor
             Application.OpenURL("https://github.com/Mauznemo/SmartifyOS/issues");
         }
 
-        [MenuItem("Window/SmartifyOS/Support the project", false)]
+        [MenuItem("Window/SmartifyOS/Support the project/Github Sponsor", false)]
         static void SupportTheProject()
         {
             Application.OpenURL("https://github.com/sponsors/Mauznemo");
+        }
+
+        [MenuItem("Window/SmartifyOS/Support the project/PayPal", false)]
+        static void SupportTheProjectPayPal()
+        {
+            Application.OpenURL("https://www.paypal.com/donate/?hosted_button_id=BSPF2HUZRP7AN");
         }
 
         [MenuItem("Window/SmartifyOS/Join Discord", false)]

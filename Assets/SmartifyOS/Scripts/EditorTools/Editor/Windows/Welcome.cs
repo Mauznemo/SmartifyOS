@@ -222,9 +222,16 @@ namespace SmartifyOS.Editor
 
             GUILayout.Space(20);
 
-            if (GUILayout.Button("Become a Sponsor ❤️", buttonStyle, GUILayout.Height(40)))
+            if (GUILayout.Button("Become a GitHub Sponsor ❤️", buttonStyle, GUILayout.Height(40)))
             {
                 Application.OpenURL("https://github.com/sponsors/Mauznemo");
+            }
+
+            GUILayout.Space(20);
+
+            if (GUILayout.Button("Donate on PayPal ❤️", buttonStyle, GUILayout.Height(40)))
+            {
+                Application.OpenURL("https://www.paypal.com/donate/?hosted_button_id=BSPF2HUZRP7AN");
             }
 
             GUILayout.FlexibleSpace();
