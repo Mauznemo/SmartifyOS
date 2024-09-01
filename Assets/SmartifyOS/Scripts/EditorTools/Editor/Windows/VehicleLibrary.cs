@@ -143,7 +143,7 @@ namespace SmartifyOS.Editor
             GUIStyle textStyle = new GUIStyle(GUI.skin.label);
             textStyle.fontStyle = FontStyle.Bold;
             textStyle.fontSize = 20;
- 
+
 
             EditorGUILayout.LabelField("Vehicle Library", textStyle, GUILayout.Width(155), GUILayout.Height(40));
 
@@ -247,11 +247,11 @@ namespace SmartifyOS.Editor
 
             scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
 
-            if(vehicleArray !=  null && vehicleArray.Length > 0)
+            if (vehicleArray != null && vehicleArray.Length > 0)
             {
                 foreach (var vehicle in vehicleArray)
                 {
-                    
+
 
                     VehicleEntry(vehicle.image, $"{vehicle.brand} {vehicle.model} {vehicle.variant}");
                 }
@@ -265,6 +265,7 @@ namespace SmartifyOS.Editor
                 textStyle.alignment = TextAnchor.MiddleCenter;
                 GUILayout.FlexibleSpace();
 
+                EditorGUILayout.LabelField("Vehicle Library is not implemented yet", textStyle, GUILayout.Height(40));
                 EditorGUILayout.LabelField(infoText, textStyle, GUILayout.Height(40));
 
                 GUILayout.FlexibleSpace();
