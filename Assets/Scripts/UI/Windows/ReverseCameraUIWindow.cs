@@ -55,6 +55,11 @@ public class ReverseCameraUIWindow : BaseUIWindow
         webcamTexture.Play();
     }
 
+    public void Fullscreen(bool fullscreen)
+    {
+        //TODO: Implement fullscreen
+    }
+
     private void UpdateCameraFeed()
     {
         if (!updateCameraFeed || webcamTexture == null)

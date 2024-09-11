@@ -16,6 +16,9 @@ public class MainController : BaseSerialCommunication
     public static event Action<bool> OnActionButton1;
     public static event Action<bool> OnActionButton2;
 
+    public static event Action<bool> OnControlwheelButton;
+    public static event Action<int> OnControlwheelChanged;
+
     public static event Action<bool> OnLeftDoorOpened;
     public static event Action<bool> OnRightDoorOpened;
     public static event Action<bool> OnTrunkOpened;
@@ -148,6 +151,18 @@ public class MainController : BaseSerialCommunication
             case "tc":
                 trunkOpen = false;
                 OnTrunkOpened?.Invoke(false);
+                break;
+            case "cwu":
+                OnControlwheelChanged?.Invoke(1);
+                break;
+            case "cwd":
+                OnControlwheelChanged?.Invoke(-1);
+                break;
+            case "cwbd":
+                OnControlwheelButton?.Invoke(true);
+                break;
+            case "cwbu":
+                OnControlwheelButton?.Invoke(false);
                 break;
         }
 
