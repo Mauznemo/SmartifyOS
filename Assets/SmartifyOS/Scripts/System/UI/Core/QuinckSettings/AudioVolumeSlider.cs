@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using SmartifyOS.Audio;
@@ -26,5 +27,12 @@ public class AudioVolumeSlider : MonoBehaviour
     {
         float multiplier = SaveManager.Load().system.allowOverAmplification ? 150 : 100;
         slider.value = SaveManager.Load().system.audioVolume / multiplier;
+
+        AudioManager.OnVolumeChangedOverlay += OnVolumeChanged;
+    }
+
+    private void OnVolumeChanged(float volume)
+    {
+        slider.value = volume / 100f;
     }
 }
