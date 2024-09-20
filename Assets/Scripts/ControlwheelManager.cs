@@ -8,8 +8,13 @@ using UnityEngine;
 
 public class ControlwheelManager : MonoBehaviour
 {
-    private Mode mode = Mode.Audio;
+    public static event Action<int> OnChanged;
+    public static event Action OnButtonPressed;
+
+    private static Mode mode = Mode.Audio;
     private List<int> lastDirections = new List<int>();
+
+    private bool buttonCooldown = false;
 
     private void Start()
     {
@@ -19,7 +24,26 @@ public class ControlwheelManager : MonoBehaviour
 
     private void OnControlwheelButton(bool pressed)
     {
+        if (buttonCooldown)
+        {
+            return;
+        }
 
+        if (pressed)
+        {
+            OnButtonPress();
+
+            StartCoroutine(StartButtonCooldown());
+        }
+    }
+
+    private IEnumerator StartButtonCooldown()
+    {
+        buttonCooldown = true;
+
+        yield return new WaitForSeconds(0.1f);
+
+        buttonCooldown = false;
     }
 
     private void OnControlwheelChanged(int dir)
@@ -62,8 +86,29 @@ public class ControlwheelManager : MonoBehaviour
         }
     }
 
+    public static Mode GetMode()
+    {
+        return mode;
+    }
+
+    public static void SetDefaultMode()
+    {
+        ControlwheelManager.mode = Mode.Audio;
+    }
+
+    public static void SetMode(Mode mode)
+    {
+        ControlwheelManager.mode = mode;
+    }
+
+    private void OnButtonPress()
+    {
+        OnButtonPressed?.Invoke();
+    }
+
     private async void OnIncreased()
     {
+        OnChanged?.Invoke(1);
         switch (mode)
         {
             case Mode.Audio:
@@ -74,6 +119,7 @@ public class ControlwheelManager : MonoBehaviour
 
     private async void OnDecreased()
     {
+        OnChanged?.Invoke(-1);
         switch (mode)
         {
             case Mode.Audio:
@@ -90,5 +136,6 @@ public class ControlwheelManager : MonoBehaviour
     public enum Mode
     {
         Audio,
+        Ambient
     }
 }

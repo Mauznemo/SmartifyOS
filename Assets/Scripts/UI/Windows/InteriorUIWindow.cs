@@ -48,6 +48,10 @@ public class InteriorUIWindow : BaseUIWindow
     [SerializeField] private Material onMaterial;
     [SerializeField] private Material offMaterial;
 
+    //For controlwheel
+    [SerializeField] private Outline[] selectButtonOutlines;
+    private int selectedButton = -1;
+
     private Texture2D hueTexture;
     private float currentHue;
     private float currentSat;
@@ -76,20 +80,7 @@ public class InteriorUIWindow : BaseUIWindow
 
         modeSwitchButton.onClick += () =>
         {
-            if (isColorSelected)
-            {
-                hueSlider.gameObject.SetActive(true);
-                satSlider.gameObject.SetActive(false);
-                modeSwitchButton.SetIcon(brightnessModeSprite);
-            }
-            else
-            {
-                hueSlider.gameObject.SetActive(false);
-                satSlider.gameObject.SetActive(true);
-                modeSwitchButton.SetIcon(colorModeSprite);
-            }
-
-            isColorSelected = !isColorSelected;
+            ToggleSliderMode();
         };
 
         moreButton.onClick += () =>
@@ -125,16 +116,7 @@ public class InteriorUIWindow : BaseUIWindow
         rightLedSelectButton.onClick += () => { SelectSource(SelectedLightSource.RightFeet); };
         lampSelectButton.onClick += () =>
         {
-            if (LedManager.interiorLightOn)
-            {
-                LedManager.Instance.SetInteriorLight(false);
-                lightMeshRenderer.material = offMaterial;
-            }
-            else
-            {
-                LedManager.Instance.SetInteriorLight(true);
-                lightMeshRenderer.material = onMaterial;
-            }
+            ToggleLight();
         };
 
         backButton.onClick.AddListener(() =>
@@ -146,10 +128,47 @@ public class InteriorUIWindow : BaseUIWindow
             selectionScreen.SetActive(true);
             colorScreen.SetActive(false);
             morePanel.SetActive(false);
+
+            for (int i = 0; i < selectButtonOutlines.Length; i++)
+            {
+                selectButtonOutlines[i].enabled = false;
+            }
+            selectedButton = -1;
         });
 
     }
 
+    private void ToggleLight()
+    {
+        if (LedManager.interiorLightOn)
+        {
+            LedManager.Instance.SetInteriorLight(false);
+            lightMeshRenderer.material = offMaterial;
+        }
+        else
+        {
+            LedManager.Instance.SetInteriorLight(true);
+            lightMeshRenderer.material = onMaterial;
+        }
+    }
+
+    private void ToggleSliderMode()
+    {
+        if (isColorSelected)
+        {
+            hueSlider.gameObject.SetActive(true);
+            satSlider.gameObject.SetActive(false);
+            modeSwitchButton.SetIcon(brightnessModeSprite);
+        }
+        else
+        {
+            hueSlider.gameObject.SetActive(false);
+            satSlider.gameObject.SetActive(true);
+            modeSwitchButton.SetIcon(colorModeSprite);
+        }
+
+        isColorSelected = !isColorSelected;
+    }
 
     private void Start()
     {
@@ -160,6 +179,55 @@ public class InteriorUIWindow : BaseUIWindow
         interiorOnlyObjects.SetActive(false);
 
         MainController.OnInteriorLightChanged += MainController_OnInteriorLightChanged;
+
+        ControlwheelManager.OnButtonPressed += ControlwheelManager_OnButtonPressed;
+        ControlwheelManager.OnChanged += ControlwheelManager_OnChanged;
+    }
+
+    private void ControlwheelManager_OnChanged(int dir)
+    {
+        if (isSelectionPage)
+        {
+            selectedButton = (selectedButton + dir + 3) % 3;
+            for (int i = 0; i < selectButtonOutlines.Length; i++)
+            {
+                selectButtonOutlines[i].enabled = i == selectedButton;
+            }
+            return;
+        }
+
+        if (!isColorSelected)
+        {
+            hueSlider.value += dir * 0.01f;
+        }
+        else
+        {
+            satSlider.value += dir * 0.01f;
+        }
+    }
+
+    private void ControlwheelManager_OnButtonPressed()
+    {
+        if (isSelectionPage)
+        {
+            switch (selectedButton)
+            {
+                case 0:
+                    SelectSource(SelectedLightSource.LeftFeet);
+                    break;
+                case 1:
+                    ToggleLight();
+                    break;
+                case 2:
+                    SelectSource(SelectedLightSource.RightFeet);
+                    break;
+            }
+            return;
+        }
+        if (ControlwheelManager.GetMode() == ControlwheelManager.Mode.Ambient)
+        {
+            ToggleSliderMode();
+        }
     }
 
     private void MainController_OnInteriorLightChanged(bool isOn)
@@ -192,6 +260,14 @@ public class InteriorUIWindow : BaseUIWindow
         morePanel.SetActive(false);
 
         Invoke(nameof(ShowSelectionScreen), 2f);
+
+        for (int i = 0; i < selectButtonOutlines.Length; i++)
+        {
+            selectButtonOutlines[i].enabled = false;
+        }
+        selectedButton = -1;
+
+        ControlwheelManager.SetMode(ControlwheelManager.Mode.Ambient);
     }
 
     private void ShowSelectionScreen()
@@ -204,6 +280,8 @@ public class InteriorUIWindow : BaseUIWindow
         virtualCamera.Priority = 0;
 
         interiorOnlyObjects.SetActive(false);
+
+        ControlwheelManager.SetDefaultMode();
     }
 
     private void SelectSource(SelectedLightSource source)
