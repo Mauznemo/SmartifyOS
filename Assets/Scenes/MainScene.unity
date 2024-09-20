@@ -2877,7 +2877,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 1381684.2}
+  m_AnchoredPosition: {x: 0, y: 1404892.6}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &158427254
@@ -11497,6 +11497,7 @@ GameObject:
   - component: {fileID: 637135348}
   - component: {fileID: 637135346}
   - component: {fileID: 637135345}
+  - component: {fileID: 637135349}
   m_Layer: 5
   m_Name: AppListButton (4)
   m_TagString: Untagged
@@ -11595,6 +11596,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowToOpen: {fileID: 1234626696}
+--- !u!114 &637135349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 637135343}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 0, y: 0}
+  m_UseGraphicAlpha: 1
 --- !u!1 &638443000
 GameObject:
   m_ObjectHideFlags: 0
@@ -14403,7 +14419,7 @@ RectTransform:
   m_GameObject: {fileID: 865236271}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9220982973605972766}
@@ -14466,6 +14482,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   androidAutoButton: {fileID: 4331709482519479548}
+  buttons:
+  - {fileID: 4331709482519479548}
+  - {fileID: 1571215807}
+  - {fileID: 1398101628}
+  - {fileID: 925625686}
+  - {fileID: 637135346}
+  - {fileID: 1781323247}
+  - {fileID: 1612675894}
+  - {fileID: 1832190967}
 --- !u!114 &865236277
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15440,6 +15465,7 @@ GameObject:
   - component: {fileID: 925625688}
   - component: {fileID: 925625686}
   - component: {fileID: 925625685}
+  - component: {fileID: 925625689}
   m_Layer: 5
   m_Name: AppListButton (3)
   m_TagString: Untagged
@@ -15538,6 +15564,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowToOpen: {fileID: 1903291151}
+--- !u!114 &925625689
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 925625683}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 0, y: 0}
+  m_UseGraphicAlpha: 1
 --- !u!1 &927539388
 GameObject:
   m_ObjectHideFlags: 0
@@ -19477,7 +19518,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 1514895.6}
+  m_AnchoredPosition: {x: 0, y: 1543771.8}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1171074961
@@ -23175,6 +23216,7 @@ GameObject:
   - component: {fileID: 1398101630}
   - component: {fileID: 1398101628}
   - component: {fileID: 1398101627}
+  - component: {fileID: 1398101631}
   m_Layer: 5
   m_Name: AppListButton (2)
   m_TagString: Untagged
@@ -23273,6 +23315,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowToOpen: {fileID: 947119892}
+--- !u!114 &1398101631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1398101625}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 0, y: 0}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1400581318
 GameObject:
   m_ObjectHideFlags: 0
@@ -26829,6 +26886,7 @@ GameObject:
   - component: {fileID: 1571215809}
   - component: {fileID: 1571215807}
   - component: {fileID: 1571215806}
+  - component: {fileID: 1571215810}
   m_Layer: 5
   m_Name: AppListButton (1)
   m_TagString: Untagged
@@ -26927,6 +26985,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowToOpen: {fileID: 5645186132502265281}
+--- !u!114 &1571215810
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1571215804}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 0, y: 0}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1576520904
 GameObject:
   m_ObjectHideFlags: 0
@@ -27992,6 +28065,7 @@ GameObject:
   - component: {fileID: 1612675896}
   - component: {fileID: 1612675894}
   - component: {fileID: 1612675893}
+  - component: {fileID: 1612675897}
   m_Layer: 5
   m_Name: AppListButton (7)
   m_TagString: Untagged
@@ -28090,6 +28164,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowToOpen: {fileID: 9161769111078979402}
+--- !u!114 &1612675897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1612675891}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 0, y: 0}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1612833720
 GameObject:
   m_ObjectHideFlags: 0
@@ -31055,6 +31144,7 @@ GameObject:
   - component: {fileID: 1781323249}
   - component: {fileID: 1781323247}
   - component: {fileID: 1781323246}
+  - component: {fileID: 1781323250}
   m_Layer: 5
   m_Name: AppListButton (6)
   m_TagString: Untagged
@@ -31153,6 +31243,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowToOpen: {fileID: 48730313}
+--- !u!114 &1781323250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1781323244}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 0, y: 0}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1792872206
 GameObject:
   m_ObjectHideFlags: 0
@@ -31742,6 +31847,7 @@ GameObject:
   - component: {fileID: 1832190969}
   - component: {fileID: 1832190967}
   - component: {fileID: 1832190966}
+  - component: {fileID: 1832190970}
   m_Layer: 5
   m_Name: AppListButton (5)
   m_TagString: Untagged
@@ -31840,6 +31946,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowToOpen: {fileID: 927539393}
+--- !u!114 &1832190970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1832190964}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 0, y: 0}
+  m_UseGraphicAlpha: 1
 --- !u!1 &1832577008
 GameObject:
   m_ObjectHideFlags: 0
@@ -32495,7 +32616,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 796303.94}
+  m_AnchoredPosition: {x: 0, y: 832497.25}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1887336914
@@ -44898,6 +45019,7 @@ GameObject:
   - component: {fileID: 165095446483825622}
   - component: {fileID: 4331709482519479548}
   - component: {fileID: 6311697313206555884}
+  - component: {fileID: 9220982973605972767}
   m_Layer: 5
   m_Name: AppListButton
   m_TagString: Untagged
@@ -51697,6 +51819,21 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &9220982973605972767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5341122118001369055}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
+  m_EffectDistance: {x: 0, y: 0}
+  m_UseGraphicAlpha: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

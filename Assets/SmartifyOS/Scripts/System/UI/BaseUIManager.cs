@@ -62,6 +62,20 @@ namespace SmartifyOS.UI
             }
         }
 
+        public void HideUIWindow<T>() where T : BaseUIWindow
+        {
+            BaseUIWindow window = windowInstances.OfType<T>().FirstOrDefault();
+
+            if (window != null)
+            {
+                window.Hide();
+            }
+            else
+            {
+                Debug.LogError("Window has no instance");
+            }
+        }
+
         public void RegisterUIWindow(BaseUIWindow window)
         {
             if (windowInstances.Contains(window))

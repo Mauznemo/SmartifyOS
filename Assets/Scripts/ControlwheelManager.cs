@@ -93,16 +93,31 @@ public class ControlwheelManager : MonoBehaviour
 
     public static void SetDefaultMode()
     {
-        ControlwheelManager.mode = Mode.Audio;
+        SetMode(Mode.Audio);
     }
 
     public static void SetMode(Mode mode)
     {
+        Debug.Log("Mode Changed: " + mode);
         ControlwheelManager.mode = mode;
     }
 
     private void OnButtonPress()
     {
+        switch (mode)
+        {
+            case Mode.Audio:
+                if (UIManager.Instance.IsWindowOpened<AppListUIWindow>())
+                {
+                    UIManager.Instance.HideUIWindow<AppListUIWindow>();
+                }
+                else
+                {
+                    UIManager.Instance.ShowUIWindow<AppListUIWindow>();
+                }
+                return;
+        }
+
         OnButtonPressed?.Invoke();
     }
 
@@ -136,6 +151,7 @@ public class ControlwheelManager : MonoBehaviour
     public enum Mode
     {
         Audio,
-        Ambient
+        Ambient,
+        AppList
     }
 }

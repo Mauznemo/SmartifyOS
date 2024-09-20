@@ -63,7 +63,7 @@ namespace SmartifyOS.UI.Components
 
         public void OnPointerClick(PointerEventData eventData)
         {
-            if(!_interactable) return;
+            if (!_interactable) return;
             onClick?.Invoke();
         }
 
@@ -95,9 +95,17 @@ namespace SmartifyOS.UI.Components
             }
         }
 
+        /// <summary>
+        /// Triggers the onClick event without the button actually being pressed
+        /// </summary>
+        public void TriggerClick()
+        {
+            onClick?.Invoke();
+        }
+
         public void OnPointerDown(PointerEventData eventData)
         {
-            if(!_interactable) return;
+            if (!_interactable) return;
             UpdateUI(true);
         }
 
