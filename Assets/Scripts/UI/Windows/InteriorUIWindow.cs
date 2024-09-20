@@ -186,6 +186,11 @@ public class InteriorUIWindow : BaseUIWindow
 
     private void ControlwheelManager_OnChanged(int dir)
     {
+        if (ControlwheelManager.GetMode() != ControlwheelManager.Mode.Ambient)
+        {
+            return;
+        }
+
         if (isSelectionPage)
         {
             selectedButton = (selectedButton + dir + 3) % 3;
@@ -208,6 +213,11 @@ public class InteriorUIWindow : BaseUIWindow
 
     private void ControlwheelManager_OnButtonPressed()
     {
+        if (ControlwheelManager.GetMode() != ControlwheelManager.Mode.Ambient)
+        {
+            return;
+        }
+
         if (isSelectionPage)
         {
             switch (selectedButton)
