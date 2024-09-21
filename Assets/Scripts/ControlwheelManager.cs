@@ -12,7 +12,6 @@ public class ControlwheelManager : MonoBehaviour
     public static event Action OnButtonPressed;
 
     private static Mode mode = Mode.Audio;
-    private List<int> lastDirections = new List<int>();
 
     private bool buttonCooldown = false;
 
@@ -32,30 +31,23 @@ public class ControlwheelManager : MonoBehaviour
         if (pressed)
         {
             OnButtonPress();
-
-            StartCoroutine(StartButtonCooldown());
         }
+
+        StartCoroutine(StartButtonCooldown());
     }
 
     private IEnumerator StartButtonCooldown()
     {
         buttonCooldown = true;
 
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(0.3f);
 
         buttonCooldown = false;
     }
 
     private void OnControlwheelChanged(int dir)
     {
-        lastDirections.Add(dir);
-
-        if (lastDirections.Count > 4)
-        {
-            lastDirections.RemoveAt(0);
-        }
-
-        switch (GetCurrentDirection())
+        switch (dir)
         {
             case 1:
                 OnIncreased();
@@ -63,26 +55,6 @@ public class ControlwheelManager : MonoBehaviour
             case -1:
                 OnDecreased();
                 break;
-        }
-    }
-
-    //The Rotary Encoder sometimes glitches a bit and sends a wrong direction at the end or in between, so is to prevent that.
-    private int GetCurrentDirection()
-    {
-        int countNegative = lastDirections.Count(x => x == -1);
-        int countPositive = lastDirections.Count(x => x == 1);
-
-        if (countNegative > countPositive)
-        {
-            return -1;
-        }
-        else if (countPositive > countNegative)
-        {
-            return 1;
-        }
-        else
-        {
-            return 0;
         }
     }
 
