@@ -6,6 +6,8 @@ using System.Diagnostics;
 using System.IO;
 using UnityEngine;
 using System.Collections;
+using System.Threading.Tasks;
+using System.Text;
 
 namespace SmartifyOS.LinuxBluetooth
 {
@@ -244,13 +246,53 @@ namespace SmartifyOS.LinuxBluetooth
             process.StartInfo = psi;
             process.Start();
 
-            // Read the output
-            process.OutputDataReceived += OutputDataReceived;
-            process.ErrorDataReceived += ErrorDataReceived;
+            _ = ReadBluetoothOutputAsync();
 
             processInputWriter = process.StandardInput;
+        }
+        private StringBuilder outputBuffer = new StringBuilder();
+        private async Task ReadBluetoothOutputAsync()
+        {
+            char[] buffer = new char[1024];  // Adjust size for optimal performance
+            while (!process.HasExited)
+            {
+                // Read asynchronously from the output stream
+                int charsRead = await process.StandardOutput.ReadAsync(buffer, 0, buffer.Length);
 
-            process.BeginOutputReadLine();
+                if (charsRead > 0)
+                {
+                    // Append the newly read characters to the buffer
+                    outputBuffer.Append(buffer, 0, charsRead);
+
+                    // Convert to string for processing
+                    string bufferContent = outputBuffer.ToString();
+
+                    if (bufferContent.Contains("Confirm passkey") || bufferContent.Contains("Authorize service"))
+                    {
+                        UnityMainThreadDispatcher.GetInstance().Enqueue(() => OutputDataReceivedMainThread(bufferContent));
+                        outputBuffer.Clear();
+                        continue;
+                    }
+
+                    // Check for newline characters (or other specific delimiters you care about)
+                    int newlineIndex;
+                    while ((newlineIndex = bufferContent.IndexOf('\n')) != -1)
+                    {
+                        // Extract the complete line (up to the newline)
+                        string completeLine = bufferContent.Substring(0, newlineIndex).Trim();
+
+                        // Call the handler with the complete line       
+                        UnityMainThreadDispatcher.GetInstance().Enqueue(() => OutputDataReceivedMainThread(completeLine));
+
+                        // Remove the processed line from the buffer (including the newline character)
+                        bufferContent = bufferContent.Substring(newlineIndex + 1);
+                    }
+
+                    // Keep any remaining partial lines in the buffer for the next read
+                    outputBuffer.Clear();
+                    outputBuffer.Append(bufferContent);
+                }
+            }
         }
 
         private void OutputDataReceived(object sender, DataReceivedEventArgs e)
@@ -260,6 +302,7 @@ namespace SmartifyOS.LinuxBluetooth
 
         private void OutputDataReceivedMainThread(string input)
         {
+            //UnityEngine.Debug.Log($"[{DateTime.Now}] BT: {input}");
             EventType eventType = BluetoothParser.ParseEventType(input);
             switch (eventType)
             {
@@ -299,7 +342,14 @@ namespace SmartifyOS.LinuxBluetooth
             if (input.Contains("Confirm passkey"))
             {
                 //SendCommand("yes");
+                UnityEngine.Debug.Log("Confirm passkey: " + input);
                 OnConfirmPasskey?.Invoke(BluetoothParser.ExtractPasskey(input));
+                return;
+            }
+            else if (input.Contains("Authorize service"))
+            {
+                UnityEngine.Debug.Log("Authorize service: " + input);
+                SendCommand("yes");
                 return;
             }
             else if (input.Contains("Failed to connect"))
