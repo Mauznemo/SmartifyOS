@@ -67,7 +67,7 @@ namespace SmartifyOS.LinuxBluetooth
 
         public bool IsSoftBlocked()
         {
-            string input = LinuxCommand.Run("rfkill list");
+            string input = LinuxCommand.Run("sudo rfkill list");
             bool softLock = BluetoothParser.IsSoftBlocked(input);
             return softLock;
         }
@@ -75,7 +75,7 @@ namespace SmartifyOS.LinuxBluetooth
         public void SetBluetoothBlock(bool blocked)
         {
             OnSoftBlockedChanged?.Invoke(blocked);
-            string command = blocked ? "rfkill block bluetooth" : "rfkill unblock bluetooth";
+            string command = blocked ? "sudo rfkill block bluetooth" : "sudo rfkill unblock bluetooth";
             LinuxCommand.Run(command);
         }
 
