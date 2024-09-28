@@ -21,7 +21,7 @@ namespace SmartifyOS.Settings
 
             searchUpdateButton.onClick += () =>
             {
-                SystemManager.Instance.SearchForUpdate(true);
+                SystemManager.Instance.SearchForUpdate();
             };
         }
     }

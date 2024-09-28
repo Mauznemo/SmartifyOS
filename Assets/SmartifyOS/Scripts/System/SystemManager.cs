@@ -27,8 +27,6 @@ namespace SmartifyOS
         private bool locked = false;
         private string updatePath;
 
-        private List<string> notifiedDirectories = new List<string>();
-
         private void Start()
         {
             SystemEventManager.SubscribeToEvent("SmartifyOS/Events/OnUsbDeviceConnected", OnUsbDeviceConnected);
@@ -36,48 +34,40 @@ namespace SmartifyOS
 
         private void OnUsbDeviceConnected(string content)
         {
-            SearchForUpdate();
+            UnityMainThreadDispatcher.GetInstance().Enqueue(() => SearchForUpdate());
         }
 
-        public void SearchForUpdate(bool clearHistory = false)
+        public void SearchForUpdate()
         {
-            if (locked)
-            {
-                return;
-            }
-            locked = true;
-
-            if (clearHistory)
-            {
-                notifiedDirectories.Clear();
-            }
-
             StartCoroutine(SearchForDirectory());
         }
 
         private IEnumerator SearchForDirectory()
         {
-            yield return new WaitForSeconds(3f);
+            if (locked)
+            {
+                yield break;
+            }
+            locked = true;
+
+            //NotificationManager.SendNotification(NotificationType.Info, "USB device connected, searching for update...");
+
+            yield return new WaitForSeconds(5f);
 
             updatePath = RunLinuxShellScript.Run("~/SmartifyOS/Scripts/FindUpdatePath.sh");
             updatePath = updatePath.Trim();
 
             if (string.IsNullOrEmpty(updatePath) || updatePath == "not_found")
             {
+                locked = false;
                 yield break;
             }
 
             if (!Directory.Exists(updatePath))
             {
-                yield break;
-            }
-
-            if (notifiedDirectories.Contains(updatePath))
-            {
                 locked = false;
                 yield break;
             }
-            notifiedDirectories.Add(updatePath);
 
             OnUpdateAvailable?.Invoke(new DirectoryInfo(updatePath).Parent.Name);
 
