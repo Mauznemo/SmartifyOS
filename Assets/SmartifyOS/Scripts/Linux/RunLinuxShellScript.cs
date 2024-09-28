@@ -90,9 +90,18 @@ namespace SmartifyOS.Linux
             {
                 if (File.Exists($"/usr/bin/{terminal}"))
                 {
-                    terminalCommand = $"{terminal} -- bash -c 'cd {scriptDirectory} && ./{scriptName} {args}; exit'";
-                    UnityEngine.Debug.Log(terminalCommand);
-                    break;
+                    if (terminal == "lxterminal")
+                    {
+                        terminalCommand = $"{terminal} -e 'cd {scriptDirectory} && ./{scriptName} {args}; exit'";
+                        UnityEngine.Debug.Log(terminalCommand);
+                        break;
+                    }
+                    else
+                    {
+                        terminalCommand = $"{terminal} -- bash -c 'cd {scriptDirectory} && ./{scriptName} {args}; exit'";
+                        UnityEngine.Debug.Log(terminalCommand);
+                        break;
+                    }
                 }
             }
 
