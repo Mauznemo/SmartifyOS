@@ -41,12 +41,13 @@ Since SmartifyOS is still in the development phase there will probably be cases 
 
 
 ### Build:
-| Platform         | Supported                  |
-| ---------------- | -------------------------- |
-| Windows          | no                         |
-| Linux Ubuntu x86 | yes                        |
-| Linux Ubuntu Arm | not tested (will be added) |
-| Other Linux      | not tested                 |
+| Platform          | Supported                  |
+| ----------------- | -------------------------- |
+| Windows           | no                         |
+| Linux Ubuntu x86  | yes                        |
+| Linux Debian LXDE | yes                        |
+| Linux Arm         | not tested (will be added) |
+| Other Linux       | not tested                 |
 
 ## Installation (Editor)
 
@@ -83,13 +84,7 @@ If you don't plan to modify any code and only want to help find bugs or suggest 
 
 First have a look at the **[Contribution guidelines for this project](CONTRIBUTING.md)**.
 
-### Setting up project
-Then if you haven't Installed it yet follow the steps here: [Installation For contribution (modifying code)](#for-contribution-modifying-code)
-
-If you're now in the project folder of your fork you can add a new branch for the feature you want to add or change:
-```
-git checkout -b your-branch-name
-```
+Then if you haven't already follow the steps here: [Installation For contribution (modifying code)](#for-contribution-modifying-code)
 
 ### Creating a pull request
 
