@@ -115,7 +115,7 @@ public class Export : EditorWindow
         if (!Directory.Exists(usbPath))
             return;
 
-        bool cloneSuccess = await CloneRepository("https://github.com/Mauznemo/SmartifyOS-Installer.git", $"{usbPath}/SmartifyOS-Installer/");
+        bool cloneSuccess = await Git.CloneRepository("https://github.com/Mauznemo/SmartifyOS-Installer.git", $"{usbPath}/SmartifyOS-Installer/");
 
         if (!cloneSuccess)
         {
@@ -140,77 +140,6 @@ public class Export : EditorWindow
         BuildTo($"{usbPath}/SmartifyOS-Installer/SmartifyOS/GUI/");
 
         exporting = false;
-    }
-
-    private async Task<bool> CloneRepository(string url, string path)
-    {
-        if (string.IsNullOrEmpty(url) || string.IsNullOrEmpty(path))
-        {
-            UnityEngine.Debug.LogError("URL and path must not be empty");
-            return false;
-        }
-
-        // Ensure the target path is valid
-        if (!Directory.Exists(path))
-        {
-            Directory.CreateDirectory(path);
-        }
-
-        string command = $"clone {url} {path}";
-        try
-        {
-            await ExecuteGitCommand(command);
-            return true;
-        }
-        catch (Exception e)
-        {
-            UnityEngine.Debug.LogError($"Failed to clone repository: {e.Message}");
-            return false;
-        }
-    }
-
-    private async Task ExecuteGitCommand(string command)
-    {
-        ProcessStartInfo processInfo = new ProcessStartInfo();
-        Process process = new Process();
-
-        // Use different shell commands based on OS
-        if (Application.platform == RuntimePlatform.WindowsEditor)
-        {
-            processInfo.FileName = "cmd.exe";
-            processInfo.Arguments = $"/c git {command}";
-        }
-        else if (Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.LinuxEditor)
-        {
-            processInfo.FileName = "/bin/bash";
-            processInfo.Arguments = $"-c \"git {command}\"";
-        }
-
-        processInfo.RedirectStandardOutput = true;
-        processInfo.RedirectStandardError = true;
-        processInfo.UseShellExecute = false;
-        processInfo.CreateNoWindow = true;
-
-        process.StartInfo = processInfo;
-        process.Start();
-
-        // Read the output
-        string output = await process.StandardOutput.ReadToEndAsync();
-        string error = await process.StandardError.ReadToEndAsync();
-
-        await Task.Run(() => process.WaitForExit());
-        process.Close();
-
-        // Log output and errors
-        if (!string.IsNullOrEmpty(output))
-        {
-            UnityEngine.Debug.Log(output);
-        }
-
-        if (!string.IsNullOrEmpty(error))
-        {
-            UnityEngine.Debug.LogError(error);
-        }
     }
 
     private void ExportUpdate()
