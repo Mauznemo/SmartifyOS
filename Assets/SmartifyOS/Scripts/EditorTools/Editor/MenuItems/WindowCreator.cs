@@ -7,7 +7,7 @@ namespace SmartifyOS.Editor
 {
     public class WindowCreator : EditorWindow
     {
-        [MenuItem("Window/SmartifyOS/Create Window")]
+        [MenuItem("SmartifyOS/Create Window")]
         public static void ShowWindow()
         {
             var window = GetWindow<WindowCreator>("Create Window");
@@ -70,14 +70,14 @@ namespace SmartifyOS.Editor
 
 
         private void CreateObjectFromPrefab(string name)
-        {  
-            if(parent == null)
+        {
+            if (parent == null)
             {
                 Debug.LogError("Parent GameObject is not assigned.");
                 return;
             }
 
-            if(size.x < 10 || size.y < 10)
+            if (size.x < 10 || size.y < 10)
             {
                 Debug.LogError("This window is too small!");
                 return;

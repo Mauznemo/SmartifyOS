@@ -15,7 +15,7 @@ namespace SmartifyOS.Editor
 
         private string buttonText = "Next";
 
-        [MenuItem("Window/SmartifyOS/Welcome")]
+        [MenuItem("SmartifyOS/Welcome")]
         public static void ShowWindow()
         {
             var window = GetWindow<Welcome>("Welcome");

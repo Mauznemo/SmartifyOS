@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 public class Export : EditorWindow
 {
-    [MenuItem("Window/SmartifyOS/SmartifyOS Export")]
+    [MenuItem("SmartifyOS/SmartifyOS Export")]
     public static void ShowWindow()
     {
         var window = GetWindow<Export>("SmartifyOS Export");

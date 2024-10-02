@@ -18,7 +18,7 @@ public class Updater : EditorWindow
     private Vector2 scrollPosition;
 
     // Add a menu item to show the Git Update Checker window
-    [MenuItem("Window/SmartifyOS/Check for Updates")]
+    [MenuItem("SmartifyOS/Check for Updates")]
     public static void ShowWindow()
     {
         GetWindow<Updater>("Updater");

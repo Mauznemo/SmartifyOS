@@ -9,7 +9,7 @@ namespace SmartifyOS.Editor
 {
     public class UploadVehicle : EditorWindow
     {
-        [MenuItem("Window/SmartifyOS/Upload Vehicle")]
+        [MenuItem("SmartifyOS/Upload Vehicle")]
         public static void ShowWindow()
         {
             var window = GetWindow<UploadVehicle>("Upload Vehicle");
@@ -96,7 +96,7 @@ namespace SmartifyOS.Editor
 
         private void Title()
         {
-      
+
             GUILayout.Space(30);
             EditorGUILayout.LabelField("Upload your own vehicle!", Style.Heading);
 
