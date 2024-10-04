@@ -17,6 +17,9 @@ namespace SmartifyOS.SaveSystem
 
         private static SaveData saveData;
 
+        /// <summary>
+        /// Saves the <see cref="SaveData" to file. DON'T CALL THIS AFTER EVERY CHANGE!/>
+        /// </summary>
         public static void Save()
         {
             string json = JsonConvert.SerializeObject(saveData, Formatting.Indented, settings);
@@ -32,6 +35,9 @@ namespace SmartifyOS.SaveSystem
             File.WriteAllText(Application.persistentDataPath + "/" + SAVE_NAME, json);
         }
 
+        /// <summary>
+        /// Removes the save file
+        /// </summary>
         public static void Remove()
         {
 
@@ -41,6 +47,10 @@ namespace SmartifyOS.SaveSystem
             }
         }
 
+        /// <summary>
+        /// Loads the save file
+        /// </summary>
+        /// <returns>Current SaveData (can directly be modified and will save to will when the application closes)</returns>
         public static SaveData Load()
         {
             if (saveData == null)
