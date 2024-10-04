@@ -21,7 +21,8 @@ public class Updater : EditorWindow
     [MenuItem("SmartifyOS/Check for Updates")]
     public static void ShowWindow()
     {
-        GetWindow<Updater>("Updater");
+        var window = GetWindow<Updater>("Updater (Experimental)");
+        window.minSize = new Vector2(500, 300);
     }
 
     private async void OnEnable()
@@ -33,6 +34,9 @@ public class Updater : EditorWindow
     private void OnGUI()
     {
         GUILayout.Label($"Check for update (Repository type: {type})", EditorStyles.boldLabel);
+        GUI.color = Color.gray;
+        GUILayout.Label($"This updater is still in an experimental stage. Please be careful and report any bugs", EditorStyles.wordWrappedLabel);
+        GUI.color = Color.white;
 
         GUILayout.Space(20);
 
