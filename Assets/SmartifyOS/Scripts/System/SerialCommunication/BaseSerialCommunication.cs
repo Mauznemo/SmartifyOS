@@ -67,7 +67,7 @@ namespace SmartifyOS.SerialCommunication
         }
 
         /// <summary>
-        /// Read the latest message that where sent from the connected serial device
+        /// Read the latest message that was sent from the connected serial device
         /// </summary>
         protected void ReadLatestMessage()
         {
