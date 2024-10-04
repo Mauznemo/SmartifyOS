@@ -18,6 +18,13 @@ namespace SmartifyOS.Notifications
             Instance = this;
         }
 
+        /// <summary>
+        /// Sends a new on screen notification
+        /// </summary>
+        /// <param name="notificationType">Changes the color, sound and icon of the notification</param>
+        /// <param name="text">Text of the notification</param>
+        /// <param name="mute">If the notification should be muted</param>
+        /// <param name="showTime">Time in seconds to show the notification</param>
         public static void SendNotification(NotificationType notificationType, string text, bool mute = false, float showTime = 5f)
         {
             Instance.NewNotification(notificationType, text, mute, showTime);
