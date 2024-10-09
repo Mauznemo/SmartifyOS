@@ -10,6 +10,10 @@ namespace SmartifyOS.UI
     public class ModalWindow : MonoBehaviour
     {
 
+        /// <summary>
+        /// Creates a new <see cref="ModalWindow"/>
+        /// </summary>
+        /// <returns>The created <see cref="ModalWindow"/></returns>
         public static ModalWindow Create()
         {
             if (UIManager.Instance == null)
@@ -24,6 +28,14 @@ namespace SmartifyOS.UI
         [SerializeField] private Transform buttonParent;
         [SerializeField] private Button buttonPrefab;
 
+        /// <summary>
+        /// Initializes the <see cref="ModalWindow"/>
+        /// </summary>
+        /// <param name="title">Title of the window</param>
+        /// <param name="content">Text of the window</param>
+        /// <param name="modalType">What type of modal this is</param>
+        /// <param name="confirm">Callback when the confirm button is pressed</param>
+        /// <param name="cancel">Callback when the cancel button is pressed</param>
         public void Init(string title, string content, ModalType modalType, Action confirm, Action cancel)
         {
             titleText.text = title;
@@ -81,6 +93,15 @@ namespace SmartifyOS.UI
             gameObject.SetActive(true);
         }
 
+        /// <summary>
+        /// Initializes the <see cref="ModalWindow"/> with custom button texts
+        /// </summary>
+        /// <param name="title">Title of the window</param>
+        /// <param name="content">Text of the window</param>
+        /// <param name="confirmText">Confirm button text</param>
+        /// <param name="cancelText">Cancel button text</param>
+        /// <param name="confirm">Callback when the confirm button is pressed</param>
+        /// <param name="cancel">Callback when the cancel button is pressed</param>
         public void Init(string title, string content, string confirmText, string cancelText, Action confirm, Action cancel)
         {
             titleText.text = title;
@@ -100,11 +121,18 @@ namespace SmartifyOS.UI
             gameObject.SetActive(true);
         }
 
+        /// <summary>
+        /// Updates the content of the <see cref="ModalWindow"/>
+        /// </summary>
+        /// <param name="content">New content string</param>
         public void UpdateContent(string content)
         {
             contentText.text = content;
         }
 
+        /// <summary>
+        /// Closes the <see cref="ModalWindow"/>
+        /// </summary>
         public void Close()
         {
             Destroy(gameObject);
