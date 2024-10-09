@@ -90,9 +90,13 @@ namespace SmartifyOS.StatusBar
             );
         }
 
+        /// <summary>
+        /// Create and add a new icon to the status bar
+        /// </summary>
+        /// <param name="sprite">Icon sprite</param>
+        /// <returns>The created <see cref="StatusEntry"/></returns>
         public static StatusEntry AddStatus(Sprite sprite)
         {
-            Debug.Log("AddStatus");
             StatusEntry statusEntry = new StatusEntry(sprite);
             return statusEntry;
         }
@@ -114,16 +118,25 @@ namespace SmartifyOS.StatusBar
                 instance = Instance.InstantiateStatusEntry(sprite);
             }
 
+            /// <summary>
+            /// Shows the status entry
+            /// </summary>
             public void Show()
             {
                 instance.SetActive(true);
             }
 
+            /// <summary>
+            /// Hides the status entry
+            /// </summary>
             public void Hide()
             {
                 instance.SetActive(false);
             }
 
+            /// <summary>
+            /// Removes the status entry
+            /// </summary>
             public void Remove()
             {
                 Destroy(instance);
