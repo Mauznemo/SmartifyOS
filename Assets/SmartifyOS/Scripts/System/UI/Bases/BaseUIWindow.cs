@@ -7,7 +7,9 @@ namespace SmartifyOS.UI
 {
     public abstract class BaseUIWindow : MonoBehaviour
     {
+        /// <summary>Was the window open before it was closed by another window</summary>
         protected bool wasOpen;
+        /// <summary>Is the window currently open</summary>
         protected bool isOpen;
 
         protected void Init()
@@ -36,15 +38,33 @@ namespace SmartifyOS.UI
             HandleWindowOpened(obj);
         }
 
+        /// <summary>
+        /// Called when any other window is opened
+        /// </summary>
+        /// <param name="window">The window that was opened</param>
         protected virtual void HandleWindowOpened(BaseUIWindow window) { }
 
+
+        /// <summary>
+        /// Called when any other window is closed
+        /// </summary>
+        /// <param name="window">The window that was closed</param>
         protected virtual void HandleWindowClosed(BaseUIWindow window) { }
 
+        /// <summary>
+        /// Called when the window is shown (opened)
+        /// </summary>
         protected virtual void OnShow() { }
 
+        /// <summary>
+        /// Called when the window is hidden (closed)
+        /// </summary>
         protected virtual void OnHide() { }
 
 
+        /// <summary>
+        /// Shows the window
+        /// </summary>
         public void Show()
         {
             if (!Application.isPlaying)
@@ -64,6 +84,10 @@ namespace SmartifyOS.UI
             OnShow();
         }
 
+        /// <summary>
+        /// Hides the window
+        /// </summary>
+        /// <param name="internalUpdate"><see cref="wasOpen"/> will not be reset if <see langword="true"/></param>
         public void Hide(bool internalUpdate = false)
         {
             if (!Application.isPlaying)
