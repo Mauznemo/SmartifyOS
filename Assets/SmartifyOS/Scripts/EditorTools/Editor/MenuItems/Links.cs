@@ -30,6 +30,12 @@ namespace SmartifyOS.Editor
         {
             Application.OpenURL("https://discord.gg/dYf8zrVUHt");
         }
+
+        [MenuItem("SmartifyOS/Documentation", false)]
+        static void Documentation()
+        {
+            Application.OpenURL("https://docs.smartify-os.com/docs/intro");
+        }
     }
 }
 
