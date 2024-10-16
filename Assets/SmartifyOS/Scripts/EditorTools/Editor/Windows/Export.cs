@@ -165,6 +165,9 @@ public class Export : EditorWindow
         if (!Directory.Exists(path))
             return;
         DeleteSubFolders(path);
+
+        PlayerSettings.bundleVersion = GetBuildVersion();
+
         BuildOptions buildOptions = BuildOptions.None;
         string[] scenePaths = EditorBuildSettings.scenes
                 .Select(scene => scene.path)
@@ -302,5 +305,12 @@ public class Export : EditorWindow
                 usbDriveTexts.Add($"{drive.Name} ({drive.TotalSize.SizeConvert()}, {(drive.TotalFreeSpace * 100) / drive.TotalSize}% free)");
             }
         }
+    }
+
+    private string GetBuildVersion()
+    {
+        DateTime now = DateTime.Now;
+        string version = $"{now.Year}.{now.Month:D2}.{now.Day:D2}.{now.Hour:D2}{now.Minute:D2}";
+        return version;
     }
 }
