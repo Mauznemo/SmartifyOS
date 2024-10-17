@@ -93,13 +93,20 @@ public class ControlwheelManager : MonoBehaviour
         OnButtonPressed?.Invoke();
     }
 
+    private bool settingVolume = false;
+
     private async void OnIncreased()
     {
         OnChanged?.Invoke(1);
         switch (mode)
         {
             case Mode.Audio:
+                if (settingVolume)
+                    return;
+
+                settingVolume = true;
                 await AudioManager.Instance.SetSystemVolumeWithOverlay(GetVolume() + 5f);
+                settingVolume = false;
                 break;
         }
     }
@@ -110,7 +117,12 @@ public class ControlwheelManager : MonoBehaviour
         switch (mode)
         {
             case Mode.Audio:
+                if (settingVolume)
+                    return;
+
+                settingVolume = true;
                 await AudioManager.Instance.SetSystemVolumeWithOverlay(GetVolume() - 5f);
+                settingVolume = false;
                 break;
         }
     }
