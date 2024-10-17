@@ -27,6 +27,7 @@ namespace SmartifyOS.StatusBar
 
         private void Start()
         {
+            //TODO: Decuple this from the example project
             LiveDataController.OnDateAndTime += LiveDataController_OnDateAndTime;
 
             InvokeRepeating(nameof(UpdateTime), 0f, 5f);
