@@ -170,6 +170,7 @@ public class Export : EditorWindow
 
         BuildOptions buildOptions = BuildOptions.None;
         string[] scenePaths = EditorBuildSettings.scenes
+                .Where(scene => scene.enabled)
                 .Select(scene => scene.path)
                 .ToArray();
         BuildPlayerOptions buildPlayerOptions = new BuildPlayerOptions
