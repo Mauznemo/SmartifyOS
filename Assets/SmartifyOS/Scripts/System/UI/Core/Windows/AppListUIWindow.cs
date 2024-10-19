@@ -43,6 +43,11 @@ public class AppListUIWindow : BaseUIWindow
         ControlwheelManager.SetMode(ControlwheelManager.Mode.AppList);
     }
 
+    protected override void OnHide()
+    {
+        ControlwheelManager.SetDefaultMode();
+    }
+
     private void ControlwheelManager_OnButtonPressed()
     {
         if (ControlwheelManager.GetMode() != ControlwheelManager.Mode.AppList)

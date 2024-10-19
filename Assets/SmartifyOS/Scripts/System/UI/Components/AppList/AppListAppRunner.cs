@@ -7,17 +7,21 @@ using UnityEngine;
 namespace SmartifyOS.UI
 {
     public class AppListAppRunner : MonoBehaviour
-{
-    [SerializeField] private BaseUIWindow windowToOpen;
-
-    private IconButton button;
-
-    private void Awake()
     {
-        button = GetComponent<IconButton>();
-        button.onClick += () => { UIManager.Instance.ShowUIWindow(windowToOpen); UIManager.Instance.GetUIWindowInstance<AppListUIWindow>().Hide(); };
+        [SerializeField] private BaseUIWindow windowToOpen;
+
+        private IconButton button;
+
+        private void Awake()
+        {
+            button = GetComponent<IconButton>();
+            button.onClick += () =>
+            {
+                UIManager.Instance.GetUIWindowInstance<AppListUIWindow>().Hide();
+                UIManager.Instance.ShowUIWindow(windowToOpen);
+            };
+        }
     }
-}
 }
 
 
