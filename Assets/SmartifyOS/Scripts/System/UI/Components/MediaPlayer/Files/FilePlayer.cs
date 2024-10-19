@@ -4,10 +4,11 @@ using SmartifyOS.LinuxFilePlayer;
 using SmartifyOS.UI.Components;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 namespace SmartifyOS.UI.MediaPlayer
 {
-    public class FilePlayer : BaseUIWindow
+    public class FilePlayer : BaseUIWindow, IDragHandler, IEndDragHandler, IBeginDragHandler
     {
         [SerializeField] private string filePath;
 
@@ -36,6 +37,9 @@ namespace SmartifyOS.UI.MediaPlayer
 
         private bool playing = false;
         private float timer = 0;
+
+        private Vector2 offset;
+        private Vector2 startPosition;
 
         private void Start()
         {
@@ -203,6 +207,33 @@ namespace SmartifyOS.UI.MediaPlayer
                 return $"{seconds:D2}";
             }
         }
+
+        public void OnBeginDrag(PointerEventData eventData)
+        {
+            offset = eventData.position - (Vector2)transform.position;
+            startPosition = transform.position;
+            LeanTween.scale(gameObject, Vector3.one * 1.1f, 0.2f).setEaseInOutSine();
+        }
+
+        public void OnDrag(PointerEventData eventData)
+        {
+            transform.position = eventData.position - offset;
+        }
+
+        public void OnEndDrag(PointerEventData eventData)
+        {
+            if (Vector2.Distance(transform.position, startPosition) > 100)
+            {
+                Hide();
+                transform.position = startPosition;
+            }
+            else
+            {
+                LeanTween.scale(gameObject, Vector3.one, 0.2f).setEaseInOutSine();
+                transform.position = startPosition;
+            }
+        }
+
     }
 
 }
