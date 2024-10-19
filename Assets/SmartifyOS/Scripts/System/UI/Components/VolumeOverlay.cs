@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using SmartifyOS.Audio;
+using SmartifyOS.SaveSystem;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,13 +21,15 @@ public class VolumeOverlay : MonoBehaviour
 
         AudioManager.OnVolumeChangedOverlay += OnVolumeChanged;
 
-        volumeSlider.value = AudioManager.Instance.GetSystemVolume() / 100f;
+        float multiplier = SaveManager.Load().system.allowOverAmplification ? 150 : 100;
+        volumeSlider.value = AudioManager.Instance.GetSystemVolume() / multiplier;
     }
 
     private void OnVolumeChanged(float volume)
     {
         CancelInvoke(nameof(HideOverlay));
-        targetVolume = volume / 100f;
+        float multiplier = SaveManager.Load().system.allowOverAmplification ? 150 : 100;
+        targetVolume = volume / multiplier;
         ShowOverlay();
         Invoke(nameof(HideOverlay), 5f);
     }

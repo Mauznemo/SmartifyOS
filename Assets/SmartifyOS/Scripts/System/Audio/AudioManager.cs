@@ -80,7 +80,7 @@ namespace SmartifyOS.Audio
         /// <param name="volume">Volume in percentage</param>
         public async Task SetSystemVolume(float volume)
         {
-            float maxClamp = SaveManager.Load().system.allowOverAmplification ? 100 : 150;
+            float maxClamp = SaveManager.Load().system.allowOverAmplification ? 150 : 100;
             volume = Mathf.Clamp(volume, 0, maxClamp);
 
             await LinuxCommand.RunAsync($"pactl set-sink-volume 0 {Mathf.Round(volume)}%");
