@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,6 +8,8 @@ namespace SmartifyOS.StatusBar
 {
     public class StatusBarDrag : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDragHandler
     {
+        public event Action OnQuickSettingsOpened;
+
         private float upperSnap;
         private float lowerSnap;
 
@@ -46,6 +49,7 @@ namespace SmartifyOS.StatusBar
             {
                 LeanTween.moveY(rectTransform, lowerSnap, 0.23f).setEaseInOutCubic();
                 movedUp = false;
+                OnQuickSettingsOpened?.Invoke();
             }
             else if (!movedUp)
             {

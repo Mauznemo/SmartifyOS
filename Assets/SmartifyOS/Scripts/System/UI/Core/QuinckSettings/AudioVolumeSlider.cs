@@ -3,11 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using SmartifyOS.Audio;
 using SmartifyOS.SaveSystem;
+using SmartifyOS.StatusBar;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class AudioVolumeSlider : MonoBehaviour
 {
+    private StatusBarDrag statusBarDrag;
     private Slider slider;
 
     private void Awake()
@@ -28,11 +30,13 @@ public class AudioVolumeSlider : MonoBehaviour
         float multiplier = SaveManager.Load().system.allowOverAmplification ? 150 : 100;
         slider.value = SaveManager.Load().system.audioVolume / multiplier;
 
-        AudioManager.OnVolumeChangedOverlay += OnVolumeChanged;
+        statusBarDrag = GetComponentInParent<StatusBarDrag>();
+        statusBarDrag.OnQuickSettingsOpened += OnQuickSettingsOpened;
     }
 
-    private void OnVolumeChanged(float volume)
+    private void OnQuickSettingsOpened()
     {
-        slider.value = volume / 100f;
+        float multiplier = SaveManager.Load().system.allowOverAmplification ? 150 : 100;
+        slider.value = AudioManager.Instance.GetSystemVolume() / multiplier;
     }
 }
