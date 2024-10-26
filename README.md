@@ -5,8 +5,12 @@
 >[!CAUTION]
 >**Disclaimer:** This software is currently in the development phase and is intended for developers. It is not suitable for general use in vehicles yet.
 
+The documentation can be found here: [docs.smartify-os.com](https://docs.smartify-os.com/)
+
+And if you need any other help or want to talk about new features or changes you can join the [Discord](https://discord.gg/dYf8zrVUHt)
+
 > [!WARNING]
-> There is not documentation yet!
+> The documentation isn't fully done yet!
 
 
 ## About
