@@ -63,6 +63,8 @@ namespace SmartifyOS.UI.MediaPlayer
 
         private void Start()
         {
+            Init();
+
             BluetoothManager.OnPlayerPlaying += OnPlayerPlaying;
             BluetoothManager.OnPlayerPaused += OnPlayerPaused;
             BluetoothManager.OnPlayerTitleChanged += OnPlayerTitleChanged;
