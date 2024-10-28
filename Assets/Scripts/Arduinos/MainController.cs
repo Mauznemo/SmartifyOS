@@ -96,7 +96,7 @@ public class MainController : BaseSerialCommunication
                 //check if there was rpm before if so shutdown instantly
                 if (LiveDataController.highestRpm > 1)
                 {
-                    ShutdownSystem();
+                    StartCoroutine(WaitForPowerRestore(0.8f, false));
                 }
                 else
                 {
@@ -181,16 +181,25 @@ public class MainController : BaseSerialCommunication
         cancelShutdown = true;
     }
 
-    private IEnumerator WaitForPowerRestore()
+    private IEnumerator WaitForPowerRestore(float time = 3, bool showDialog = true)
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(time);
 
-        if (!systemPower)
+        if (showDialog)
         {
-            warningModalWindow = ModalWindow.Create();
-            warningModalWindow.Init("System Shutdown", "The system had no power for 3 seconds. And will shutdown in 5 seconds", "Shutdown", "Cancel", AcceptShutdown, CancelShutdown);
-            StartCoroutine(OpenShutdownWarning());
+            if (!systemPower)
+            {
+                warningModalWindow = ModalWindow.Create();
+                warningModalWindow.Init("System Shutdown", "The system had no power for 3 seconds. And will shutdown in 5 seconds", "Shutdown", "Cancel", AcceptShutdown, CancelShutdown);
+                StartCoroutine(OpenShutdownWarning());
+            }
         }
+        else
+        {
+            if (!systemPower)
+                ShutdownSystem();
+        }
+
     }
 
     private IEnumerator OpenShutdownWarning()
