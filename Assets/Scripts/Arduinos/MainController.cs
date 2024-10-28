@@ -36,6 +36,8 @@ public class MainController : BaseSerialCommunication
 
     public static bool systemPower = true;
 
+    [SerializeField] private LogoScreen logoScreen;
+
     [SerializeField] private Sprite noPowerIconSprite;
 
     private bool cancelShutdown;
@@ -230,8 +232,9 @@ public class MainController : BaseSerialCommunication
         SaveManager.Save();
         Send("off");
         //LeanTween.alphaCanvas(canvasGroup, 1, 0.5f);
+        logoScreen.ShowScreen();
 
-        Invoke(nameof(Shutdown), 0.6f);
+        Invoke(nameof(Shutdown), 0.7f);
     }
 
     private void Shutdown()
