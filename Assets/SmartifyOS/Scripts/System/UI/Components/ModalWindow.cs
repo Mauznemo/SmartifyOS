@@ -141,6 +141,8 @@ namespace SmartifyOS.UI
         private Button CreateButton(string text, Action onClick)
         {
             Button button = Instantiate(buttonPrefab, buttonParent);
+            int targetIndex = buttonParent.childCount - 4;
+            button.transform.SetSiblingIndex(targetIndex);
             button.gameObject.SetActive(true);
             button.onClick += onClick;
             button.text = text;
