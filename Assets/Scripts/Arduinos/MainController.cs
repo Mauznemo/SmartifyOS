@@ -83,7 +83,7 @@ public class MainController : BaseSerialCommunication
         {
             if (float.TryParse(message.Substring(2), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out float voltage))
             {
-                OnNewBatteryVoltage?.Invoke(voltage);
+                OnNewBatteryVoltage?.Invoke(voltage + 0.5f); //According to my multimeter the battery reading was 0.5V to low
             }
 
             return;
