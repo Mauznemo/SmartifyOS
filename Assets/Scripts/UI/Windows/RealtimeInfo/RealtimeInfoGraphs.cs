@@ -43,7 +43,7 @@ public class RealtimeInfoGraphs : MonoBehaviour
             if (kmhActive)
                 lineRendererKmh.ShiftPoints(new Vector2Int(xPosition, Mathf.RoundToInt(LiveDataController.speedKmh * 10000) / 75));
             if (rpmActive)
-                lineRendererRPM.ShiftPoints(new Vector2Int(xPosition, Mathf.RoundToInt(LiveDataController.rpm * 10000) / 3125));
+                lineRendererRPM.ShiftPoints(new Vector2Int(xPosition, Mathf.RoundToInt(LiveDataController.rpm * 10000) / 4375));
         }
         else
         {
@@ -51,7 +51,7 @@ public class RealtimeInfoGraphs : MonoBehaviour
             if (kmhActive)
                 lineRendererKmh.AddPoint(new Vector2Int(xPosition, Mathf.RoundToInt(LiveDataController.speedKmh * 10000) / 75));
             if (rpmActive)
-                lineRendererRPM.AddPoint(new Vector2Int(xPosition, Mathf.RoundToInt(LiveDataController.rpm * 10000) / 3125));
+                lineRendererRPM.AddPoint(new Vector2Int(xPosition, Mathf.RoundToInt(LiveDataController.rpm * 10000) / 4375));
         }
 
     }
