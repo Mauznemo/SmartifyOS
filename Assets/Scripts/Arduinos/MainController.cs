@@ -44,6 +44,8 @@ public class MainController : BaseSerialCommunication
     private ModalWindow warningModalWindow;
     private StatusBar.StatusEntry noPowerStatusEntry;
 
+    private bool ignoreControlWheel = true;
+
     private void Awake()
     {
         Instance = this;
@@ -65,6 +67,8 @@ public class MainController : BaseSerialCommunication
     private IEnumerator RequestData()
     {
         yield return new WaitForSeconds(1f);
+
+        ignoreControlWheel = false;
 
         if (!IsConnected())
             yield break;
@@ -155,15 +159,19 @@ public class MainController : BaseSerialCommunication
                 OnTrunkOpened?.Invoke(false);
                 break;
             case "cwu":
+                if (ignoreControlWheel) return;
                 OnControlwheelChanged?.Invoke(1);
                 break;
             case "cwd":
+                if (ignoreControlWheel) return;
                 OnControlwheelChanged?.Invoke(-1);
                 break;
             case "cwbd":
+                if (ignoreControlWheel) return;
                 OnControlwheelButton?.Invoke(true);
                 break;
             case "cwbu":
+                if (ignoreControlWheel) return;
                 OnControlwheelButton?.Invoke(false);
                 break;
         }
