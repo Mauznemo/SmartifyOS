@@ -73,12 +73,6 @@ public class LiveDataController : BaseLiveSerialCommunication
         Debug.Log("Live controller connected: " + IsConnected());
     }
 
-    private void Update()
-    {
-        //REMOVE THIS LATER
-        DetermineDrivingState();
-    }
-
     private void OnDestroy()
     {
         StopSerialThread();
