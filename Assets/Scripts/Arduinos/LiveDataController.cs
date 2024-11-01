@@ -104,7 +104,7 @@ public class LiveDataController : BaseLiveSerialCommunication
             {
                 string[] values = message.Split('_');
 
-                float rpmRaw = float.Parse(values[0], CultureInfo.InvariantCulture) * 1000f;
+                float rpmRaw = float.Parse(values[0], CultureInfo.InvariantCulture);
                 float speedKmhRaw = float.Parse(values[1], CultureInfo.InvariantCulture);
                 float steeringWheelAngleRaw = float.Parse(values[2], CultureInfo.InvariantCulture);
 
@@ -135,7 +135,7 @@ public class LiveDataController : BaseLiveSerialCommunication
                 }
 
                 infoDisplay.SetFirstText(GetRemappedSpeed(speedKmh), "km/h", "0");
-                infoDisplay.SetSecondText(rpm / 1000f, "K RPM", "0.00");
+                infoDisplay.SetSecondText(rpm, " RPM", "0000");
             }
             catch (Exception)
             {

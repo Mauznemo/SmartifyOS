@@ -13,9 +13,9 @@ public class InfoDisplay : MonoBehaviour, IPointerClickHandler
     private float firstValue;
     private float secondValue;
     private string firstExtension = "km/h";
-    private string secondExtension = "K RPM";
+    private string secondExtension = " RPM";
     private string firstFormat = "0";
-    private string secondFormat = "0.00";
+    private string secondFormat = "0000";
 
     private bool isMain = true;
 
