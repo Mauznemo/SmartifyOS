@@ -117,16 +117,21 @@ public class LiveDataController : BaseLiveSerialCommunication
                     }
                 }
 
-                _rpm = rpmRaw;
-                rpm = GetSmoothedRpm();
-                _steeringWheelAngle = -steeringWheelAngleRaw;
-                steeringWheelAngle = GetSteeringWheelAngle();
-                wheelAngle = steeringWheelAngle / 15f;
+                if (rpmRaw < 8000) //Filter out invalid values
+                {
+                    _rpm = rpmRaw;
+                    rpm = GetSmoothedRpm();
+                }
 
                 if (rpm > highestRpm)
                 {
                     highestRpm = rpm;
                 }
+
+                _steeringWheelAngle = -steeringWheelAngleRaw;
+                steeringWheelAngle = GetSteeringWheelAngle();
+                wheelAngle = steeringWheelAngle / 15f;
+
 
                 infoDisplay.SetFirstText(GetRemappedSpeed(speedKmh), "km/h", "0");
                 infoDisplay.SetSecondText(rpm, " RPM", "0000");
