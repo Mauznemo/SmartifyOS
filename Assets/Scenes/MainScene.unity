@@ -1569,6 +1569,7 @@ MonoBehaviour:
   baudRate: 9600
   emulationMode: 0
   lightOnIconSprite: {fileID: 21300000, guid: 7c536c3322895954c95d114305537088, type: 3}
+  drlOnIconSprite: {fileID: 21300000, guid: 1b4068127b2470240bf4ca60c9c9d7a0, type: 3}
 --- !u!4 &59105534
 Transform:
   m_ObjectHideFlags: 0
@@ -2966,7 +2967,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 1802211}
+  m_AnchoredPosition: {x: 0, y: 1839278}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &158427254
@@ -19467,7 +19468,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 2037778.8}
+  m_AnchoredPosition: {x: 0, y: 2083923.1}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1171074961
@@ -32897,7 +32898,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 1451167.6}
+  m_AnchoredPosition: {x: 0, y: 1509023.4}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1887336914
