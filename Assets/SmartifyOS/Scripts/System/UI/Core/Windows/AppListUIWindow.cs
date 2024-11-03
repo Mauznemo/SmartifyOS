@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using SmartifyOS.Linux;
 using SmartifyOS.UI;
@@ -12,12 +13,13 @@ public class AppListUIWindow : BaseUIWindow
     [SerializeField] private IconButton androidAutoButton;
 
     //For controlwheel
-    [SerializeField] private IconButton[] buttons;
+    [SerializeField] private List<IconButton> buttons = new List<IconButton>();
     private Outline[] buttonOutlines;
     private int selectedButton = -1;
 
     private void Awake()
     {
+        buttons = GetComponentsInChildren<IconButton>().ToList();
         buttonOutlines = buttons.Select(x => x.GetComponent<Outline>()).ToArray();
 
         androidAutoButton.onClick += () => { RunLinuxShellScript.Run("~/SmartifyOS/Scripts/StartAndroidAuto.sh"); };
@@ -53,7 +55,7 @@ public class AppListUIWindow : BaseUIWindow
         if (ControlwheelManager.GetMode() != ControlwheelManager.Mode.AppList)
         { return; }
 
-        if (selectedButton < 0 || selectedButton >= buttons.Length)
+        if (selectedButton < 0 || selectedButton >= buttons.Count)
         {
             ControlwheelManager.SetDefaultMode();
             Hide();
@@ -69,7 +71,7 @@ public class AppListUIWindow : BaseUIWindow
         if (ControlwheelManager.GetMode() != ControlwheelManager.Mode.AppList)
         { return; }
 
-        selectedButton = (selectedButton + dir + buttons.Length) % buttons.Length;
+        selectedButton = (selectedButton + dir + buttons.Count) % buttons.Count;
 
         for (int i = 0; i < buttonOutlines.Length; i++)
         {
