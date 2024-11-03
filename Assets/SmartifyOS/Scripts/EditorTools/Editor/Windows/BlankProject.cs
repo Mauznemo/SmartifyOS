@@ -62,7 +62,7 @@ namespace SmartifyOS.Editor
             GUILayout.Space(20);
 
             GUI.color = Color.red;
-            GUILayout.Label($"If you modified any example file or object it wile also be removed!", EditorStyles.boldLabel);
+            GUILayout.Label($"If you modified any example file or object it will still be removed!", EditorStyles.boldLabel);
             GUI.color = Color.white;
 
             GUILayout.FlexibleSpace();
