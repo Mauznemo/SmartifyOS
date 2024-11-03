@@ -123,9 +123,20 @@ namespace SmartifyOS.Editor
                 allowAutoOpen = false;
             }", "//Auto removed by blank project creator");
 
+            ReplaceTextInFile("Assets/SmartifyOS/Scripts/System/UI/Components/MediaPlayer/Bluetooth/BluetoothPlayer.cs", @"if (window.IsWindowOfType(typeof(InteriorUIWindow)))
+            {
+                Show();
+                allowAutoOpen = true;
+            }", "//Auto removed by blank project creator");
+
             ReplaceTextInFile("Assets/SmartifyOS/Scripts/System/UI/Components/MediaPlayer/Files/FilePlayer.cs", @"if (window.IsWindowOfType(typeof(InteriorUIWindow)))
             {
                 Hide(true);
+            }", "//Auto removed by blank project creator");
+
+            ReplaceTextInFile("Assets/SmartifyOS/Scripts/System/UI/Components/MediaPlayer/Files/FilePlayer.cs", @"if (window.IsWindowOfType(typeof(InteriorUIWindow)))
+            {
+                Show();
             }", "//Auto removed by blank project creator");
 
             filesCleared = true;
