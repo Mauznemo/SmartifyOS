@@ -84,6 +84,15 @@ namespace SmartifyOS.Editor
 
             GUILayout.FlexibleSpace();
 
+            if (pageIndex == 3)
+            {
+                if (GUILayout.Button(" Start with Blank Project", buttonStyle, GUILayout.Width(220), GUILayout.Height(40)))
+                {
+                    pageIndex++;
+                    BlankProject.ShowWindow();
+                }
+            }
+
             if (GUILayout.Button(buttonText, buttonStyle, GUILayout.Width(200), GUILayout.Height(40)))
             {
                 pageIndex++;
