@@ -10,6 +10,9 @@ using UnityEngine.UI;
 
 public class AppListUIWindow : BaseUIWindow
 {
+    public event Action OnShown;
+    public event Action OnHidden;
+
     [SerializeField] private IconButton androidAutoButton;
 
     //For controlwheel
@@ -28,54 +31,50 @@ public class AppListUIWindow : BaseUIWindow
     private void Start()
     {
         Init();
-
-        ControlwheelManager.OnButtonPressed += ControlwheelManager_OnButtonPressed;
-        ControlwheelManager.OnChanged += ControlwheelManager_OnChanged;
     }
 
     protected override void OnShow()
     {
+        OnShown?.Invoke();
+
         for (int i = 0; i < buttonOutlines.Length; i++)
         {
             buttonOutlines[i].enabled = false;
         }
 
         selectedButton = -1;
-
-        ControlwheelManager.SetMode(ControlwheelManager.Mode.AppList);
     }
 
     protected override void OnHide()
     {
-        ControlwheelManager.SetDefaultMode();
+        OnHidden?.Invoke();
     }
 
-    private void ControlwheelManager_OnButtonPressed()
+    /// <summary>
+    /// Scroll though the app list (useful for external input devices like a rotary encoder)
+    /// </summary>
+    /// <param name="dir">Scroll direction</param>
+    public void Scroll(int dir)
     {
-        if (ControlwheelManager.GetMode() != ControlwheelManager.Mode.AppList)
-        { return; }
-
-        if (selectedButton < 0 || selectedButton >= buttons.Count)
-        {
-            ControlwheelManager.SetDefaultMode();
-            Hide();
-            return;
-        }
-
-        ControlwheelManager.SetDefaultMode();
-        buttons[selectedButton].TriggerClick();
-    }
-
-    private void ControlwheelManager_OnChanged(int dir)
-    {
-        if (ControlwheelManager.GetMode() != ControlwheelManager.Mode.AppList)
-        { return; }
-
         selectedButton = (selectedButton + dir + buttons.Count) % buttons.Count;
 
         for (int i = 0; i < buttonOutlines.Length; i++)
         {
             buttonOutlines[i].enabled = i == selectedButton;
         }
+    }
+
+    /// <summary>
+    /// Press the selected button (Change selected with <see cref="Scroll"/>)
+    /// </summary>
+    public void Press()
+    {
+        if (selectedButton < 0 || selectedButton >= buttons.Count)
+        {
+            Hide();
+            return;
+        }
+
+        buttons[selectedButton].TriggerClick();
     }
 }

@@ -106,7 +106,6 @@ namespace SmartifyOS.Editor
                 return;
 
             File.Move("Assets/Scripts/UI/UIManager.cs", "Assets/UIManager.cs.bak");
-            File.Move("Assets/Scripts/ControlwheelManager.cs", "Assets/ControlwheelManager.cs.bak");
             File.Move("Assets/Scripts/UI/InfoDisplay.cs", "Assets/InfoDisplay.cs.bak");
 
             DeleteFilesInFolder("Assets/Scripts");
@@ -117,7 +116,6 @@ namespace SmartifyOS.Editor
 
             File.Move("Assets/UIManager.cs.bak", "Assets/Scripts/UI/UIManager.cs");
             File.Move("Assets/InfoDisplay.cs.bak", "Assets/Scripts/UI/InfoDisplay.cs");
-            File.Move("Assets/ControlwheelManager.cs.bak", "Assets/Scripts/ControlwheelManager.cs");
 
             filesCleared = true;
 

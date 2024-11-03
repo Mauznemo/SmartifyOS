@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class ControlwheelManager : MonoBehaviour
 {
+    [SerializeField] private AppListUIWindow appListUIWindow;
+
     public static event Action<int> OnChanged;
     public static event Action OnButtonPressed;
 
@@ -19,6 +21,9 @@ public class ControlwheelManager : MonoBehaviour
     {
         MainController.OnControlwheelChanged += OnControlwheelChanged;
         MainController.OnControlwheelButton += OnControlwheelButton;
+
+        appListUIWindow.OnShown += () => { SetMode(Mode.AppList); };
+        appListUIWindow.OnHidden += () => { SetDefaultMode(); };
     }
 
     private void OnControlwheelButton(bool pressed)
@@ -47,6 +52,12 @@ public class ControlwheelManager : MonoBehaviour
 
     private void OnControlwheelChanged(int dir)
     {
+        if (mode == Mode.AppList)
+        {
+            appListUIWindow.Scroll(dir);
+            return;
+        }
+
         switch (dir)
         {
             case 1:
@@ -87,6 +98,10 @@ public class ControlwheelManager : MonoBehaviour
                 {
                     UIManager.Instance.ShowUIWindow<AppListUIWindow>();
                 }
+                return;
+            case Mode.AppList:
+                appListUIWindow.Press();
+                SetDefaultMode();
                 return;
         }
 
