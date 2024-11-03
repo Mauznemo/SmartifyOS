@@ -91,6 +91,18 @@ public class LiveDataController : BaseLiveSerialCommunication
             if (message.Contains("time"))
             {
                 OnDateAndTime?.Invoke(message);
+
+                try
+                {
+                    if (StatusBar.isTimeSet)
+                        return;
+
+                    var timeAndDateData = JsonUtility.FromJson<TimeAndDateData>(message);
+                    StatusBar.SetSystemTime(ConvertToDateTime(timeAndDateData));
+                }
+                catch (Exception)
+                { }
+
                 return;
             }
 
@@ -250,5 +262,22 @@ public class LiveDataController : BaseLiveSerialCommunication
         }
 
         return weightedSum / weightTotal;
+    }
+
+    public static DateTime ConvertToDateTime(TimeAndDateData timeAndDateData)
+    {
+        if (timeAndDateData == null || timeAndDateData.time == null || timeAndDateData.date == null)
+        {
+            throw new ArgumentNullException("TimeAndDateData or its components cannot be null.");
+        }
+
+        return new DateTime(
+            timeAndDateData.date.y,
+            timeAndDateData.date.m,
+            timeAndDateData.date.d,
+            timeAndDateData.time.h,
+            timeAndDateData.time.m,
+            timeAndDateData.time.s
+        );
     }
 }

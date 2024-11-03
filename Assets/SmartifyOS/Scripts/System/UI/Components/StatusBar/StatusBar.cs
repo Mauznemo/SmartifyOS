@@ -23,29 +23,20 @@ namespace SmartifyOS.StatusBar
 
         [SerializeField] private TMP_Text timeText;
 
-        private bool timeSet;
+        public static bool isTimeSet { get; private set; }
 
         private void Start()
         {
-            //TODO: Decuple this from the example project
-            LiveDataController.OnDateAndTime += LiveDataController_OnDateAndTime;
-
             InvokeRepeating(nameof(UpdateTime), 0f, 5f);
         }
 
-        private void LiveDataController_OnDateAndTime(string jsonString)
+        /// <summary>
+        /// Sets the system time and date
+        /// </summary>
+        /// <param name="dateTime">DateTime to set to</param>
+        public static void SetSystemTime(DateTime dateTime)
         {
-            if (timeSet)
-                return;
-
-            try
-            {
-                var timeAndDateData = JsonUtility.FromJson<TimeAndDateData>(jsonString);
-
-                SetTime(ConvertToDateTime(timeAndDateData));
-            }
-            catch (Exception)
-            { }
+            Instance.SetTime(dateTime);
         }
 
         private async void SetTime(DateTime dateTime)
@@ -60,35 +51,18 @@ namespace SmartifyOS.StatusBar
             await LinuxCommand.RunAsync(setDateCommand);
             await LinuxCommand.RunAsync(setTimeCommand);
 
-            timeSet = true;
+            isTimeSet = true;
         }
 
         private void UpdateTime()
         {
-            if (!timeSet) { return; }
+            if (!isTimeSet) { return; }
 
             DateTime currentTime = DateTime.Now;
 
             string formattedTime = currentTime.ToString("HH:mm");
 
             timeText.text = formattedTime;
-        }
-
-        public static DateTime ConvertToDateTime(TimeAndDateData timeAndDateData)
-        {
-            if (timeAndDateData == null || timeAndDateData.time == null || timeAndDateData.date == null)
-            {
-                throw new ArgumentNullException("TimeAndDateData or its components cannot be null.");
-            }
-
-            return new DateTime(
-                timeAndDateData.date.y,
-                timeAndDateData.date.m,
-                timeAndDateData.date.d,
-                timeAndDateData.time.h,
-                timeAndDateData.time.m,
-                timeAndDateData.time.s
-            );
         }
 
         /// <summary>
