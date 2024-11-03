@@ -117,6 +117,17 @@ namespace SmartifyOS.Editor
             File.Move("Assets/UIManager.cs.bak", "Assets/Scripts/UI/UIManager.cs");
             File.Move("Assets/InfoDisplay.cs.bak", "Assets/Scripts/UI/InfoDisplay.cs");
 
+            ReplaceTextInFile("Assets/SmartifyOS/Scripts/System/UI/Components/MediaPlayer/Bluetooth/BluetoothPlayer.cs", @"if (window.IsWindowOfType(typeof(InteriorUIWindow)))
+            {
+                Hide(true);
+                allowAutoOpen = false;
+            }", "//Auto removed by blank project creator");
+
+            ReplaceTextInFile("Assets/SmartifyOS/Scripts/System/UI/Components/MediaPlayer/Files/FilePlayer.cs", @"if (window.IsWindowOfType(typeof(InteriorUIWindow)))
+            {
+                Hide(true);
+            }", "//Auto removed by blank project creator");
+
             filesCleared = true;
 
             AssetDatabase.Refresh();
@@ -179,6 +190,27 @@ namespace SmartifyOS.Editor
                     return false;
             }
             return true;
+        }
+
+        private void ReplaceTextInFile(string path, string search, string replace)
+        {
+            if (File.Exists(path))
+            {
+                string content = File.ReadAllText(path);
+                if (content.Contains(search))
+                {
+                    content = content.Replace(search, replace);
+                    File.WriteAllText(path, content);
+                }
+                else
+                {
+                    Debug.LogWarning($"Search text '{search}' not found in {path}");
+                }
+            }
+            else
+            {
+                Debug.LogError($"File not found at path: {path}");
+            }
         }
     }
 
