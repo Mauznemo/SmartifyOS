@@ -2967,7 +2967,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 1839278}
+  m_AnchoredPosition: {x: 0, y: 1976880.9}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &158427254
@@ -7330,7 +7330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: Notifications
   _interactable: 1
-  pageToOpen: {fileID: 7838875369258756178}
+  pageToOpen: {fileID: 0}
   normalColor: {r: 1, g: 1, b: 1, a: 0.133}
   disabledColor: {r: 0, g: 0, b: 0, a: 0.31}
   label: {fileID: 354926160}
@@ -16230,6 +16230,89 @@ RectTransform:
   m_AnchoredPosition: {x: 25.3496, y: 0}
   m_SizeDelta: {x: -50.6982, y: -0.161}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &952877261
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 952877263}
+  - component: {fileID: 952877262}
+  m_Layer: 0
+  m_Name: BlankProjectReferences
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &952877262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952877261}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fc4464147b80234e92dce7ae8012df3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsToRemove:
+  - {fileID: 2055910437}
+  - {fileID: 588304615}
+  - {fileID: 1814442715}
+  - {fileID: 1568064065}
+  - {fileID: 1362005988}
+  - {fileID: 171204181}
+  - {fileID: 59105532}
+  - {fileID: 1400581318}
+  - {fileID: 83840468}
+  - {fileID: 351833481}
+  - {fileID: 1252930571}
+  - {fileID: 1903291149}
+  - {fileID: 4916566292581741370}
+  - {fileID: 947119890}
+  - {fileID: 48730311}
+  - {fileID: 6871014669773019845}
+  - {fileID: 190346231}
+  - {fileID: 1194363946}
+  - {fileID: 749113348}
+  - {fileID: 2085169037}
+  - {fileID: 5972535977154069955}
+  - {fileID: 1398101625}
+  - {fileID: 925625683}
+  - {fileID: 1781323244}
+  - {fileID: 1612675891}
+  - {fileID: 2504204292920934402}
+  - {fileID: 788891778}
+  - {fileID: 1003421232}
+  - {fileID: 8465809460733708760}
+  - {fileID: 1182422820}
+  - {fileID: 1088613018}
+  - {fileID: 2110281700530465588}
+  - {fileID: 1571215804}
+  - {fileID: 1189497937}
+  - {fileID: 423504605}
+  - {fileID: 1631930975}
+  - {fileID: 623656692}
+  - {fileID: 7838875369258756177}
+--- !u!4 &952877263
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 952877261}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &965809087
 GameObject:
   m_ObjectHideFlags: 0
@@ -19468,7 +19551,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 2083923.1}
+  m_AnchoredPosition: {x: 0, y: 2254735}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1171074961
@@ -32898,7 +32981,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 1509023.4}
+  m_AnchoredPosition: {x: 0, y: 1722589.8}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1887336914
@@ -49450,8 +49533,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3023056009092688379}
-  - component: {fileID: 7838875369258756178}
   - component: {fileID: 5158740087918521475}
+  - component: {fileID: 7838875369258756178}
   m_Layer: 5
   m_Name: NotificationsPage
   m_TagString: Untagged
@@ -49468,7 +49551,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 7838875369258756177}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c0658e1efaab5fb81bf8bc0b4dc3aceb, type: 3}
+  m_Script: {fileID: 11500000, guid: 101142c72a45be34d9bd99136a3a63be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   disableOnStart: 1
@@ -52272,3 +52355,4 @@ SceneRoots:
   - {fileID: 354501043}
   - {fileID: 255798266}
   - {fileID: 21473247}
+  - {fileID: 952877263}

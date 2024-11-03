@@ -9,8 +9,6 @@ namespace SmartifyOS.SaveSystem
         public InteriorLighting interiorLighting;
         public Popups popups;
         public Camera camera;
-        public Timezone timezone;
-        public Notifications notifications = new Notifications();
     }
 
     public struct Statistics
@@ -41,16 +39,9 @@ namespace SmartifyOS.SaveSystem
         public bool autoFullscreen;
     }
 
-    public struct Timezone
-    {
-        public int hourOffset;
-        public int minuteOffset;
-    }
-
-    public class Notifications
+    public partial class Notifications
     {
         public bool doorWarningWhenDriving = true;
         public bool trunkWarningWhenDriving = true;
-        public bool ignoreErrors;
     }
 }
