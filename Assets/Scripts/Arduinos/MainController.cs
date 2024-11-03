@@ -102,7 +102,7 @@ public class MainController : BaseSerialCommunication
                 //check if there was rpm before if so shutdown instantly
                 if (LiveDataController.highestRpm > 1)
                 {
-                    StartCoroutine(WaitForPowerRestore(0.8f, false));
+                    StartCoroutine(WaitForPowerRestore(1f, false));
                 }
                 else
                 {
@@ -242,12 +242,12 @@ public class MainController : BaseSerialCommunication
         //LeanTween.alphaCanvas(canvasGroup, 1, 0.5f);
         logoScreen.ShowScreen();
 
-        Invoke(nameof(Shutdown), 0.7f);
+        Invoke(nameof(Shutdown), 2f);
     }
 
     private void Shutdown()
     {
-        string s = LinuxCommand.Run("sudo sleep 5s; sudo shutdown -h now");
+        string s = LinuxCommand.Run("sudo sleep 1s; sudo shutdown -h now");
         Application.Quit();
     }
 
