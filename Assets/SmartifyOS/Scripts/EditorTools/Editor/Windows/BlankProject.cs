@@ -50,7 +50,7 @@ namespace SmartifyOS.Editor
                 return;
             }
 
-            GUILayout.Label("What you want to remove from the project?");
+            GUILayout.Label("What do you want to remove from the project?");
 
             GUI.enabled = !sceneCleared;
             removeSceneObjects = GUILayout.Toggle(removeSceneObjects, new GUIContent("Remove Scene Objects", "All objects that are specific for the included example (Mazda Miata NA) will be removed from the scene."));
