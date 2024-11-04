@@ -68,7 +68,7 @@ namespace SmartifyOS.Editor
 
             GUI.color = Color.red;
             if (removeScriptFiles)
-                GUILayout.Label($"ALL files, including ones created by you, in Assets/Scripts and Assets/ScriptableObjects will be removed!", boldWordWrappedStyle);
+                GUILayout.Label($"ALL files, including ones created by you, in Assets/Scripts will be removed!", boldWordWrappedStyle);
             if (removeSceneObjects)
                 GUILayout.Label($"If you modified any of the example game objects, they will still be removed!", boldWordWrappedStyle);
             GUI.color = Color.white;
@@ -117,7 +117,6 @@ namespace SmartifyOS.Editor
             File.Move("Assets/Scripts/UI/InfoDisplay.cs", "Assets/InfoDisplay.cs.bak");
 
             DeleteFilesInFolder("Assets/Scripts");
-            DeleteFilesInFolder("Assets/ScriptableObjects");
 
             if (!Directory.Exists("Assets/Scripts/UI/"))
                 Directory.CreateDirectory("Assets/Scripts/UI/");
