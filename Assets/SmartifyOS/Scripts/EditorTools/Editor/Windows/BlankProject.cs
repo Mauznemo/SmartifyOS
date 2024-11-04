@@ -61,14 +61,22 @@ namespace SmartifyOS.Editor
 
             GUILayout.Space(20);
 
+            var boldWordWrappedStyle = new GUIStyle(EditorStyles.boldLabel)
+            {
+                wordWrap = true
+            };
+
             GUI.color = Color.red;
-            GUILayout.Label($"If you modified any example file or object it will still be removed!", EditorStyles.boldLabel);
+            if (removeScriptFiles)
+                GUILayout.Label($"ALL files, including ones created by you, in Assets/Scripts and Assets/ScriptableObjects will be removed!", boldWordWrappedStyle);
+            if (removeSceneObjects)
+                GUILayout.Label($"If you modified any of the example game objects, they will still be removed!", boldWordWrappedStyle);
             GUI.color = Color.white;
 
             GUILayout.FlexibleSpace();
             understood = GUILayout.Toggle(understood, "I read and understand the red text");
 
-            GUI.enabled = understood;
+            GUI.enabled = understood && (!sceneCleared || !filesCleared) && (removeSceneObjects || removeScriptFiles);
 
             if (GUILayout.Button("Remove", Style.Button, GUILayout.Height(30)))
             {
