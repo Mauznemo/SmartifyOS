@@ -45,17 +45,17 @@ Since SmartifyOS is still in the development phase there will probably be cases 
 
 
 ### Build:
-| Platform          | Supported                  |
-| ----------------- | -------------------------- |
-| Windows           | no                         |
-| Linux Ubuntu x86  | yes                        |
-| Linux Debian LXDE | yes                        |
-| Linux Arm         | not tested (will be added) |
-| Other Linux       | not tested                 |
+| Platform          | Supported                    |
+| ----------------- | ---------------------------- |
+| Windows           | no                           |
+| Linux Ubuntu x86  | yes                          |
+| Linux Debian LXDE | yes                          |
+| Linux Arm         | no (will hopefully be added) |
+| Other Linux       | not tested                   |
 
 ## Installation (Editor)
 
-### For contribution (modifying code)
+### For contribution:
 
 If you want to contribute to this project by for example fixing a bug or adding a feature install it like this:
 
