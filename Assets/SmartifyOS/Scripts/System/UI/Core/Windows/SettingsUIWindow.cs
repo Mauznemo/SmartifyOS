@@ -1,29 +1,25 @@
+using System.Collections;
 using SmartifyOS.UI;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class SettingsUIWindow : BaseUIWindow
 {
+    [SerializeField] private ScrollRect scrollRect;
+
     private void Start()
     {
         Init();
     }
 
-    protected override void HandleWindowOpened(BaseUIWindow window)
+    protected override void OnShow()
     {
-        //Add all windows that should hide this window when they open
-        //if (window.IsWindowOfType(typeof(UIWindow1), typeof(UIWindow2)))
-        //{
-        //    Hide(true);
-        //}
+        StartCoroutine(SetScrollPositionAfterLayout());
     }
 
-    protected override void HandleWindowClosed(BaseUIWindow window)
+    IEnumerator SetScrollPositionAfterLayout()
     {
-        if(!wasOpen) { return; }
-
-        //Add all windows that should trigger this window to reopen when they close
-        //if (window.IsWindowOfType(typeof(UIWindow1), typeof(UIWindow2)))
-        //{
-        //    Show();
-        //}
+        yield return null;
+        scrollRect.verticalNormalizedPosition = 1f;
     }
 }

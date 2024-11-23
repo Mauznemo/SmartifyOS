@@ -7330,7 +7330,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   text: Notifications
   _interactable: 1
-  pageToOpen: {fileID: 0}
+  pageToOpen: {fileID: 7838875369258756178}
   normalColor: {r: 1, g: 1, b: 1, a: 0.133}
   disabledColor: {r: 0, g: 0, b: 0, a: 0.31}
   label: {fileID: 354926160}
@@ -15822,6 +15822,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0249187beb9ceb87fa0d3998c3002ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scrollRect: {fileID: 1106145060}
 --- !u!114 &927539394
 MonoBehaviour:
   m_ObjectHideFlags: 0
