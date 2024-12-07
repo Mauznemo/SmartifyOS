@@ -36,8 +36,6 @@ public class MainController : BaseSerialCommunication
 
     public static bool systemPower = true;
 
-    [SerializeField] private LogoScreen logoScreen;
-
     [SerializeField] private Sprite noPowerIconSprite;
 
     private bool cancelShutdown;
@@ -60,6 +58,8 @@ public class MainController : BaseSerialCommunication
 
         noPowerStatusEntry = StatusBar.AddStatus(noPowerIconSprite);
         noPowerStatusEntry.Hide();
+
+        SystemManager.OnPowerOff += SystemManager_OnPowerOff;
 
         StartCoroutine(RequestData());
     }
@@ -183,7 +183,7 @@ public class MainController : BaseSerialCommunication
     public void AcceptShutdown()
     {
         cancelShutdown = true;
-        ShutdownSystem();
+        SystemManager.Instance.ShutdownSystem();
     }
 
     public void CancelShutdown()
@@ -207,7 +207,7 @@ public class MainController : BaseSerialCommunication
         else
         {
             if (!systemPower)
-                ShutdownSystem();
+                SystemManager.Instance.ShutdownSystem();
         }
 
     }
@@ -228,28 +228,18 @@ public class MainController : BaseSerialCommunication
             yield return null;
         }
 
-        ShutdownSystem();
+        SystemManager.Instance.ShutdownSystem();
     }
 
-    private void ShutdownSystem()
+    private void SystemManager_OnPowerOff()
     {
         if (SaveManager.Load().popups.autoCloseOnPowerOff)
         {
             LightController.Instance.Down();
         }
-        SaveManager.Save();
         Send("off");
-        //LeanTween.alphaCanvas(canvasGroup, 1, 0.5f);
-        logoScreen.ShowScreen();
-
-        Invoke(nameof(Shutdown), 2f);
     }
 
-    private void Shutdown()
-    {
-        string s = LinuxCommand.Run("sudo sleep 1s; sudo shutdown -h now");
-        Application.Quit();
-    }
 
     #endregion
 

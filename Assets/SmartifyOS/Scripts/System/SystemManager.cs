@@ -14,15 +14,24 @@ namespace SmartifyOS
     {
         public static SystemManager Instance { get; private set; }
 
+
         private void Awake()
         {
             Instance = this;
+            if (showLogoOnPowerOn)
+                logoScreen.ShowScreenFor(1f);
         }
 
         public static Action<string> OnUpdateAvailable;
+        public static event Action OnPowerOff;
+
+        public bool showLogoOnPowerOn;
+        public bool showLogoOnPowerOff = true;
 
         [SerializeField] private bool saveButton;
         [SerializeField] private bool scanButton;
+
+        [SerializeField] private LogoScreen logoScreen;
 
         private bool locked = false;
         private string updatePath;
@@ -83,6 +92,22 @@ namespace SmartifyOS
             }
 
             RunLinuxShellScript.RunWithWindow("~/SmartifyOS/Scripts/AutoUpdate.sh", updatePath);
+            Application.Quit();
+        }
+
+        public void ShutdownSystem()
+        {
+            SaveManager.Save();
+            OnPowerOff?.Invoke();
+            if (showLogoOnPowerOff)
+                logoScreen.ShowScreen();
+
+            Invoke(nameof(Shutdown), 2f);
+        }
+
+        private void Shutdown()
+        {
+            string s = LinuxCommand.Run("sudo sleep 1s; sudo shutdown -h now");
             Application.Quit();
         }
 
