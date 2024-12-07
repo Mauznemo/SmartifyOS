@@ -66,6 +66,12 @@ namespace SmartifyOS.Editor.Styles
                 return popupStyle;
             }
         }
+
+        public static GUIStyle Box => new GUIStyle(GUI.skin.box)
+        {
+            margin = new RectOffset(5, 5, 10, 10),
+            padding = new RectOffset(5, 5, 5, 5)
+        };
     }
 
 }

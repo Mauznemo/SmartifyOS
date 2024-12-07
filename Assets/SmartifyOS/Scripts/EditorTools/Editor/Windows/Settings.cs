@@ -1,12 +1,19 @@
 using System;
+using SmartifyOS.Editor.Styles;
+using SmartifyOS.SerialCommunication;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace SmartifyOS.Editor
 {
     public class Settings : EditorWindow
     {
-        private Tab currentTab = Tab.General;
+        private Tab currentTab = Tab.Project;
+
+        private GameObject vehicleParent;
+        private BaseSerialCommunication[] serialScripts;
+        private SystemManager systemManager;
 
         [MenuItem("SmartifyOS/Settings")]
         public static void ShowWindow()
@@ -17,14 +24,22 @@ namespace SmartifyOS.Editor
 
         private enum Tab
         {
-            General,
-            Test,
+            Project,
+            Communication,
             Help
+        }
+
+        private void OnEnable()
+        {
+            vehicleParent = GameObject.Find("VehicleParent");
+            serialScripts = GameObject.FindObjectsByType<BaseSerialCommunication>(FindObjectsSortMode.None);
+            systemManager = FindFirstObjectByType<SystemManager>();
         }
 
         private void OnGUI()
         {
             DrawTabBar();
+            GUILayout.Space(10);
             DrawActivePage();
         }
 
@@ -32,11 +47,11 @@ namespace SmartifyOS.Editor
         {
             switch (currentTab)
             {
-                case Tab.General:
-                    DrawGeneralPage();
+                case Tab.Project:
+                    DrawProjectPage();
                     break;
-                case Tab.Test:
-                    DrawTestPage();
+                case Tab.Communication:
+                    DrawCommunicationPage();
                     break;
                 case Tab.Help:
                     DrawHelpPage();
@@ -45,14 +60,59 @@ namespace SmartifyOS.Editor
         }
 
         #region Pages
-        private void DrawGeneralPage()
+        private void DrawProjectPage()
         {
-            GUILayout.Label("General Page");
+            string currentVehicle = "None";
+            if (vehicleParent.transform.childCount > 0)
+            {
+                currentVehicle = vehicleParent.transform.GetChild(0).name;
+            }
+            BeginColorBox();
+            GUILayout.Label("Current Vehicle: " + currentVehicle);
+            GUI.enabled = vehicleParent.transform.childCount > 0;
+            if (GUILayout.Button("Remove", GUILayout.MaxWidth(100)))
+            {
+                Undo.DestroyObjectImmediate(vehicleParent.transform.GetChild(0).gameObject);
+                EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            }
+            GUI.enabled = true;
+            EndColorBox();
+
+            BeginColorBox();
+            GUILayout.Label("Show SmartifyOS Logo on Startup");
+            systemManager.showLogoOnPowerOn = ToggleButton(systemManager.showLogoOnPowerOn, true);
+            EndColorBox();
+
+            BeginColorBox();
+            GUILayout.Label("Show SmartifyOS Logo on Power Off");
+            systemManager.showLogoOnPowerOff = ToggleButton(systemManager.showLogoOnPowerOff, true);
+            EndColorBox();
+
         }
 
-        private void DrawTestPage()
+        private void DrawCommunicationPage()
         {
-            GUILayout.Label("Test Page");
+            GUILayout.Label("Serial Communication Scripts", EditorStyles.boldLabel);
+
+            if (serialScripts.Length == 0)
+            {
+                GUILayout.Label("No serial communication scripts found.");
+                GUILayout.Space(5);
+            }
+
+            foreach (var item in serialScripts)
+            {
+                BeginColorBox();
+                GUILayout.Label(item.name);
+
+                if (GUILayout.Button("Select", GUILayout.MaxWidth(100)))
+                {
+                    Selection.activeGameObject = item.gameObject;
+                }
+                EndColorBox();
+            }
+
+            GUILayout.Label("To communicate with serial deices like Arduinos right click in the project browser in the place where you want to create the new script. Then click on Create > SmartifyOS > Serial Communication Script.", EditorStyles.wordWrappedLabel);
         }
 
         private void DrawHelpPage()
@@ -60,6 +120,29 @@ namespace SmartifyOS.Editor
             GUILayout.Label("Help Page");
         }
         #endregion
+
+        private bool ToggleButton(bool value, bool setSceneDirty = false)
+        {
+            if (GUILayout.Button(value ? "Enabled" : "Disabled", GUILayout.MaxWidth(100)))
+            {
+                if (setSceneDirty)
+                {
+                    EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+                }
+                return !value;
+            }
+            return value;
+        }
+
+        private void BeginColorBox()
+        {
+            GUILayout.BeginHorizontal(Style.Box, GUILayout.ExpandWidth(true));
+        }
+
+        private void EndColorBox()
+        {
+            GUILayout.EndHorizontal();
+        }
 
         private void DrawTabBar()
         {
