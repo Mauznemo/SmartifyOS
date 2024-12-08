@@ -68,8 +68,7 @@ namespace SmartifyOS.Editor
                     Donation();
                     break;
                 case 4:
-                    PlayerPrefs.SetInt("SmartifyOSWelcome", 1);
-                    PlayerPrefs.Save();
+                    EditorPrefs.SetInt("SmartifyOSWelcome", 1);
                     Close();
                     break;
             }
