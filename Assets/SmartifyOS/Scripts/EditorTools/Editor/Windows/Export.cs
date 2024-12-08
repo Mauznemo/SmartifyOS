@@ -12,7 +12,7 @@ namespace SmartifyOS.Editor
 {
     public class Export : EditorWindow
     {
-        [MenuItem("SmartifyOS/SmartifyOS Export")]
+        [MenuItem("SmartifyOS/Export", false, 2)]
         public static void ShowWindow()
         {
             var window = GetWindow<Export>("SmartifyOS Export");

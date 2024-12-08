@@ -21,7 +21,7 @@ namespace SmartifyOS.Editor
         private BaseUIWindow[] windows;
         private SystemManager systemManager;
 
-        [MenuItem("SmartifyOS/Settings")]
+        [MenuItem("SmartifyOS/Settings", false, 0)]
         public static void ShowWindow()
         {
             var window = GetWindow<Settings>("Settings");

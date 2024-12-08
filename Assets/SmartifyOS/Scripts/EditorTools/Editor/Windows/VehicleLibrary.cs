@@ -11,7 +11,7 @@ namespace SmartifyOS.Editor
 {
     public class VehicleLibrary : EditorWindow
     {
-        [MenuItem("SmartifyOS/Vehicle Library")]
+        [MenuItem("SmartifyOS/Vehicle Library", false, 100)]
         public static void ShowWindow()
         {
             var window = GetWindow<VehicleLibrary>("Vehicle Library");
