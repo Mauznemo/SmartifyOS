@@ -18,8 +18,6 @@ namespace SmartifyOS
         private void Awake()
         {
             Instance = this;
-            if (showLogoOnPowerOn)
-                logoScreen.ShowScreenFor(1f);
         }
 
         public static Action<string> OnUpdateAvailable;
@@ -39,6 +37,9 @@ namespace SmartifyOS
         private void Start()
         {
             SystemEventManager.SubscribeToEvent("SmartifyOS/Events/OnUsbDeviceConnected", OnUsbDeviceConnected);
+
+            if (showLogoOnPowerOn)
+                logoScreen.ShowScreenFor(1f, false);
         }
 
         private void OnUsbDeviceConnected(string content)

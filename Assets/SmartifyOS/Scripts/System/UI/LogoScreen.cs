@@ -20,9 +20,13 @@ public class LogoScreen : MonoBehaviour
         LeanTween.alphaCanvas(canvasGroup, 0, 0.5f).setEaseInOutSine();
     }
 
-    public void ShowScreenFor(float time)
+    public void ShowScreenFor(float time, bool fadeIn = true)
     {
-        LeanTween.alphaCanvas(canvasGroup, 1, time).setEaseInOutSine();
+        if (fadeIn)
+            ShowScreen();
+        else
+            canvasGroup.alpha = 1;
+
         Invoke(nameof(HideScreen), time);
     }
 }
