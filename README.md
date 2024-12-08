@@ -55,7 +55,7 @@ Since SmartifyOS is still in the development phase there will probably be cases 
 
 ## Installation (Editor)
 
-Test change to cause conflict
+You can also follow [this guide](https://smartify-os.com/setup) it will guide you through every step.
 
 ### For contribution:
 
