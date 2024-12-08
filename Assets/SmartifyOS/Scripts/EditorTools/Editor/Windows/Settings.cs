@@ -1,6 +1,7 @@
 using System;
 using SmartifyOS.Editor.Styles;
 using SmartifyOS.SerialCommunication;
+using SmartifyOS.StatusBar;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -119,7 +120,66 @@ namespace SmartifyOS.Editor
 
         private void DrawHelpPage()
         {
-            GUILayout.Label("Help Page");
+            GUILayout.Label("Finding Objects", EditorStyles.boldLabel);
+            BeginColorBox();
+            GUILayout.Label("Settings pages parent");
+
+            if (GUILayout.Button("Select", GUILayout.MaxWidth(100)))
+            {
+                Selection.activeGameObject = GameObject.Find("Settings").transform.Find("PagesScrollView/Viewport/Pages").gameObject;
+            }
+            EndColorBox();
+
+            BeginColorBox();
+            GUILayout.Label("Quick settings buttons parent");
+
+            if (GUILayout.Button("Select", GUILayout.MaxWidth(100)))
+            {
+                Selection.activeGameObject = FindFirstObjectByType<StatusBarDrag>().transform.Find("QuickSettings/Buttons").gameObject;
+            }
+            EndColorBox();
+
+            GUILayout.Label("Links", EditorStyles.boldLabel);
+
+            BeginColorBox();
+            GUILayout.Label("Documentation");
+
+            if (GUILayout.Button("Open", GUILayout.MaxWidth(100)))
+            {
+                Application.OpenURL("https://docs.smartify-os.com/");
+            }
+            EndColorBox();
+
+            BeginColorBox();
+            GUILayout.Label("Report a bug");
+
+            if (GUILayout.Button("Open", GUILayout.MaxWidth(100)))
+            {
+                Application.OpenURL("https://github.com/Mauznemo/SmartifyOS/issues");
+            }
+            EndColorBox();
+
+            BeginColorBox();
+            GUILayout.Label("Support the project");
+
+            if (GUILayout.Button("PayPal", GUILayout.MaxWidth(100)))
+            {
+                Application.OpenURL("https://www.paypal.com/donate/?hosted_button_id=BSPF2HUZRP7AN");
+            }
+            if (GUILayout.Button("GitHub Sponsor", GUILayout.MaxWidth(100)))
+            {
+                Application.OpenURL("https://github.com/sponsors/Mauznemo");
+            }
+            EndColorBox();
+
+            BeginColorBox();
+            GUILayout.Label("Discord Server");
+
+            if (GUILayout.Button("Join", GUILayout.MaxWidth(100)))
+            {
+                Application.OpenURL("https://discord.gg/dYf8zrVUHt");
+            }
+            EndColorBox();
         }
         #endregion
 
