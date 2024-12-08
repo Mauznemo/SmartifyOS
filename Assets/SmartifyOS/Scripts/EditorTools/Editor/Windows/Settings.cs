@@ -62,6 +62,7 @@ namespace SmartifyOS.Editor
         #region Pages
         private void DrawProjectPage()
         {
+            GUILayout.Label("Scene", EditorStyles.boldLabel);
             string currentVehicle = "None";
             if (vehicleParent.transform.childCount > 0)
             {
@@ -78,6 +79,7 @@ namespace SmartifyOS.Editor
             GUI.enabled = true;
             EndColorBox();
 
+            GUILayout.Label("Boot Screen", EditorStyles.boldLabel);
             BeginColorBox();
             GUILayout.Label("Show SmartifyOS Logo on Startup");
             systemManager.showLogoOnPowerOn = ToggleButton(systemManager.showLogoOnPowerOn, true);
