@@ -55,6 +55,8 @@ Since SmartifyOS is still in the development phase there will probably be cases 
 
 ## Installation (Editor)
 
+Test change to cause conflict
+
 ### For contribution:
 
 If you want to contribute to this project by for example fixing a bug or adding a feature install it like this:
