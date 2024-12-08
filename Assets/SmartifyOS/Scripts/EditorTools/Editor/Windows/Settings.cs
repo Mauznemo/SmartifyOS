@@ -14,6 +14,8 @@ namespace SmartifyOS.Editor
         private Tab currentTab = Tab.Project;
         private Vector2 scrollPos;
 
+        private bool autoCheckForUpdates = false;
+
         private GameObject vehicleParent;
         private BaseSerialCommunication[] serialScripts;
         private BaseUIWindow[] windows;
@@ -29,6 +31,7 @@ namespace SmartifyOS.Editor
         private enum Tab
         {
             Project,
+            Editor,
             Communication,
             Apps,
             Help
@@ -40,6 +43,8 @@ namespace SmartifyOS.Editor
             serialScripts = GameObject.FindObjectsByType<BaseSerialCommunication>(FindObjectsSortMode.None);
             windows = GameObject.FindObjectsByType<BaseUIWindow>(FindObjectsSortMode.None);
             systemManager = FindFirstObjectByType<SystemManager>();
+
+            autoCheckForUpdates = EditorPrefs.GetBool("AutoCheckForUpdates", false);
         }
 
         private void OnGUI()
@@ -57,6 +62,9 @@ namespace SmartifyOS.Editor
             {
                 case Tab.Project:
                     DrawProjectPage();
+                    break;
+                case Tab.Editor:
+                    DrawEditorPage();
                     break;
                 case Tab.Communication:
                     DrawCommunicationPage();
@@ -101,6 +109,18 @@ namespace SmartifyOS.Editor
             systemManager.showLogoOnPowerOff = ToggleButton(systemManager.showLogoOnPowerOff, true);
             EndColorBox();
 
+        }
+
+        private void DrawEditorPage()
+        {
+            GUILayout.Label("Editor Settings", EditorStyles.boldLabel);
+            BeginColorBox();
+            GUILayout.Label("Check for Updates on Startup (Experimental)");
+            autoCheckForUpdates = ToggleButton(autoCheckForUpdates, false, (value) =>
+            {
+                EditorPrefs.SetBool("AutoCheckForUpdates", value);
+            });
+            EndColorBox();
         }
 
         private void DrawCommunicationPage()
@@ -223,7 +243,7 @@ namespace SmartifyOS.Editor
         }
         #endregion
 
-        private bool ToggleButton(bool value, bool setSceneDirty = false)
+        private bool ToggleButton(bool value, bool setSceneDirty = false, Action<bool> onValueChanged = null)
         {
             if (GUILayout.Button(value ? "Enabled" : "Disabled", GUILayout.MaxWidth(100)))
             {
@@ -231,6 +251,7 @@ namespace SmartifyOS.Editor
                 {
                     EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
                 }
+                onValueChanged?.Invoke(!value);
                 return !value;
             }
             return value;

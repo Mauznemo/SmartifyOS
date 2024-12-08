@@ -19,11 +19,20 @@ namespace SmartifyOS.Editor
             if (!SessionState.GetBool("FirstInitDone", false))
             {
                 SessionState.SetBool("FirstInitDone", true);
-                bool isFirstLaunch = PlayerPrefs.GetInt("SmartifyOSWelcome", 0) == 0;
-                if (isFirstLaunch)
-                    Welcome.ShowWindow();
                 EditorApplication.update -= Update;
+                OnStartup();
+            }
+        }
 
+        public static void OnStartup()
+        {
+            bool isFirstLaunch = EditorPrefs.GetInt("SmartifyOSWelcome", 0) == 0;
+            if (isFirstLaunch)
+                Welcome.ShowWindow();
+
+            if (EditorPrefs.GetBool("AutoCheckForUpdates", false))
+            {
+                Updater.CheckForUpdatesInBackground();
             }
         }
     }
