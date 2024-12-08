@@ -2,6 +2,7 @@ using System;
 using SmartifyOS.Editor.Styles;
 using SmartifyOS.SerialCommunication;
 using SmartifyOS.StatusBar;
+using SmartifyOS.UI;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -11,9 +12,11 @@ namespace SmartifyOS.Editor
     public class Settings : EditorWindow
     {
         private Tab currentTab = Tab.Project;
+        private Vector2 scrollPos;
 
         private GameObject vehicleParent;
         private BaseSerialCommunication[] serialScripts;
+        private BaseUIWindow[] windows;
         private SystemManager systemManager;
 
         [MenuItem("SmartifyOS/Settings")]
@@ -27,6 +30,7 @@ namespace SmartifyOS.Editor
         {
             Project,
             Communication,
+            Apps,
             Help
         }
 
@@ -34,6 +38,7 @@ namespace SmartifyOS.Editor
         {
             vehicleParent = GameObject.Find("VehicleParent");
             serialScripts = GameObject.FindObjectsByType<BaseSerialCommunication>(FindObjectsSortMode.None);
+            windows = GameObject.FindObjectsByType<BaseUIWindow>(FindObjectsSortMode.None);
             systemManager = FindFirstObjectByType<SystemManager>();
         }
 
@@ -41,7 +46,9 @@ namespace SmartifyOS.Editor
         {
             DrawTabBar();
             GUILayout.Space(10);
+            scrollPos = GUILayout.BeginScrollView(scrollPos);
             DrawActivePage();
+            GUILayout.EndScrollView();
         }
 
         private void DrawActivePage()
@@ -53,6 +60,9 @@ namespace SmartifyOS.Editor
                     break;
                 case Tab.Communication:
                     DrawCommunicationPage();
+                    break;
+                case Tab.Apps:
+                    DrawAppsPage();
                     break;
                 case Tab.Help:
                     DrawHelpPage();
@@ -116,6 +126,36 @@ namespace SmartifyOS.Editor
             }
 
             GUILayout.Label("To communicate with serial deices like Arduinos right click in the project browser in the place where you want to create the new script. Then click on Create > SmartifyOS > Serial Communication Script.", EditorStyles.wordWrappedLabel);
+            if (LinkLabel("How to create new serial communication scripts"))
+            {
+                Application.OpenURL("https://docs.smartify-os.com/docs/category/serial-communication");
+            }
+        }
+
+        private void DrawAppsPage()
+        {
+            GUILayout.Label("App Windows", EditorStyles.boldLabel);
+            foreach (var item in windows)
+            {
+                BeginColorBox();
+                GUILayout.Label(item.name);
+
+                if (GUILayout.Button("Show and Select", GUILayout.MaxWidth(150)))
+                {
+                    foreach (var window in windows)
+                    {
+                        window.Hide();
+                    }
+                    item.Show();
+                    Selection.activeGameObject = item.gameObject;
+                }
+                EndColorBox();
+            }
+
+            if (LinkLabel("How to create new windows"))
+            {
+                Application.OpenURL("https://docs.smartify-os.com/docs/category/windows");
+            }
         }
 
         private void DrawHelpPage()
@@ -194,6 +234,19 @@ namespace SmartifyOS.Editor
                 return !value;
             }
             return value;
+        }
+
+        private bool LinkLabel(string label, params GUILayoutOption[] options)
+        {
+            GUIStyle LinkStyle = new GUIStyle(EditorStyles.label);
+            LinkStyle.normal.textColor = Color.magenta;
+            LinkStyle.stretchWidth = true;
+            LinkStyle.alignment = TextAnchor.MiddleCenter;
+            LinkStyle.margin = new RectOffset(5, 5, 5, 5);
+            LinkStyle.richText = true;
+
+
+            return GUILayout.Button($"<u>{label}</u>", LinkStyle);
         }
 
         private void BeginColorBox()
