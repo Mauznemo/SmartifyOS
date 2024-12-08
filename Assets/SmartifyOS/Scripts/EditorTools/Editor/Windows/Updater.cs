@@ -9,11 +9,11 @@ namespace SmartifyOS.Editor
 {
     public class Updater : EditorWindow
     {
-        private Type type;
-        private bool isChecking = false;
+        private static Type type;
+        private static bool isChecking = false;
         private bool isUpdating = false;
 
-        List<Git.Diff> diffs = new List<Git.Diff>();
+        private static List<Git.Diff> diffs = new List<Git.Diff>();
 
         private Vector2 scrollPosition;
 
@@ -42,7 +42,7 @@ namespace SmartifyOS.Editor
 
             if (diffs.Count > 0)
             {
-                GUILayout.Label($"These files are different or new (files will only be deleted if you haven't modified them):", EditorStyles.wordWrappedLabel);
+                GUILayout.Label($"These files are different or new (if you edited any of these files without committing it will cause an error. If a file one the remote changed but you also changed it it will cause a merge conflict):", EditorStyles.wordWrappedLabel);
                 ShowDiff();
             }
 
@@ -62,6 +62,51 @@ namespace SmartifyOS.Editor
                     SyncRepository();
                 }
             }
+        }
+
+        public static async void CheckForUpdatesInBackground()
+        {
+            isChecking = true;
+
+            await CheckType();
+
+            // Fetch the latest changes from the remote repository
+            await Git.Command($"fetch {GetRemote()}");
+
+            int ahead = 0;
+            int behind = 0;
+
+            if (type == Type.Fork)
+            {
+                ahead = await Git.GetAhead("upstream/main");
+                behind = await Git.GetBehind("upstream/main");
+                if (behind > 0)
+                {
+                    ShowWindow();
+                    bool update = EditorUtility.DisplayDialog("Update", $"You are {behind} commits behind {GetRemote()}. Would you like to update?", "Yes", "No");
+                }
+            }
+            else if (type == Type.Clone)
+            {
+                ahead = await Git.GetAhead("origin/main");
+                behind = await Git.GetBehind("origin/main");
+            }
+
+            if (behind > 0)
+            {
+                ShowWindow();
+                bool update = EditorUtility.DisplayDialog("Update", $"You are {behind} commits behind {GetRemote()}. Would you like to update?", "Yes", "No");
+
+                if (update)
+                {
+                    diffs = await Git.GetDiffs();
+                }
+            }
+            else
+            {
+                Debug.Log($"Your repository is up to date \n({ahead} commits ahead and {behind} commits behind {GetRemote()}).");
+            }
+            isChecking = false;
         }
 
         // Check for updates from the remote repository
@@ -140,7 +185,7 @@ namespace SmartifyOS.Editor
             EditorGUILayout.EndScrollView();
         }
 
-        private async Task CheckType()
+        private static async Task CheckType()
         {
             if (await Git.HasUpstream())
             {
@@ -152,7 +197,7 @@ namespace SmartifyOS.Editor
             }
         }
 
-        private string GetRemote()
+        private static string GetRemote()
         {
             return type == Type.Fork ? "upstream" : "origin";
         }
@@ -163,9 +208,16 @@ namespace SmartifyOS.Editor
             isUpdating = true;
 
             // Pull the latest changes
-            string output = await Git.Command($"pull {GetRemote()} main");
+            (string output, string error) = await Git.Command($"pull {GetRemote()} main");
 
-            EditorUtility.DisplayDialog("Update", output, "Ok");
+            if (!string.IsNullOrEmpty(output.Trim()))
+            {
+                EditorUtility.DisplayDialog("Update", output, "Ok");
+            }
+            else if (!string.IsNullOrEmpty(error))
+            {
+                EditorUtility.DisplayDialog("Update ERROR!", error, "Ok");
+            }
 
             diffs.Clear();
 

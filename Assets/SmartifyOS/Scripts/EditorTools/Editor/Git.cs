@@ -10,7 +10,7 @@ namespace SmartifyOS.Editor
 {
     public class Git
     {
-        public static async Task<string> Command(string command)
+        public static async Task<(string, string)> Command(string command)
         {
             ProcessStartInfo processInfo = new ProcessStartInfo();
             Process process = new Process();
@@ -43,22 +43,28 @@ namespace SmartifyOS.Editor
             process.Close();
 
             // Log output and errors
-            /*if (!string.IsNullOrEmpty(output))
+            if (!string.IsNullOrEmpty(output))
             {
-                UnityEngine.Debug.Log(output);
+                if (output.Contains("CONFLICT") || output.Contains("error"))
+                {
+                    UnityEngine.Debug.LogError(output);
+                }
             }
 
             if (!string.IsNullOrEmpty(error))
             {
-                UnityEngine.Debug.LogError(error);
-            }*/
+                if (error.Contains("CONFLICT") || error.Contains("error"))
+                {
+                    UnityEngine.Debug.LogError(error);
+                }
+            }
 
-            return output;
+            return (output, error);
         }
 
         public static async Task<bool> HasUpstream()
         {
-            string output = await Command("remote -v");
+            (string output, string error) = await Command("remote -v");
             return output.Contains("upstream");
         }
 
@@ -70,7 +76,7 @@ namespace SmartifyOS.Editor
         /// <returns>Count of commits ahead</returns>
         public static async Task<int> GetAhead(string branch = "origin/main")
         {
-            string output = await Command($"rev-list --count {branch}..HEAD");
+            (string output, string error) = await Command($"rev-list --count {branch}..HEAD");
             return int.Parse(output);
         }
 
@@ -82,13 +88,13 @@ namespace SmartifyOS.Editor
         /// <returns>Count of commits behind</returns>
         public static async Task<int> GetBehind(string branch = "origin/main")
         {
-            string output = await Command($"rev-list --count HEAD..{branch}");
+            (string output, string error) = await Command($"rev-list --count HEAD..{branch}");
             return int.Parse(output);
         }
 
         public static async Task<List<Diff>> GetDiffs(string branch = "origin/main")
         {
-            string output = await Command($"diff --name-status HEAD..{branch}");
+            (string output, string error) = await Command($"diff --name-status HEAD..{branch}");
             string[] lines = output.Split('\n');
             List<Diff> diffs = new List<Diff>();
 
