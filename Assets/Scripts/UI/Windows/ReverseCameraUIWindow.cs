@@ -92,7 +92,10 @@ public class ReverseCameraUIWindow : BaseUIWindow
     //Only needed if Unity doesn't work with your camera
     private void EnableCameraConverter(bool enable)
     {
-        SystemEventManager.CallEvent("SmartifyOS/Events/SetReverseCam", enable.ToString().ToLower());
+        if (SystemEventManager.EventExists("SmartifyOS/Events/SetReverseCam"))
+        {
+            SystemEventManager.CallEvent("SmartifyOS/Events/SetReverseCam", enable.ToString().ToLower());
+        }
     }
 
 }

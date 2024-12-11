@@ -64,6 +64,17 @@ namespace SmartifyOS.SystemEvents
 
             watcher.EnableRaisingEvents = true;
         }
+
+        /// <summary>
+        /// Checks if an event path exists
+        /// </summary>
+        /// <param name="eventPath">Path to file, relative to user profile</param>
+        /// <returns>If the event path exists</returns>
+        public static bool EventExists(string eventPath)
+        {
+            eventPath = Path.Combine(GetUserPath(), eventPath);
+            return File.Exists(eventPath);
+        }
     }
 }
 
