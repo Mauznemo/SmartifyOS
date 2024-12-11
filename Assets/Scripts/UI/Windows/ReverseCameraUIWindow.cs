@@ -75,12 +75,16 @@ public class ReverseCameraUIWindow : BaseUIWindow
     {
         EnableCameraConverter(true);
 
+        webcamTexture.Play();
+
         updateCameraFeed = true;
     }
 
     protected override void OnHide()
     {
         EnableCameraConverter(false);
+
+        webcamTexture.Stop();
 
         updateCameraFeed = false;
     }
