@@ -7,6 +7,7 @@ using SmartifyOS.StatusBar;
 using SmartifyOS.UI;
 using UnityEditor;
 using UnityEditor.SceneManagement;
+using UnityEditor.ShortcutManagement;
 using UnityEngine;
 
 namespace SmartifyOS.Editor
@@ -24,6 +25,7 @@ namespace SmartifyOS.Editor
         private SystemManager systemManager;
 
         [MenuItem("SmartifyOS/Settings", false, 0)]
+        [Shortcut("SmartifyOS/Open Settings", KeyCode.Period, ShortcutModifiers.Action)]
         public static void ShowWindow()
         {
             var window = GetWindow<Settings>("Settings");

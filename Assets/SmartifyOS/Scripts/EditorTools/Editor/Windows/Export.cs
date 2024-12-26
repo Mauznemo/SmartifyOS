@@ -7,12 +7,14 @@ using System.IO;
 using SmartifyOS.Editor.Styles;
 using System;
 using System.Linq;
+using UnityEditor.ShortcutManagement;
 
 namespace SmartifyOS.Editor
 {
     public class Export : EditorWindow
     {
         [MenuItem("SmartifyOS/Export", false, 2)]
+        [Shortcut("SmartifyOS/Open Export", KeyCode.E, ShortcutModifiers.Action)]
         public static void ShowWindow()
         {
             var window = GetWindow<Export>("SmartifyOS Export");
