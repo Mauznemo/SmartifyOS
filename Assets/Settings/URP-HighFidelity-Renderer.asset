@@ -103,12 +103,13 @@ MonoBehaviour:
   m_Name: UniversalBlurFeature
   m_EditorClassIdentifier: 
   m_Active: 1
-  <PassIndex>k__BackingField: 0
-  injectionPoint: 600
-  <Intensity>k__BackingField: 1
-  downsample: 2
   iterations: 6
+  intensity: 1
+  downsample: 2
   scale: 0.5
+  offset: 2
   scaleBlurWith: 0
   scaleReferenceSize: 1080
+  shaderPass: 0
+  injectionPoint: 600
   shader: {fileID: 4800000, guid: bb11bdc2e8aaf4c80b5315f3778d7ad4, type: 3}
