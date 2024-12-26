@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using SmartifyOS.Editor.Styles;
 using SmartifyOS.SerialCommunication;
 using SmartifyOS.StatusBar;
@@ -17,8 +19,8 @@ namespace SmartifyOS.Editor
         private bool autoCheckForUpdates = false;
 
         private GameObject vehicleParent;
-        private BaseSerialCommunication[] serialScripts;
-        private BaseUIWindow[] windows;
+        private List<BaseSerialCommunication> serialScripts;
+        private List<BaseUIWindow> windows;
         private SystemManager systemManager;
 
         [MenuItem("SmartifyOS/Settings", false, 0)]
@@ -39,12 +41,18 @@ namespace SmartifyOS.Editor
 
         private void OnEnable()
         {
-            vehicleParent = GameObject.Find("VehicleParent");
-            serialScripts = GameObject.FindObjectsByType<BaseSerialCommunication>(FindObjectsSortMode.None);
-            windows = GameObject.FindObjectsByType<BaseUIWindow>(FindObjectsSortMode.None);
-            systemManager = FindFirstObjectByType<SystemManager>();
+            GetObjects();
 
             autoCheckForUpdates = EditorPrefs.GetBool("AutoCheckForUpdates", false);
+            currentTab = (Tab)EditorPrefs.GetInt("SettingsTab", 0);
+        }
+
+        private void GetObjects()
+        {
+            vehicleParent = GameObject.Find("VehicleParent");
+            serialScripts = GameObject.FindObjectsByType<BaseSerialCommunication>(FindObjectsSortMode.None).ToList();
+            windows = GameObject.FindObjectsByType<BaseUIWindow>(FindObjectsSortMode.None).ToList();
+            systemManager = FindFirstObjectByType<SystemManager>();
         }
 
         private void OnGUI()
@@ -127,7 +135,7 @@ namespace SmartifyOS.Editor
         {
             GUILayout.Label("Serial Communication Scripts", EditorStyles.boldLabel);
 
-            if (serialScripts.Length == 0)
+            if (serialScripts.Count == 0)
             {
                 GUILayout.Label("No serial communication scripts found.");
                 GUILayout.Space(5);
@@ -135,6 +143,9 @@ namespace SmartifyOS.Editor
 
             foreach (var item in serialScripts)
             {
+                if (item == null)
+                    continue;
+
                 BeginColorBox();
                 GUILayout.Label(item.name);
 
@@ -142,10 +153,16 @@ namespace SmartifyOS.Editor
                 {
                     Selection.activeGameObject = item.gameObject;
                 }
+
+                if (GUILayout.Button(new GUIContent("Remove", "Remove serial communication and delete its script file"), GUILayout.Width(60)))
+                {
+                    serialScripts.Remove(item);
+                    item.RemoveAndDeleteFile();
+                    GetObjects();
+                }
                 EndColorBox();
             }
 
-            GUILayout.Label("To communicate with serial deices like Arduinos right click in the project browser in the place where you want to create the new script. Then click on Create > SmartifyOS > Serial Communication Script.", EditorStyles.wordWrappedLabel);
             if (LinkLabel("How to create new serial communication scripts"))
             {
                 Application.OpenURL("https://docs.smartify-os.com/docs/category/serial-communication");
@@ -157,6 +174,9 @@ namespace SmartifyOS.Editor
             GUILayout.Label("App Windows", EditorStyles.boldLabel);
             foreach (var item in windows)
             {
+                if (item == null)
+                    continue;
+
                 BeginColorBox();
                 GUILayout.Label(item.name);
 
@@ -168,6 +188,13 @@ namespace SmartifyOS.Editor
                     }
                     item.Show();
                     Selection.activeGameObject = item.gameObject;
+                }
+
+                if (GUILayout.Button(new GUIContent("Remove", "Remove window and delete its script file"), GUILayout.Width(60)))
+                {
+                    windows.Remove(item);
+                    item.RemoveAndDeleteFile();
+                    GetObjects();
                 }
                 EndColorBox();
             }
@@ -291,6 +318,7 @@ namespace SmartifyOS.Editor
                 if (GUILayout.Button(tab.ToString()))
                 {
                     currentTab = tab;
+                    EditorPrefs.SetInt("SettingsTab", (int)tab);
                 }
                 GUI.color = Color.white;
             }

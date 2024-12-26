@@ -4,6 +4,12 @@ using UnityEngine;
 using System.IO.Ports;
 using System;
 
+#if UNITY_EDITOR
+using System.IO;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+#endif
+
 namespace SmartifyOS.SerialCommunication
 {
     public class BaseSerialCommunication : MonoBehaviour
@@ -130,6 +136,37 @@ namespace SmartifyOS.SerialCommunication
                 serialPort.Close();
             }
         }
+
+#if UNITY_EDITOR
+        [ContextMenu("Remove Object and Delete Script File")]
+        public void RemoveAndDeleteFile()
+        {
+            bool deleteConfirm = EditorUtility.DisplayDialog("Delete Serial Communication", $"Are you sure you want delete this serial communication object ({name}) and its script file permanently? (May cause errors with scripts referencing it)", "Yes", "No");
+
+            if (!deleteConfirm) return;
+
+            // Get the MonoScript associated with this component
+            MonoScript monoScript = MonoScript.FromMonoBehaviour(this);
+
+            // Get the script's file path
+            string scriptPath = AssetDatabase.GetAssetPath(monoScript);
+
+            // Remove the component from the GameObject
+            DestroyImmediate(this.gameObject);
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+
+            // Delete the script file from the project
+            if (!string.IsNullOrEmpty(scriptPath) && File.Exists(scriptPath))
+            {
+                AssetDatabase.DeleteAsset(scriptPath);
+                Debug.Log($"Script file deleted: {scriptPath}");
+            }
+            else
+            {
+                Debug.LogError("Script file could not be found or deleted.");
+            }
+        }
+#endif
     }
 }
 

@@ -114,6 +114,7 @@ namespace SmartifyOS.UI
                 GUILayout.Label("Emulation Mode Active");
                 GUI.color = Color.white;
 
+                GUILayout.BeginHorizontal();
                 if (GUILayout.Button("Deactivate Emulation Mode"))
                 {
                     script.emulationMode = false;
@@ -123,12 +124,19 @@ namespace SmartifyOS.UI
             }
             else
             {
+                GUILayout.BeginHorizontal();
                 if (GUILayout.Button("Activate Serial Emulation Mode"))
                 {
                     script.emulationMode = true;
                     EditorUtility.SetDirty(target);
                 }
             }
+
+            if (GUILayout.Button(new GUIContent("Remove", "Remove serial communication and delete its script file"), GUILayout.Width(60)))
+            {
+                script.RemoveAndDeleteFile();
+            }
+            GUILayout.EndHorizontal();
         }
 
     }

@@ -1,6 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+#if UNITY_EDITOR
+using System.IO;
+using UnityEditor;
+using UnityEditor.SceneManagement;
+#endif
 using UnityEngine;
 
 namespace SmartifyOS.UI
@@ -108,6 +113,37 @@ namespace SmartifyOS.UI
 
             OnHide();
         }
+
+#if UNITY_EDITOR
+        [ContextMenu("Remove Window and Delete Script File")]
+        public void RemoveAndDeleteFile()
+        {
+            bool deleteConfirm = EditorUtility.DisplayDialog("Delete Window", $"Are you sure you want delete the window ({name}) and its script file permanently?", "Yes", "No");
+
+            if (!deleteConfirm) return;
+
+            // Get the MonoScript associated with this component
+            MonoScript monoScript = MonoScript.FromMonoBehaviour(this);
+
+            // Get the script's file path
+            string scriptPath = AssetDatabase.GetAssetPath(monoScript);
+
+            // Remove the component from the GameObject
+            DestroyImmediate(this.gameObject);
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+
+            // Delete the script file from the project
+            if (!string.IsNullOrEmpty(scriptPath) && File.Exists(scriptPath))
+            {
+                AssetDatabase.DeleteAsset(scriptPath);
+                Debug.Log($"Script file deleted: {scriptPath}");
+            }
+            else
+            {
+                Debug.LogError("Script file could not be found or deleted.");
+            }
+        }
+#endif
     }
 }
 
