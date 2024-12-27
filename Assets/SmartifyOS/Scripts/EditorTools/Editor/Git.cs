@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using UnityEngine;
+using UnityEditor;
 
 namespace SmartifyOS.Editor
 {
@@ -12,6 +13,16 @@ namespace SmartifyOS.Editor
     {
         public static async Task<(string, string)> Command(string command)
         {
+            if (!IsGitInstalled())
+            {
+                bool result = EditorUtility.DisplayDialog("Error", "Git is not installed. Please install Git and try again.", "Install", "Cancel");
+                if(result)
+                {
+                    Application.OpenURL("https://git-scm.com/downloads");
+                }
+                throw new Exception("Git is not installed.");
+            }
+
             ProcessStartInfo processInfo = new ProcessStartInfo();
             Process process = new Process();
 
@@ -160,6 +171,49 @@ namespace SmartifyOS.Editor
                 return false;
             }
         }
+
+    public static bool IsGitInstalled()
+    {
+        ProcessStartInfo processInfo = new ProcessStartInfo();
+        Process process = new Process();
+
+        if (Application.platform == RuntimePlatform.WindowsEditor)
+        {
+            processInfo.FileName = "cmd.exe";
+            processInfo.Arguments = "/c git --version";
+        }
+        else if (Application.platform == RuntimePlatform.OSXEditor || Application.platform == RuntimePlatform.LinuxEditor)
+        {
+            processInfo.FileName = "/bin/bash";
+            processInfo.Arguments = "-c \"git --version\"";
+        }
+
+        processInfo.RedirectStandardOutput = true;
+        processInfo.RedirectStandardError = true;
+        processInfo.UseShellExecute = false;
+        processInfo.CreateNoWindow = true;
+
+        process.StartInfo = processInfo;
+
+        try
+        {
+            process.Start();
+            string standardError = process.StandardError.ReadToEnd();
+            process.WaitForExit();
+
+            // Git is installed if the exit code is 0 and no errors occurred
+            return process.ExitCode == 0 && string.IsNullOrEmpty(standardError);
+        }
+        catch
+        {
+            // If an exception occurs, Git is likely not installed
+            return false;
+        }
+        finally
+        {
+            process.Dispose();
+        }
+    }
 
         public struct Diff
         {
