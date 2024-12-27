@@ -161,6 +161,9 @@ namespace SmartifyOS.Editor
                     serialScripts.Remove(item);
                     item.RemoveAndDeleteFile();
                     GetObjects();
+
+                    EndColorBox();
+                    break;
                 }
                 EndColorBox();
             }
@@ -197,6 +200,9 @@ namespace SmartifyOS.Editor
                     windows.Remove(item);
                     item.RemoveAndDeleteFile();
                     GetObjects();
+
+                    EndColorBox();
+                    break;
                 }
                 EndColorBox();
             }
