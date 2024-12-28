@@ -7,18 +7,11 @@ namespace SmartifyOS.Editor
 {
     public class WindowCreator : EditorWindow
     {
-        [MenuItem("SmartifyOS/Create Window")]
-        public static void ShowWindow()
-        {
-            var window = GetWindow<WindowCreator>("Create Window");
-            window.Show();
-            window.SetSize(400, 200);
-        }
-
         public static void ShowWindow(GameObject parent)
         {
-            var window = GetWindow<WindowCreator>("Create Window");
-            window.Show();
+            var window = CreateInstance<WindowCreator>();
+            window.titleContent = new GUIContent("Create Window");
+            window.ShowUtility();
             window.SetSize(400, 200);
         }
 
@@ -55,6 +48,7 @@ namespace SmartifyOS.Editor
             if (GUILayout.Button("Create", GUILayout.Height(40)))
             {
                 CreateObjectFromPrefab(windowTitle);
+                Close();
             }
         }
 

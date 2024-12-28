@@ -9,9 +9,10 @@ namespace SmartifyOS.Editor
     {
         public static void ShowWindow()
         {
-            var window = GetWindow<UserContentSubmissionAgreement>("User Content Submission Agreement");
+            var window = CreateInstance<UserContentSubmissionAgreement>();
+            window.titleContent = new GUIContent("User Content Submission Agreement");
             window.SetSize(700, 400);
-            window.Show();
+            window.ShowModalUtility();
 
         }
 
@@ -57,7 +58,7 @@ By uploading content, you acknowledge and agree to these terms.
                 GUILayout.FlexibleSpace();
                 if (GUILayout.Button("Close", buttonStyle, GUILayout.MaxWidth(200), GUILayout.Height(40)))
                 {
-                    Close();    
+                    Close();
                 }
                 GUILayout.FlexibleSpace();
             }

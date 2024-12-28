@@ -9,12 +9,21 @@ namespace SmartifyOS.Editor
 {
     public class UploadVehicle : EditorWindow
     {
+        private static UploadVehicle window;
+
         [MenuItem("SmartifyOS/Upload Vehicle", false, 101)]
         public static void ShowWindow()
         {
-            var window = GetWindow<UploadVehicle>("Upload Vehicle");
-            window.Show();
+            if (window != null) return;
+            window = CreateInstance<UploadVehicle>();
+            window.titleContent = new GUIContent("Upload Vehicle");
+            window.ShowUtility();
             window.minSize = new Vector2(400, 350);
+        }
+
+        private void OnDestroy()
+        {
+            window = null;
         }
 
         private string brand;

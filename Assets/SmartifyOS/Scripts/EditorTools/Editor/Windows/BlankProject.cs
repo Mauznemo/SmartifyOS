@@ -18,6 +18,8 @@ namespace SmartifyOS.Editor
 
         private BlankProjectReferences blankProjectReferences;
 
+        private static BlankProject window;
+
         private void OnEnable()
         {
             blankProjectReferences = GameObject.Find("BlankProjectReferences").GetComponent<BlankProjectReferences>();
@@ -26,11 +28,19 @@ namespace SmartifyOS.Editor
             filesCleared = AreFilesCleared();
         }
 
+        private void OnDestroy()
+        {
+            window = null;
+        }
+
         [MenuItem("SmartifyOS/Create blank Project")]
         public static void ShowWindow()
         {
-            var window = GetWindow<BlankProject>("Blank Project");
+            if (window != null) return;
+            window = CreateInstance<BlankProject>();
+            window.titleContent = new GUIContent("Blank Project");
             window.minSize = new Vector2(500, 300);
+            window.ShowUtility();
         }
 
         public void OnGUI()

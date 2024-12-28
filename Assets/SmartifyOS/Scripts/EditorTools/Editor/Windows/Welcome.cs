@@ -18,9 +18,10 @@ namespace SmartifyOS.Editor
         [MenuItem("SmartifyOS/Welcome")]
         public static void ShowWindow()
         {
-            var window = GetWindow<Welcome>("Welcome");
+            var window = CreateInstance<Welcome>();
+            window.titleContent = new GUIContent("Welcome to SmartifyOS");
             window.SetSize(900, 500);
-            window.Show();
+            window.ShowUtility();
         }
 
         private void OnEnable()
@@ -35,10 +36,11 @@ namespace SmartifyOS.Editor
             if (pageIndex == 4)
                 return;
 
-            var newWin = Instantiate<Welcome>(this);
+            var newWin = CreateInstance<Welcome>(); ;
+            newWin.titleContent = new GUIContent("Welcome to SmartifyOS");
             newWin.pageIndex = pageIndex;
             newWin.SetSize(900, 500);
-            newWin.Show();
+            newWin.ShowUtility();
         }
 
         private void OnGUI()

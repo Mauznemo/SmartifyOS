@@ -20,9 +20,9 @@ namespace SmartifyOS.Editor
                 return;
             }
 
-            var window = GetWindow<CreateFileWithSuffix>();
+            var window = CreateInstance<CreateFileWithSuffix>();
             window.titleContent = new GUIContent("Create File With Suffix");
-            window.SetSize(400, 200);
+            window.SetSize(400, 62);
             window.ShowUtility();
             window.baseName = baseName;
             window.suffix = suffix;
