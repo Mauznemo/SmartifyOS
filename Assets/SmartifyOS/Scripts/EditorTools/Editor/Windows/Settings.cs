@@ -26,13 +26,20 @@ namespace SmartifyOS.Editor
 
         [MenuItem("SmartifyOS/Settings", false, 0)]
         [Shortcut("SmartifyOS/Open Settings", KeyCode.Period, ShortcutModifiers.Action)]
+        [SearchItem("Settings")]
         public static void ShowWindow()
         {
             var window = GetWindow<Settings>("Settings");
             window.minSize = new Vector2(500, 300);
         }
 
-        private enum Tab
+        public static void ShowWindowAt(Tab tab)
+        {
+            EditorPrefs.SetInt("SettingsTab", (int)tab);
+            ShowWindow();
+        }
+
+        public enum Tab
         {
             Project,
             Editor,

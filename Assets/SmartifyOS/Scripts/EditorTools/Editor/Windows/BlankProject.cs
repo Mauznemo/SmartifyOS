@@ -27,6 +27,7 @@ namespace SmartifyOS.Editor
         }
 
         [MenuItem("SmartifyOS/Create blank Project")]
+        [SearchItem("Clear/Blank Project")]
         public static void ShowWindow()
         {
             var window = GetWindow<BlankProject>("Blank Project");

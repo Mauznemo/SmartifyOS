@@ -19,6 +19,7 @@ namespace SmartifyOS.Editor
 
         // Add a menu item to show the Git Update Checker window
         [MenuItem("SmartifyOS/Check for Updates", false, 1)]
+        [SearchItem("Check for Updates")]
         public static void ShowWindow()
         {
             var window = GetWindow<Updater>("Updater (Experimental)");

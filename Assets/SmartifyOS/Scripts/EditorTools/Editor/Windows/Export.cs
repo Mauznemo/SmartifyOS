@@ -15,6 +15,7 @@ namespace SmartifyOS.Editor
     {
         [MenuItem("SmartifyOS/Export", false, 2)]
         [Shortcut("SmartifyOS/Open Export", KeyCode.E, ShortcutModifiers.Action)]
+        [SearchItem("Export")]
         public static void ShowWindow()
         {
             var window = GetWindow<Export>("SmartifyOS Export");
