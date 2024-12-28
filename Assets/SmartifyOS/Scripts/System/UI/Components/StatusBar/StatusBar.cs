@@ -46,10 +46,8 @@ namespace SmartifyOS.StatusBar
 
             dateTime = dateTime.AddOffset(hourOffset, minuteOffset);
 
-            string setDateCommand = $"sudo timedatectl set-time \"{dateTime.Year}-{dateTime.Month}-{dateTime.Day}\"";
-            string setTimeCommand = $"sudo timedatectl set-time \"{dateTime.Hour}:{dateTime.Minute}:{dateTime.Second}\"";
-            await LinuxCommand.RunAsync(setDateCommand);
-            await LinuxCommand.RunAsync(setTimeCommand);
+            string setDateAndTimeCommand = $"sudo date -s \"{dateTime.Year}-{dateTime.Month}-{dateTime.Day} {dateTime.Hour}:{dateTime.Minute}:{dateTime.Second}\"";
+            await LinuxCommand.RunAsync(setDateAndTimeCommand);
 
             isTimeSet = true;
         }
