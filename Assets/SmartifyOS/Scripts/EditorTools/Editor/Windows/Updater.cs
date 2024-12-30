@@ -14,20 +14,23 @@ namespace SmartifyOS.Editor
         private bool isUpdating = false;
 
         private static List<Git.Diff> diffs = new List<Git.Diff>();
+        private static List<string> logs = new List<string>();
 
-        private Vector2 scrollPosition;
+        private Vector2 filesScrollPosition;
+        private Vector2 logScrollPosition;
 
         // Add a menu item to show the Git Update Checker window
         [MenuItem("SmartifyOS/Check for Updates", false, 1)]
         public static void ShowWindow()
         {
             var window = GetWindow<Updater>("Updater (Experimental)");
-            window.minSize = new Vector2(500, 300);
+            window.minSize = new Vector2(500, 500);
         }
 
         private async void OnEnable()
         {
             diffs.Clear();
+            logs.Clear();
             await CheckType();
         }
 
@@ -40,8 +43,15 @@ namespace SmartifyOS.Editor
 
             GUILayout.Space(20);
 
+            if (logs.Count > 0)
+            {
+                GUILayout.Label("Change Log", EditorStyles.boldLabel);
+                ShowChangelog();
+            }
+
             if (diffs.Count > 0)
             {
+                GUILayout.Label("Changed Files", EditorStyles.boldLabel);
                 GUILayout.Label($"These files are different or new (if you edited any of these files without committing it will cause an error. If a file one the remote changed but you also changed it it will cause a merge conflict):", EditorStyles.wordWrappedLabel);
                 ShowDiff();
             }
@@ -99,7 +109,8 @@ namespace SmartifyOS.Editor
 
                 if (update)
                 {
-                    diffs = await Git.GetDiffs();
+                    diffs = await Git.GetDiffs($"{GetRemote()}/main");
+                    logs = await Git.GetChangelog($"{GetRemote()}/main");
                 }
             }
             else
@@ -143,7 +154,8 @@ namespace SmartifyOS.Editor
 
                 if (update)
                 {
-                    diffs = await Git.GetDiffs();
+                    diffs = await Git.GetDiffs($"{GetRemote()}/main");
+                    logs = await Git.GetChangelog($"{GetRemote()}/main");
                 }
             }
             else
@@ -154,9 +166,21 @@ namespace SmartifyOS.Editor
             Repaint();
         }
 
+        private void ShowChangelog()
+        {
+            logScrollPosition = EditorGUILayout.BeginScrollView(logScrollPosition);
+
+            foreach (string log in logs)
+            {
+                GUILayout.Label($"- {log}");
+            }
+
+            EditorGUILayout.EndScrollView();
+        }
+
         private void ShowDiff()
         {
-            scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
+            filesScrollPosition = EditorGUILayout.BeginScrollView(filesScrollPosition);
 
             foreach (Git.Diff diff in diffs)
             {
@@ -210,7 +234,11 @@ namespace SmartifyOS.Editor
             // Pull the latest changes
             (string output, string error) = await Git.Command($"pull {GetRemote()} main");
 
-            if (!string.IsNullOrEmpty(output.Trim()))
+            if (!string.IsNullOrEmpty(error) && (error.ToLower().Contains("error") || error.ToLower().Contains("conflict")))
+            {
+                EditorUtility.DisplayDialog("Update ERROR!", error, "Ok");
+            }
+            else if (!string.IsNullOrEmpty(output.Trim()))
             {
                 EditorUtility.DisplayDialog("Update", output, "Ok");
             }
@@ -220,6 +248,7 @@ namespace SmartifyOS.Editor
             }
 
             diffs.Clear();
+            logs.Clear();
 
             isUpdating = false;
         }
