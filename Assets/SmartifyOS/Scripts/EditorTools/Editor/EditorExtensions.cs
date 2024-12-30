@@ -45,6 +45,12 @@ namespace SmartifyOS.Editor
             return result.ToString();
         }
 
+        public static string TrimLength(this string input, int maxLength)
+        {
+            if (string.IsNullOrEmpty(input)) return input;
+            return input.Length > maxLength ? input.Substring(0, maxLength) + "..." : input;
+        }
+
         static readonly string[] SizeSuffixes = { "bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB" };
         /// <summary>bytes to: KB, MB, GB...</summary>
         public static string SizeConvert(this Int64 value, int decimalPlaces = 0)

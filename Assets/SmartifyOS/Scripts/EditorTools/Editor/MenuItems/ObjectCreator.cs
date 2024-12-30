@@ -88,13 +88,13 @@ namespace SmartifyOS.Editor
         [MenuItem("GameObject/UI/SmartifyOS/Window", false)]
         public static void CreateWindow(MenuCommand menuCommand)
         {
-            WindowCreator.ShowWindow(menuCommand.context as GameObject);
+            WindowCreator.ShowWindow(false);
         }
 
         [MenuItem("GameObject/UI/SmartifyOS/Fullscreen Window", false)]
         public static void CreateFullscreenWindow(MenuCommand menuCommand)
         {
-            CreateObjectFromPrefab(menuCommand, "Prefabs/UI/FullscreenWindowPrefab", "FullscreenWindow");
+            WindowCreator.ShowWindow(true);
         }
 
         private static T CreateObjectWithComponent<T>(MenuCommand menuCommand, string name) where T : Component
