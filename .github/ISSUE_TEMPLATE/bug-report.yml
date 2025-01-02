@@ -1,8 +1,7 @@
 name: Bug report
-about: Create a report to help improve SmartifyOS
+description: Create a report to help improve SmartifyOS
 title: ""
-labels: bug
-assignees: ""
+labels: ["bug"]
 
 body:
     - type: dropdown
