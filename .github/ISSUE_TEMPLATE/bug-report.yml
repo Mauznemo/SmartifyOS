@@ -40,4 +40,4 @@ body:
       id: additional
       attributes:
           label: Additional context
-          placeholder: Add any other context about the problem here.
+          placeholder: Add any other context or screenshots about the problem here.
