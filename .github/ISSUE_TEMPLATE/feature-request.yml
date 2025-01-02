@@ -1,6 +1,5 @@
 name: Feature request
 description: Suggest an idea for this project
-title: ""
 labels: ["enhancement"]
 body:
     - type: dropdown
@@ -10,14 +9,14 @@ body:
           options:
               - SmartifyOS
               - Miata Example Project
-      validation:
+      validations:
           required: true
     - type: textarea
       id: description
       attributes:
           label: Describe the feature you'd like
           placeholder: "A clear and concise description of what you want to happen."
-      validation:
+      validations:
           required: true
     - type: textarea
       id: additional

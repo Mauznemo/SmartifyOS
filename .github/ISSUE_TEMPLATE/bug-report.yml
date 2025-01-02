@@ -1,6 +1,5 @@
 name: Bug report
 description: Create a report to help improve SmartifyOS
-title: ""
 labels: ["bug"]
 body:
     - type: dropdown
@@ -10,14 +9,14 @@ body:
           options:
               - SmartifyOS
               - Miata Example Project
-      validation:
+      validations:
           required: true
     - type: textarea
       id: description
       attributes:
           label: Describe the bug
           placeholder: "A clear and concise description of what the bug is."
-      validation:
+      validations:
           required: true
     - type: textarea
       id: steps
@@ -28,14 +27,14 @@ body:
               2. Click on '....'
               3. Scroll down to '....'
               4. See error
-      validation:
+      validations:
           required: true
     - type: textarea
       id: expected
       attributes:
           label: Expected behavior
           placeholder: A clear and concise description of what you expected to happen.
-      validation:
+      validations:
           required: true
     - type: textarea
       id: additional
