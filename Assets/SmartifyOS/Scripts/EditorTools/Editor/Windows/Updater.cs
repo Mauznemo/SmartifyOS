@@ -236,7 +236,7 @@ namespace SmartifyOS.Editor
 
             if (!string.IsNullOrEmpty(error) && (error.ToLower().Contains("error") || error.ToLower().Contains("conflict")))
             {
-                EditorUtility.DisplayDialog("Update ERROR!", error, "Ok");
+                ShowErrorDialog(error);
             }
             else if (!string.IsNullOrEmpty(output.Trim()))
             {
@@ -244,13 +244,21 @@ namespace SmartifyOS.Editor
             }
             else if (!string.IsNullOrEmpty(error))
             {
-                EditorUtility.DisplayDialog("Update ERROR!", error, "Ok");
+                ShowErrorDialog(error);
             }
 
             diffs.Clear();
             logs.Clear();
 
             isUpdating = false;
+        }
+
+        private void ShowErrorDialog(string error)
+        {
+            if (EditorUtility.DisplayDialog("Update ERROR!", error, "How to resolve?", "Ok"))
+            {
+                Application.OpenURL("https://docs.smartify-os.com/docs/updating#errors-while-updating");
+            }
         }
 
         private enum Type
