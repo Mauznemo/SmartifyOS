@@ -53,7 +53,12 @@ namespace SmartifyOS.Linux
 
 
             // Optionally, wait for the process to exit
-            process.WaitForExit();
+            process.WaitForExit(01_000);
+            if (process != null && !process.HasExited)
+            {
+                UnityEngine.Debug.LogError("Process timed out!");
+                process.Kill(); // Terminate the process
+            }
 
             string output = process.StandardOutput.ReadToEnd();
             // Check the exit code

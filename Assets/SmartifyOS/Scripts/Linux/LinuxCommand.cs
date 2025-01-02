@@ -30,7 +30,13 @@ namespace SmartifyOS
             string output = process.StandardOutput.ReadToEnd();
 
             // Wait for the process to finish
-            process.WaitForExit();
+            process.WaitForExit(10_000);
+
+            if (process != null && !process.HasExited)
+            {
+                UnityEngine.Debug.LogError("Process timed out!");
+                process.Kill(); // Terminate the process
+            }
 
             string errors = process.StandardError.ReadToEnd();
 
@@ -65,7 +71,12 @@ namespace SmartifyOS
             string output = await process.StandardOutput.ReadToEndAsync();
 
             // Wait for the process to finish
-            await Task.Run(() => process.WaitForExit());
+            await Task.Run(() => process.WaitForExit(10_000));
+            if (process != null && !process.HasExited)
+            {
+                UnityEngine.Debug.LogError("Process timed out!");
+                process.Kill(); // Terminate the process
+            }
 
             string errors = process.StandardError.ReadToEnd();
 
