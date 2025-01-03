@@ -12,6 +12,7 @@ namespace SmartifyOS.Editor
         private static Type type;
         private static bool isChecking = false;
         private bool isUpdating = false;
+        private static bool isUnityUpgrade;
 
         private static List<Git.Diff> diffs = new List<Git.Diff>();
         private static List<string> logs = new List<string>();
@@ -31,6 +32,7 @@ namespace SmartifyOS.Editor
         {
             diffs.Clear();
             logs.Clear();
+            isUnityUpgrade = false;
             await CheckType();
         }
 
@@ -57,6 +59,20 @@ namespace SmartifyOS.Editor
             }
 
             GUILayout.FlexibleSpace();
+
+            if (isUnityUpgrade)
+            {
+                GUILayout.Label("This update contains a Unity version upgrade!", EditorStyles.boldLabel);
+                GUILayout.Label("You can't upgrade the Unity version while Unity is open.", EditorStyles.wordWrappedLabel);
+
+                GUILayout.Space(20);
+
+                if (GUILayout.Button("How to upgrade Unity version", Style.Button, GUILayout.Height(30)))
+                {
+                    Application.OpenURL("https://docs.smartify-os.com/docs/updating#how-to-upgrade-unity-version");
+                }
+                return;
+            }
 
             if (diffs.Count < 1)
             {
@@ -90,11 +106,6 @@ namespace SmartifyOS.Editor
             {
                 ahead = await Git.GetAhead("upstream/main");
                 behind = await Git.GetBehind("upstream/main");
-                if (behind > 0)
-                {
-                    ShowWindow();
-                    bool update = EditorUtility.DisplayDialog("Update", $"You are {behind} commits behind {GetRemote()}. Would you like to update?", "Yes", "No");
-                }
             }
             else if (type == Type.Clone)
             {
@@ -111,6 +122,8 @@ namespace SmartifyOS.Editor
                 {
                     diffs = await Git.GetDiffs($"{GetRemote()}/main");
                     logs = await Git.GetChangelog($"{GetRemote()}/main");
+
+                    isUnityUpgrade = IsUnityUpgrade();
                 }
             }
             else
@@ -137,10 +150,6 @@ namespace SmartifyOS.Editor
             {
                 ahead = await Git.GetAhead("upstream/main");
                 behind = await Git.GetBehind("upstream/main");
-                if (behind > 0)
-                {
-                    bool update = EditorUtility.DisplayDialog("Update", $"You are {behind} commits behind {GetRemote()}. Would you like to update?", "Yes", "No");
-                }
             }
             else if (type == Type.Clone)
             {
@@ -156,6 +165,8 @@ namespace SmartifyOS.Editor
                 {
                     diffs = await Git.GetDiffs($"{GetRemote()}/main");
                     logs = await Git.GetChangelog($"{GetRemote()}/main");
+
+                    isUnityUpgrade = IsUnityUpgrade();
                 }
             }
             else
@@ -224,6 +235,19 @@ namespace SmartifyOS.Editor
         private static string GetRemote()
         {
             return type == Type.Fork ? "upstream" : "origin";
+        }
+
+        private static bool IsUnityUpgrade()
+        {
+            foreach (var log in logs)
+            {
+                if (log.Contains("unity upgrade"))
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         // Sync the local repository with remote changes
