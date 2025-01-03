@@ -34,6 +34,11 @@ namespace SmartifyOS.Editor
             {
                 Updater.CheckForUpdatesInBackground();
             }
+
+            if (EditorPrefs.GetBool("EditorUpdateShowAtStartup", false))
+            {
+                EditorPrefs.SetBool("EditorUpdateShowAtStartup", false);
+            }
         }
     }
 }

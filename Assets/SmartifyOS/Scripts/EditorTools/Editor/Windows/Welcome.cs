@@ -29,6 +29,17 @@ namespace SmartifyOS.Editor
             image = AssetDatabase.LoadAssetAtPath<Texture>(EditorUtils.GetGraphicsPath() + "Welcome/SmartifyOS-welcome.png");
             licensePath = EditorUtils.GetSmartifyOSPath() + "../../LICENSE";
             licenseContent = System.IO.File.ReadAllText(licensePath);
+
+            var windows = Resources.FindObjectsOfTypeAll<EditorWindow>();
+            foreach (var window in windows)
+            {
+                // Check the window type or title
+                if (window.titleContent.text == "Unity Editor Update Check")
+                {
+                    window.Close();
+                    Debug.Log("Closed Unity Editor Update Checker window.");
+                }
+            }
         }
 
         private void OnDestroy()
