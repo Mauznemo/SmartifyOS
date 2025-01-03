@@ -12,7 +12,7 @@ namespace SmartifyOS.Editor
             var window = CreateInstance<UserContentSubmissionAgreement>();
             window.titleContent = new GUIContent("User Content Submission Agreement");
             window.SetSize(700, 400);
-            window.ShowModalUtility();
+            window.ShowModal();
 
         }
 
