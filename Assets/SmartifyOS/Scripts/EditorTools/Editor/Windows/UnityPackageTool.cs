@@ -93,9 +93,9 @@ public class UnityPackageTool : EditorWindow
         string packageName = Path.GetFileName(path.TrimEnd('/')) + ".unitypackage";
         string savePath = EditorUtility.SaveFilePanel("Save Unity Package", "", packageName, "unitypackage");
 
-        if (!string.IsNullOrEmpty(packageName))
+        if (!string.IsNullOrEmpty(savePath))
         {
-            AssetDatabase.ExportPackage(path, packageName, ExportPackageOptions.Recurse);
+            AssetDatabase.ExportPackage(path, savePath, ExportPackageOptions.Recurse);
             EditorUtility.DisplayDialog("Success", "Unity package created successfully!", "OK");
         }
     }
