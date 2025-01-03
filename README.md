@@ -76,7 +76,7 @@ If you want to contribute to this project by for example fixing a bug or adding 
    git remote add upstream https://github.com/Mauznemo/SmartifyOS.git
    ```
 6. Open Unity Hub (Click on `Projects`), click `Add` > `Add Project from disk` and select the path of the repo you just cloned
-7. Now click on the ⚠️ icon and install the needed version (Make sue to tick `Linux Build support (Mono)` under `Add modules`)
+7. Now click on the ⚠️ icon and install the needed version (make sure to tick `Linux Build support (Mono)` under `Add modules`)
 
 ### For only testing/using and finding bugs:
 If you don't plan to modify any code and only want to help find bugs or suggest features to add you can do it like this:
