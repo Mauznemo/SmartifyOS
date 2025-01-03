@@ -4,12 +4,17 @@ using System.IO;
 using UnityEditor;
 using UnityEngine;
 using SmartifyOS.Editor.Styles;
+using System;
 
 namespace SmartifyOS.Editor
 {
     public class UploadVehicle : EditorWindow
     {
         private static UploadVehicle window;
+
+        private string createPackagePath = "";
+
+        private bool uploading = false;
 
         [MenuItem("SmartifyOS/Upload Vehicle", false, 101)]
         public static void ShowWindow()
@@ -61,6 +66,29 @@ namespace SmartifyOS.Editor
             EditorGUILayout.LabelField("Variant (e.g. NA)", labelStyle);
             variant = EditorGUILayout.TextField(variant, textFieldStyle, GUILayout.Height(30));
 
+            GUILayout.Space(20);
+
+            GUILayout.Label("Source Path:", EditorStyles.boldLabel);
+            GUILayout.Label("Path to a folder with everything need for your vehicle (eg. Materials, Meshes, etc). Please include a prefab of the vehicle.", EditorStyles.wordWrappedLabel);
+            EditorGUILayout.BeginHorizontal();
+            createPackagePath = EditorGUILayout.TextField(createPackagePath);
+            if (GUILayout.Button("Select", GUILayout.Width(70)))
+            {
+                string selectedPath = EditorUtility.OpenFolderPanel("Select Folder", "Assets", "");
+                if (!string.IsNullOrEmpty(selectedPath))
+                {
+                    if (selectedPath.StartsWith(Application.dataPath))
+                    {
+                        createPackagePath = "Assets" + selectedPath.Substring(Application.dataPath.Length);
+                    }
+                    else
+                    {
+                        EditorUtility.DisplayDialog("Invalid Path", "Please select a folder inside the Assets directory.", "Ok");
+                    }
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+
             GUILayout.FlexibleSpace();
 
             EditorGUILayout.BeginHorizontal();
@@ -77,10 +105,12 @@ namespace SmartifyOS.Editor
             {
                 GUILayout.FlexibleSpace();
 
-                GUI.enabled = accepted && !string.IsNullOrEmpty(brand) && !string.IsNullOrEmpty(model) && !string.IsNullOrEmpty(variant);
+                GUI.enabled = accepted && !string.IsNullOrEmpty(brand) && !string.IsNullOrEmpty(model) && !string.IsNullOrEmpty(variant) && !string.IsNullOrEmpty(createPackagePath) && !uploading;
                 if (GUILayout.Button("Upload", Style.LargeButton, GUILayout.MaxWidth(400), GUILayout.Height(40)))
                 {
-                    UploadFile(new FileInfo("X:/projects/Python/calculator.py"));
+                    uploading = true;
+                    CreateUnityPackage(createPackagePath);
+                    UploadFile(new FileInfo(Application.dataPath + "/" + Path.GetFileName(createPackagePath.TrimEnd('/')) + ".unitypackage"));
                 }
                 GUI.enabled = true;
                 GUILayout.FlexibleSpace();
@@ -135,6 +165,23 @@ namespace SmartifyOS.Editor
             return GUI.Button(position, label, LinkStyle);
         }
 
+        private void CreateUnityPackage(string path)
+        {
+            if (string.IsNullOrEmpty(path) || !Directory.Exists(path))
+            {
+                EditorUtility.DisplayDialog("Error", "Invalid source path.", "Ok");
+                throw new Exception("Invalid source path.");
+            }
+
+            string packageName = Path.GetFileName(path.TrimEnd('/')) + ".unitypackage";
+            string savePath = Application.dataPath + "/" + packageName;
+
+            if (!string.IsNullOrEmpty(savePath))
+            {
+                AssetDatabase.ExportPackage(path, savePath, ExportPackageOptions.Recurse);
+            }
+        }
+
         private void UploadFile(FileInfo fileInfo)
         {
             string url = "http://localhost:5173/api/upload-file"; // Replace with your actual API endpoint
@@ -145,17 +192,27 @@ namespace SmartifyOS.Editor
                 if (success)
                 {
                     Debug.Log(message);
+                    if (message.Contains("uploaded successfully"))
+                        EditorUtility.DisplayDialog("Success", "File uploaded successfully! Please wait for approval now", "Ok");
+
+                    Close();
                 }
                 else
                 {
                     Debug.LogError(message);
+                    EditorUtility.DisplayDialog("Error", "Failed to upload file: " + message, "Ok");
                 }
+
+                File.Delete(fileInfo.FullName);
+                File.Delete(fileInfo.FullName + ".meta");
             });
 
         }
 
         private WWWForm CreateForm(FileInfo fileInfo)
         {
+            if (!File.Exists(fileInfo.FullName)) throw new FileNotFoundException("File not found", fileInfo.FullName);
+
             WWWForm form = new WWWForm();
             form.AddBinaryData("file", File.ReadAllBytes(fileInfo.FullName), fileInfo.Name);
             form.AddField("brand", brand);
