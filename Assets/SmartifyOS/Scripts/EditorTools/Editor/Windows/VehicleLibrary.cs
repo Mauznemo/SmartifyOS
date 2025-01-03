@@ -6,6 +6,10 @@ using Newtonsoft.Json;
 using System.Buffers.Text;
 using Newtonsoft.Json.Linq;
 using System;
+using System.IO;
+using System.Text.RegularExpressions;
+using System.Linq;
+using UnityEditor.SceneManagement;
 
 namespace SmartifyOS.Editor
 {
@@ -28,6 +32,7 @@ namespace SmartifyOS.Editor
         private Texture importIcon;
 
         private Vehicle[] vehicleArray;
+        private string[] downloadedIds;
 
         private string infoText;
 
@@ -39,6 +44,8 @@ namespace SmartifyOS.Editor
             likedIcon = EditorUtils.GetIcon("LikedIcon");
             downloadIcon = EditorUtils.GetIcon("DownloadIcon");
             importIcon = EditorUtils.GetIcon("importIcon");
+
+            downloadedIds = GetDownloadedIds().ToArray();
 
             LoadVehicles();
         }
@@ -100,6 +107,7 @@ namespace SmartifyOS.Editor
 
                 list.Add(new Vehicle
                 {
+                    id = item.vehicle.id,
                     brand = item.vehicle.brand,
                     model = item.vehicle.model,
                     variant = item.vehicle.variant,
@@ -112,10 +120,28 @@ namespace SmartifyOS.Editor
 
         public class Vehicle
         {
+            public string id;
             public string brand;
             public string model;
             public string variant;
             public Texture2D image;
+        }
+
+        private List<string> GetDownloadedIds()
+        {
+            List<string> ids = new List<string>();
+
+            DirectoryInfo[] directories = new DirectoryInfo(Application.dataPath + "/SmartifyOS/Downloaded").GetDirectories();
+
+            string pattern = @"[a-fA-F0-9]{24}$";
+
+            foreach (DirectoryInfo directory in directories)
+            {
+                Match match = Regex.Match(directory.Name, pattern);
+                ids.Add(match.Value);
+            }
+
+            return ids;
         }
 
         private void OnGUI()
@@ -253,7 +279,7 @@ namespace SmartifyOS.Editor
                 {
 
 
-                    VehicleEntry(vehicle.image, $"{vehicle.brand} {vehicle.model} {vehicle.variant}");
+                    VehicleEntry(vehicle.image, $"{vehicle.brand} {vehicle.model} {vehicle.variant}", vehicle.id);
                 }
             }
             else
@@ -265,7 +291,6 @@ namespace SmartifyOS.Editor
                 textStyle.alignment = TextAnchor.MiddleCenter;
                 GUILayout.FlexibleSpace();
 
-                EditorGUILayout.LabelField("Vehicle Library is not implemented yet", textStyle, GUILayout.Height(40));
                 EditorGUILayout.LabelField(infoText, textStyle, GUILayout.Height(40));
 
                 GUILayout.FlexibleSpace();
@@ -273,8 +298,9 @@ namespace SmartifyOS.Editor
             EditorGUILayout.EndScrollView();
         }
 
-        private void VehicleEntry(Texture image, string name)
+        private void VehicleEntry(Texture image, string name, string id)
         {
+            bool downloaded = downloadedIds.Contains(id);
             GUILayout.BeginVertical(GUI.skin.box, GUILayout.Height(200));
 
             EditorGUILayout.BeginHorizontal();
@@ -302,7 +328,11 @@ namespace SmartifyOS.Editor
                 }
 
                 EditorGUILayout.BeginHorizontal(GUILayout.Width(300));
-                GUILayout.Label("Example model from sketchfab.com");
+                GUILayout.Label("ID: " + id);
+                if (downloaded)
+                {
+                    EditorGUILayout.LabelField("(Downloaded)", GUILayout.Width(100));
+                }
                 /*
                 GUIContent buttonContent = new GUIContent("   12K  ", likeIcon);
 
@@ -335,14 +365,85 @@ namespace SmartifyOS.Editor
                 buttonStyle.fontStyle = FontStyle.Bold;
                 buttonStyle.fontSize = 16;
 
-                GUIContent buttonContent = new GUIContent("   Download  ", downloadIcon);
-
-                if (GUILayout.Button(buttonContent, buttonStyle, GUILayout.MaxWidth(200), GUILayout.Height(40)))
+                if (downloaded)
                 {
 
+                    if (GUILayout.Button(new GUIContent("    Import   ", downloadIcon), buttonStyle, GUILayout.MaxWidth(200), GUILayout.Height(40)))
+                    {
+                        ImportVehicle(id);
+                    }
                 }
+                else
+                {
+                    if (GUILayout.Button(new GUIContent("   Download  ", downloadIcon), buttonStyle, GUILayout.MaxWidth(200), GUILayout.Height(40)))
+                    {
+                        DownloadVehicle(id);
+                    }
+                }
+
                 EditorGUILayout.EndHorizontal();
                 EditorGUILayout.EndVertical();
+            }
+        }
+
+        private void DownloadVehicle(string id)
+        {
+
+        }
+
+        private void ImportVehicle(string id)
+        {
+            DirectoryInfo[] directories = new DirectoryInfo(Application.dataPath + "/SmartifyOS/Downloaded").GetDirectories();
+
+            foreach (DirectoryInfo directory in directories)
+            {
+                if (directory.Name.Contains(id))
+                {
+                    FileInfo prefabFile = directory.GetFiles("*.prefab", SearchOption.TopDirectoryOnly)[0];
+
+                    string assetPath = "Assets" + prefabFile.FullName.Substring(Application.dataPath.Length).Replace("\\", "/");
+
+                    // Load the prefab as a GameObject
+                    GameObject prefab = (GameObject)UnityEditor.AssetDatabase.LoadAssetAtPath(assetPath, typeof(GameObject));
+
+                    if (prefab != null)
+                    {
+                        GameObject vehicleParent = GameObject.Find("VehicleParent");
+
+                        if (vehicleParent == null)
+                        {
+                            Debug.LogError("VehicleParent object not found in scene.");
+                            return;
+                        }
+
+                        if (vehicleParent.transform.childCount > 0)
+                        {
+                            bool proceed = EditorUtility.DisplayDialog("Existing vehicle will be removed", "The existing vehicle will be removed, do you want to proceed?", "Yes", "No");
+
+                            if (!proceed)
+                                return;
+
+                            Undo.DestroyObjectImmediate(vehicleParent.transform.GetChild(0).gameObject);
+                        }
+
+
+                        GameObject prefabInstance = (GameObject)PrefabUtility.InstantiatePrefab(prefab);
+
+                        //PrefabUtility.UnpackPrefabInstance(prefabInstance, PrefabUnpackMode.Completely, InteractionMode.UserAction);
+
+                        prefabInstance.name = prefabFile.Name.Replace(".prefab", "");
+
+                        GameObjectUtility.SetParentAndAlign(prefabInstance, vehicleParent);
+
+                        Undo.RegisterCreatedObjectUndo(prefabInstance, "Create " + prefabInstance.name);
+                        EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+                    }
+                    else
+                    {
+                        Debug.LogError("Failed to load prefab: " + assetPath);
+                    }
+                    break;
+                }
             }
         }
     }
