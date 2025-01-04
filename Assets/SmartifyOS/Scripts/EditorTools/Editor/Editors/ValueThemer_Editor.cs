@@ -1,5 +1,6 @@
 using System.Linq;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -49,6 +50,7 @@ namespace SmartifyOS.Editor.Theming
                 valueThemer.styleName = valueStyles.styles.Keys.ToArray()[selectedStyleIndex];
                 valueThemer.UpdateValue(ThemeData.GetThemeData().GetValue(valueThemer.styleName));
                 EditorUtility.SetDirty(valueThemer);
+                EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
             }
 
             if (GUILayout.Button("Reload", GUILayout.MaxWidth(100)))
@@ -56,6 +58,7 @@ namespace SmartifyOS.Editor.Theming
                 valueThemer.styleName = valueStyles.styles.Keys.ToArray()[selectedStyleIndex];
                 valueThemer.UpdateValue(ThemeData.GetThemeData().GetValue(valueThemer.styleName));
                 EditorUtility.SetDirty(valueThemer);
+                EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
             }
 
             GUILayout.EndHorizontal();
@@ -71,6 +74,7 @@ namespace SmartifyOS.Editor.Theming
             {
                 valueThemer.UpdateValue(ThemeData.GetThemeData().GetValue(valueThemer.styleName));
                 EditorUtility.SetDirty(valueThemer);
+                EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
             }
             GUILayout.EndHorizontal();
 

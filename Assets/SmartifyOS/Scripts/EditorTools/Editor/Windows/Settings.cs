@@ -200,6 +200,7 @@ namespace SmartifyOS.Editor
                                 ActiveEditorTracker.sharedTracker.ForceRebuild();
                                 themeData.colorStyles.RemoveStyle(colorStyle.Key);
                                 themeData.SaveAsset();
+                                EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
                                 GUIUtility.ExitGUI();
                             }
                         }
@@ -223,7 +224,10 @@ namespace SmartifyOS.Editor
                         }
                     }
                     EditorUtility.SetDirty(this);
+                    EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
                     SceneView.RepaintAll();
+                    themeData.SaveAsset();
+
                 }
                 GUILayout.EndHorizontal();
             }
@@ -309,6 +313,7 @@ namespace SmartifyOS.Editor
                                 ActiveEditorTracker.sharedTracker.ForceRebuild();
                                 themeData.valueStyles.RemoveStyle(valueStyle.Key);
                                 themeData.SaveAsset();
+                                EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
                                 GUIUtility.ExitGUI();
                             }
                         }
@@ -332,7 +337,9 @@ namespace SmartifyOS.Editor
                         }
                     }
                     EditorUtility.SetDirty(this);
+                    EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
                     SceneView.RepaintAll();
+                    themeData.SaveAsset();
                 }
                 GUILayout.EndHorizontal();
             }
