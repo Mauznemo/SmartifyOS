@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Codice.CM.Common;
 using SmartifyOS.Editor.Styles;
+using SmartifyOS.Editor.Theming;
 using SmartifyOS.SerialCommunication;
 using SmartifyOS.StatusBar;
 using SmartifyOS.UI;
@@ -14,6 +16,18 @@ namespace SmartifyOS.Editor
 {
     public class Settings : EditorWindow
     {
+        public static bool DEV_MODE
+        {
+            get
+            {
+                return EditorPrefs.GetBool("DEV_MODE", false);
+            }
+            set
+            {
+                EditorPrefs.SetBool("DEV_MODE", value);
+            }
+        }
+
         private Tab currentTab = Tab.Project;
         private Vector2 scrollPos;
 
@@ -25,12 +39,32 @@ namespace SmartifyOS.Editor
         private List<BaseUIWindow> windows;
         private SystemManager systemManager;
 
+        private ThemeData themeData;
+        private Color newColorStyleColor = Color.white;
+        private string newColorStyleName = "";
+        private bool newColorStyleRemovable = true;
+        private float newValueStyleValue = 0f;
+        private string newValueStyleName = "";
+        private bool newValueStyleRemovable = true;
+
         [MenuItem("SmartifyOS/Settings", false, 0)]
         [Shortcut("SmartifyOS/Open Settings", KeyCode.Period, ShortcutModifiers.Action)]
         public static void ShowWindow()
         {
             var window = GetWindow<Settings>("Settings");
             window.minSize = new Vector2(500, 300);
+        }
+
+        [MenuItem("Window/SOS Dev Tools/Activate Dev Mode")]
+        public static void ActivateDevMode()
+        {
+            DEV_MODE = true;
+        }
+
+        [MenuItem("Window/SOS Dev Tools/Deactivate Dev Mode")]
+        public static void DeactivateDevMode()
+        {
+            DEV_MODE = false;
         }
 
         private enum Tab
@@ -49,6 +83,8 @@ namespace SmartifyOS.Editor
             autoCheckForUpdates = EditorPrefs.GetBool("AutoCheckForUpdates", false);
             autoOpenMainScene = EditorPrefs.GetBool("AutoOpenMainScene", true);
             currentTab = (Tab)EditorPrefs.GetInt("SettingsTab", 0);
+
+            themeData = ThemeData.GetThemeData();
         }
 
         private void GetObjects()
@@ -121,6 +157,224 @@ namespace SmartifyOS.Editor
             systemManager.showLogoOnPowerOff = ToggleButton(systemManager.showLogoOnPowerOff, true);
             EndColorBox();
 
+
+            GUILayout.Label("Theming", EditorStyles.boldLabel);
+            GUILayout.BeginVertical(Style.Box, GUILayout.ExpandWidth(true));
+            GUILayout.Label("Colors:", EditorStyles.boldLabel);
+            foreach (var colorStyle in themeData.colorStyles.styles)
+            {
+                GUILayout.BeginHorizontal();
+                GUILayout.Label(colorStyle.Key, GUILayout.Width(300));
+                colorStyle.Value.color = EditorGUILayout.ColorField(colorStyle.Value.color);
+                if (colorStyle.Value.canBeRemoved || DEV_MODE)
+                {
+                    if (GUILayout.Button("Remove", GUILayout.Width(100)))
+                    {
+                        var colorThemers = GameObject.FindObjectsByType<ColorThemer>(FindObjectsSortMode.None);
+                        bool inUse = false;
+                        foreach (var colorThemer in colorThemers)
+                        {
+                            if (colorThemer.GetStyleName() == colorStyle.Key)
+                            {
+                                inUse = true;
+                                break;
+                            }
+                        }
+
+                        if (inUse)
+                        {
+                            bool delete = EditorUtility.DisplayDialog("In Use", $"The color style {colorStyle.Key} is in use. If you remove it every themer using it will default to the first style.", "Delete", "Cancel");
+
+                            if (delete)
+                            {
+                                foreach (var colorThemer in colorThemers)
+                                {
+                                    if (colorThemer.GetStyleName() == colorStyle.Key)
+                                    {
+                                        colorThemer.styleName = themeData.colorStyles.GetFirstStyleName();
+                                        colorThemer.UpdateColor(ThemeData.GetThemeData().GetColor(colorThemer.styleName));
+                                        EditorUtility.SetDirty(colorThemer);
+                                    }
+                                }
+
+                                ActiveEditorTracker.sharedTracker.ForceRebuild();
+                                themeData.colorStyles.RemoveStyle(colorStyle.Key);
+                                themeData.SaveAsset();
+                                GUIUtility.ExitGUI();
+                            }
+                        }
+                        else
+                        {
+                            themeData.colorStyles.RemoveStyle(colorStyle.Key);
+                            themeData.SaveAsset();
+                            GUIUtility.ExitGUI();
+                        }
+                    }
+                }
+
+                if (GUILayout.Button("Apply", GUILayout.Width(80)))
+                {
+                    var colorThemers = GameObject.FindObjectsByType<ColorThemer>(FindObjectsSortMode.None);
+                    foreach (var colorThemer in colorThemers)
+                    {
+                        if (colorThemer.GetStyleName() == colorStyle.Key)
+                        {
+                            colorThemer.UpdateColor(colorStyle.Value.color);
+                        }
+                    }
+                    EditorUtility.SetDirty(this);
+                    SceneView.RepaintAll();
+                }
+                GUILayout.EndHorizontal();
+            }
+
+            GUILayout.Space(10);
+
+            GUILayout.BeginHorizontal();
+            newColorStyleName = EditorGUILayout.TextField(newColorStyleName);
+            newColorStyleColor = EditorGUILayout.ColorField(newColorStyleColor);
+
+            if (DEV_MODE)
+            {
+                newColorStyleRemovable = GUILayout.Toggle(newColorStyleRemovable, "Removable");
+            }
+
+            if (GUILayout.Button("Add Color"))
+            {
+                if (string.IsNullOrEmpty(newColorStyleName))
+                {
+                    EditorUtility.DisplayDialog("No name", "Please enter a name for your style.", "Ok");
+                    GUILayout.EndHorizontal();
+                    GUILayout.EndVertical();
+                    return;
+                }
+
+                if (themeData.colorStyles.styles.ContainsKey(newColorStyleName))
+                {
+                    EditorUtility.DisplayDialog("Already exists", "Style with name '" + newColorStyleName + "' already exists.", "Ok");
+                    GUILayout.EndHorizontal();
+                    GUILayout.EndVertical();
+                    return;
+                }
+
+                GUIUtility.keyboardControl = 0;
+                themeData.colorStyles.AddStyle(newColorStyleName, newColorStyleColor, newColorStyleRemovable);
+                newColorStyleName = "";
+                newColorStyleColor = Color.white;
+                newColorStyleRemovable = true;
+                themeData.SaveAsset();
+            }
+            GUILayout.EndHorizontal();
+            GUILayout.EndVertical();
+
+
+            GUILayout.BeginVertical(Style.Box, GUILayout.ExpandWidth(true));
+            GUILayout.Label("Values:", EditorStyles.boldLabel);
+            foreach (var valueStyle in themeData.valueStyles.styles)
+            {
+                GUILayout.BeginHorizontal();
+                GUILayout.Label(valueStyle.Key, GUILayout.Width(300));
+                valueStyle.Value.value = EditorGUILayout.FloatField(valueStyle.Value.value);
+                if (valueStyle.Value.canBeRemoved || DEV_MODE)
+                {
+                    if (GUILayout.Button("Remove", GUILayout.Width(100)))
+                    {
+                        var valueThemers = GameObject.FindObjectsByType<ValueThemer>(FindObjectsSortMode.None);
+                        bool inUse = false;
+                        foreach (var valueThemer in valueThemers)
+                        {
+                            if (valueThemer.GetStyleName() == valueStyle.Key)
+                            {
+                                inUse = true;
+                                break;
+                            }
+                        }
+
+                        if (inUse)
+                        {
+                            bool delete = EditorUtility.DisplayDialog("In Use", $"The value style {valueStyle.Key} is in use. If you remove it every themer using it will default to the first style.", "Delete", "Cancel");
+
+                            if (delete)
+                            {
+                                foreach (var valueThemer in valueThemers)
+                                {
+                                    if (valueThemer.GetStyleName() == valueStyle.Key)
+                                    {
+                                        valueThemer.styleName = themeData.valueStyles.GetFirstStyleName();
+                                        valueThemer.UpdateValue(ThemeData.GetThemeData().GetValue(valueThemer.styleName));
+                                        EditorUtility.SetDirty(valueThemer);
+                                    }
+                                }
+
+                                ActiveEditorTracker.sharedTracker.ForceRebuild();
+                                themeData.valueStyles.RemoveStyle(valueStyle.Key);
+                                themeData.SaveAsset();
+                                GUIUtility.ExitGUI();
+                            }
+                        }
+                        else
+                        {
+                            themeData.valueStyles.RemoveStyle(valueStyle.Key);
+                            themeData.SaveAsset();
+                            GUIUtility.ExitGUI();
+                        }
+                    }
+                }
+
+                if (GUILayout.Button("Apply", GUILayout.Width(80)))
+                {
+                    var valueThemers = GameObject.FindObjectsByType<ValueThemer>(FindObjectsSortMode.None);
+                    foreach (var valueThemer in valueThemers)
+                    {
+                        if (valueThemer.GetStyleName() == valueStyle.Key)
+                        {
+                            valueThemer.UpdateValue(valueStyle.Value.value);
+                        }
+                    }
+                    EditorUtility.SetDirty(this);
+                    SceneView.RepaintAll();
+                }
+                GUILayout.EndHorizontal();
+            }
+
+            GUILayout.Space(10);
+
+            GUILayout.BeginHorizontal();
+            newValueStyleName = EditorGUILayout.TextField(newValueStyleName);
+            newValueStyleValue = EditorGUILayout.FloatField(newValueStyleValue);
+
+            if (DEV_MODE)
+            {
+                newValueStyleRemovable = GUILayout.Toggle(newValueStyleRemovable, "Removable");
+            }
+
+            if (GUILayout.Button("Add Value"))
+            {
+                if (string.IsNullOrEmpty(newValueStyleName))
+                {
+                    EditorUtility.DisplayDialog("No name", "Please enter a name for your style.", "Ok");
+                    GUILayout.EndHorizontal();
+                    GUILayout.EndVertical();
+                    return;
+                }
+
+                if (themeData.valueStyles.styles.ContainsKey(newValueStyleName))
+                {
+                    EditorUtility.DisplayDialog("Already exists", "Style with name '" + newValueStyleName + "' already exists.", "Ok");
+                    GUILayout.EndHorizontal();
+                    GUILayout.EndVertical();
+                    return;
+                }
+
+                GUIUtility.keyboardControl = 0;
+                themeData.valueStyles.AddStyle(newValueStyleName, newValueStyleValue, newValueStyleRemovable);
+                newValueStyleName = "";
+                newValueStyleValue = 0f;
+                newValueStyleRemovable = true;
+                themeData.SaveAsset();
+            }
+            GUILayout.EndHorizontal();
+            GUILayout.EndVertical();
         }
 
         private void DrawEditorPage()
