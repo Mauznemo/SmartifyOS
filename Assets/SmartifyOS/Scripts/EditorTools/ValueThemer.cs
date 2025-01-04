@@ -1,3 +1,4 @@
+#if UNITY_EDITOR
 using System;
 using UnityEngine;
 using UnityEngine.Events;
@@ -28,3 +29,4 @@ namespace SmartifyOS.Editor.Theming
     [Serializable]
     public class UnityEventFloat : UnityEvent<float> { };
 }
+#endif
