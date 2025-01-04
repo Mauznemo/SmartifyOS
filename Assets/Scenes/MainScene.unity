@@ -15551,9 +15551,9 @@ MonoBehaviour:
   updateColor:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 899215342}
-        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
-        m_MethodName: set_color
+      - m_Target: {fileID: 899215343}
+        m_TargetAssemblyTypeName: SmartifyOS.UI.Components.IconButton, Assembly-CSharp
+        m_MethodName: SetOffColor
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
