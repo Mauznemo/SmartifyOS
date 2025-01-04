@@ -51,6 +51,13 @@ namespace SmartifyOS.Editor.Theming
                 EditorUtility.SetDirty(valueThemer);
             }
 
+            if (GUILayout.Button("Reload", GUILayout.MaxWidth(100)))
+            {
+                valueThemer.styleName = valueStyles.styles.Keys.ToArray()[selectedStyleIndex];
+                valueThemer.UpdateValue(ThemeData.GetThemeData().GetValue(valueThemer.styleName));
+                EditorUtility.SetDirty(valueThemer);
+            }
+
             GUILayout.EndHorizontal();
 
             GUILayout.BeginHorizontal();

@@ -56,6 +56,14 @@ namespace SmartifyOS.Editor.Theming
                 colorThemer.UpdateColor(ThemeData.GetThemeData().GetColor(colorThemer.styleName));
                 EditorUtility.SetDirty(colorThemer);
             }
+
+            if (GUILayout.Button("Reload", GUILayout.MaxWidth(100)))
+            {
+                colorThemer.styleName = colorStyles.styles.Keys.ToArray()[selectedStyleIndex];
+                colorThemer.UpdateColor(ThemeData.GetThemeData().GetColor(colorThemer.styleName));
+                EditorUtility.SetDirty(colorThemer);
+            }
+
             GUILayout.EndHorizontal();
 
             GUILayout.Space(10);
