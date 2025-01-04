@@ -844,6 +844,7 @@ GameObject:
   m_Component:
   - component: {fileID: 48730312}
   - component: {fileID: 48730313}
+  - component: {fileID: 48730314}
   m_Layer: 5
   m_Name: Statistics
   m_TagString: Untagged
@@ -889,6 +890,46 @@ MonoBehaviour:
   speedIcon: {fileID: 21300000, guid: 8f880207492996b4496bb040a2b7f417, type: 3}
   timeIcon: {fileID: 21300000, guid: 9f65dca6122ef0f4ca08e1eb54da88c6, type: 3}
   time: 0
+--- !u!114 &48730314
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 48730311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: fullscreen-bg
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 654499003}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+      - m_Target: {fileID: 1169637482}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &51127745
 GameObject:
   m_ObjectHideFlags: 0
@@ -1510,7 +1551,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: f6d46f1e916b3486c90a448a441fac6a, type: 2}
-  m_Color: {r: 0.6072123, g: 0.6072123, b: 0.6072123, a: 1}
+  m_Color: {r: 0.45490196, g: 0.3647059, b: 0.6431373, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3040,7 +3081,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 62721.367}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &158427254
@@ -4035,6 +4076,8 @@ GameObject:
   - component: {fileID: 211211353}
   - component: {fileID: 211211357}
   - component: {fileID: 211211358}
+  - component: {fileID: 211211359}
+  - component: {fileID: 211211360}
   m_Layer: 5
   m_Name: PushNotification
   m_TagString: Untagged
@@ -4147,7 +4190,64 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 10.67
+  m_PixelsPerUnitMultiplier: 10
+--- !u!114 &211211359
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211211351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: main
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 211211358}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+--- !u!114 &211211360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 211211351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced37642bc2510e4b9aed40956b1ff33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: notification-roundness
+  multiplier: 1
+  updateValue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 211211358}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+        m_MethodName: set_pixelsPerUnitMultiplier
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &223881754
 GameObject:
   m_ObjectHideFlags: 0
@@ -4729,6 +4829,8 @@ GameObject:
   - component: {fileID: 234327089}
   - component: {fileID: 234327087}
   - component: {fileID: 234327090}
+  - component: {fileID: 234327092}
+  - component: {fileID: 234327091}
   m_Layer: 5
   m_Name: Blurred Image
   m_TagString: Untagged
@@ -4813,6 +4915,63 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 12
+--- !u!114 &234327091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234327085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced37642bc2510e4b9aed40956b1ff33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: 'roundness '
+  multiplier: 1
+  updateValue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 234327090}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+        m_MethodName: set_pixelsPerUnitMultiplier
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+--- !u!114 &234327092
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234327085}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: main
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 234327090}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &235563674
 GameObject:
   m_ObjectHideFlags: 0
@@ -6062,6 +6221,7 @@ GameObject:
   - component: {fileID: 279308628}
   - component: {fileID: 279308629}
   - component: {fileID: 279308630}
+  - component: {fileID: 279308631}
   m_Layer: 5
   m_Name: StatusBar
   m_TagString: Untagged
@@ -6143,6 +6303,34 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &279308631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 279308625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: main
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 279308630}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &283400053
 GameObject:
   m_ObjectHideFlags: 0
@@ -11036,6 +11224,7 @@ GameObject:
   - component: {fileID: 589965326}
   - component: {fileID: 589965328}
   - component: {fileID: 589965329}
+  - component: {fileID: 589965330}
   m_Layer: 5
   m_Name: QuickSettings
   m_TagString: Untagged
@@ -11104,6 +11293,34 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 12
+--- !u!114 &589965330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589965325}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: main
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 589965329}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &596244796
 GameObject:
   m_ObjectHideFlags: 0
@@ -13728,7 +13945,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: f6d46f1e916b3486c90a448a441fac6a, type: 2}
-  m_Color: {r: 0.45593742, g: 0.3661445, b: 0.6415094, a: 1}
+  m_Color: {r: 0.45490196, g: 0.3647059, b: 0.6431373, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -14664,6 +14881,7 @@ GameObject:
   - component: {fileID: 865236276}
   - component: {fileID: 865236273}
   - component: {fileID: 865236277}
+  - component: {fileID: 865236278}
   m_Layer: 5
   m_Name: AppList
   m_TagString: Untagged
@@ -14765,7 +14983,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: f6d46f1e916b3486c90a448a441fac6a, type: 2}
-  m_Color: {r: 0.45593742, g: 0.3661445, b: 0.6415094, a: 1}
+  m_Color: {r: 0.45490196, g: 0.3647059, b: 0.6431373, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -14782,6 +15000,34 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 12
+--- !u!114 &865236278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 865236271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: fullscreen-bg
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 865236277}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &886734393
 GameObject:
   m_ObjectHideFlags: 0
@@ -15147,6 +15393,8 @@ GameObject:
   - component: {fileID: 899215343}
   - component: {fileID: 899215342}
   - component: {fileID: 899215338}
+  - component: {fileID: 899215345}
+  - component: {fileID: 899215344}
   m_Layer: 5
   m_Name: AppListButton
   m_TagString: Untagged
@@ -15238,7 +15486,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 11.2
+  m_PixelsPerUnitMultiplier: 12
 --- !u!114 &899215343
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15258,6 +15506,63 @@ MonoBehaviour:
   offColor: {r: 0.5647059, g: 0.44705883, b: 0.80784315, a: 1}
   disabledColor: {r: 0, g: 0, b: 0, a: 0.31}
   iconImage: {fileID: 0}
+--- !u!114 &899215344
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899215335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced37642bc2510e4b9aed40956b1ff33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: 'roundness '
+  multiplier: 1
+  updateValue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 899215342}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+        m_MethodName: set_pixelsPerUnitMultiplier
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+--- !u!114 &899215345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 899215335}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: main
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 899215342}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &904547172
 GameObject:
   m_ObjectHideFlags: 0
@@ -15861,6 +16166,7 @@ GameObject:
   - component: {fileID: 927539392}
   - component: {fileID: 927539393}
   - component: {fileID: 927539394}
+  - component: {fileID: 927539395}
   m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
@@ -15941,7 +16247,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: f6d46f1e916b3486c90a448a441fac6a, type: 2}
-  m_Color: {r: 0.45593742, g: 0.3661445, b: 0.6415094, a: 1}
+  m_Color: {r: 0.45490196, g: 0.3647059, b: 0.6431373, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -15958,6 +16264,34 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 12
+--- !u!114 &927539395
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 927539388}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: fullscreen-bg
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 927539394}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &933115170
 GameObject:
   m_ObjectHideFlags: 0
@@ -16255,6 +16589,7 @@ GameObject:
   m_Component:
   - component: {fileID: 947119891}
   - component: {fileID: 947119892}
+  - component: {fileID: 947119893}
   m_Layer: 5
   m_Name: RealtimeInfo
   m_TagString: Untagged
@@ -16300,6 +16635,46 @@ MonoBehaviour:
   batteryText: {fileID: 1189894923}
   chargingSprite: {fileID: 21300000, guid: f72ba795190a05c428c0f053b2eebd48, type: 3}
   lowBatterySprite: {fileID: 21300000, guid: 5ad0d9078bb4e6746a845cfaf729fa92, type: 3}
+--- !u!114 &947119893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 947119890}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: fullscreen-bg
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 58288750}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+      - m_Target: {fileID: 790917391}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &947494810
 GameObject:
   m_ObjectHideFlags: 0
@@ -18961,6 +19336,8 @@ GameObject:
   - component: {fileID: 1116229511}
   - component: {fileID: 1116229510}
   - component: {fileID: 1116229509}
+  - component: {fileID: 1116229515}
+  - component: {fileID: 1116229514}
   m_Layer: 5
   m_Name: UpdateNotification
   m_TagString: Untagged
@@ -19019,7 +19396,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 10.67
+  m_PixelsPerUnitMultiplier: 10
 --- !u!225 &1116229510
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -19069,6 +19446,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1116229507}
   m_CullTransparentMesh: 1
+--- !u!114 &1116229514
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116229507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced37642bc2510e4b9aed40956b1ff33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: notification-roundness
+  multiplier: 1
+  updateValue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1116229509}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+        m_MethodName: set_pixelsPerUnitMultiplier
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+--- !u!114 &1116229515
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116229507}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: main
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1116229509}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &1138225533
 GameObject:
   m_ObjectHideFlags: 0
@@ -19586,7 +20020,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: f6d46f1e916b3486c90a448a441fac6a, type: 2}
-  m_Color: {r: 0.45593742, g: 0.3661445, b: 0.6415094, a: 1}
+  m_Color: {r: 0.45490196, g: 0.3647059, b: 0.6431373, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -19659,7 +20093,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 77927.74}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1171074961
@@ -20987,6 +21421,8 @@ GameObject:
   - component: {fileID: 1234626696}
   - component: {fileID: 1234626694}
   - component: {fileID: 1234626697}
+  - component: {fileID: 1234626699}
+  - component: {fileID: 1234626698}
   m_Layer: 5
   m_Name: FileMediaPlaye
   m_TagString: Untagged
@@ -21100,6 +21536,63 @@ MonoBehaviour:
   m_EffectColor: {r: 1, g: 1, b: 1, a: 1}
   m_EffectDistance: {x: 2, y: 2}
   m_UseGraphicAlpha: 1
+--- !u!114 &1234626698
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234626691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced37642bc2510e4b9aed40956b1ff33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: 'roundness '
+  multiplier: 1
+  updateValue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1234626694}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+        m_MethodName: set_pixelsPerUnitMultiplier
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+--- !u!114 &1234626699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1234626691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: main
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1234626694}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &1235806586
 GameObject:
   m_ObjectHideFlags: 0
@@ -21535,6 +22028,8 @@ GameObject:
   - component: {fileID: 1259283813}
   - component: {fileID: 1259283812}
   - component: {fileID: 1259283811}
+  - component: {fileID: 1259283816}
+  - component: {fileID: 1259283817}
   m_Layer: 5
   m_Name: VolumeChangeOverlay
   m_TagString: Untagged
@@ -21608,7 +22103,7 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 10.67
+  m_PixelsPerUnitMultiplier: 10
 --- !u!225 &1259283813
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -21644,6 +22139,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1259283809}
   m_CullTransparentMesh: 1
+--- !u!114 &1259283816
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259283809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: main
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1259283812}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+--- !u!114 &1259283817
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1259283809}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced37642bc2510e4b9aed40956b1ff33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: notification-roundness
+  multiplier: 1
+  updateValue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1259283812}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+        m_MethodName: set_pixelsPerUnitMultiplier
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &1292681409 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4502152264590582063, guid: 184ab11a42c25d84db25d31723bf5abf,
@@ -29161,6 +29713,8 @@ GameObject:
   - component: {fileID: 1631118711}
   - component: {fileID: 1631118708}
   - component: {fileID: 1631118712}
+  - component: {fileID: 1631118714}
+  - component: {fileID: 1631118713}
   m_Layer: 5
   m_Name: InfoDisplay
   m_TagString: Untagged
@@ -29255,7 +29809,64 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 8
+  m_PixelsPerUnitMultiplier: 7.992
+--- !u!114 &1631118713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631118706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced37642bc2510e4b9aed40956b1ff33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: 'roundness '
+  multiplier: 0.666
+  updateValue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1631118712}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+        m_MethodName: set_pixelsPerUnitMultiplier
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+--- !u!114 &1631118714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1631118706}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: main
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1631118712}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &1631930975
 GameObject:
   m_ObjectHideFlags: 0
@@ -30431,6 +31042,8 @@ GameObject:
   - component: {fileID: 1678463243}
   - component: {fileID: 1678463240}
   - component: {fileID: 1678463244}
+  - component: {fileID: 1678463246}
+  - component: {fileID: 1678463245}
   m_Layer: 5
   m_Name: BTMediaPlayer
   m_TagString: Untagged
@@ -30536,6 +31149,63 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 12
+--- !u!114 &1678463245
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678463238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced37642bc2510e4b9aed40956b1ff33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: 'roundness '
+  multiplier: 1
+  updateValue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1678463244}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+        m_MethodName: set_pixelsPerUnitMultiplier
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+--- !u!114 &1678463246
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678463238}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: main
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1678463244}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &1699706156
 GameObject:
   m_ObjectHideFlags: 0
@@ -31428,7 +32098,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 2100000, guid: f6d46f1e916b3486c90a448a441fac6a, type: 2}
-  m_Color: {r: 0.45593742, g: 0.3661445, b: 0.6415094, a: 1}
+  m_Color: {r: 0.45490196, g: 0.3647059, b: 0.6431373, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -33398,7 +34068,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 66930.49}
   m_SizeDelta: {x: 0, y: 300}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1887336914
@@ -33858,6 +34528,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1903291150}
   - component: {fileID: 1903291151}
+  - component: {fileID: 1903291152}
   m_Layer: 5
   m_Name: InteriorEditor
   m_TagString: Untagged
@@ -33930,6 +34601,34 @@ MonoBehaviour:
   - {fileID: 5453712242155767736}
   - {fileID: 223881760}
   - {fileID: 479213425}
+--- !u!114 &1903291152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1903291149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: fullscreen-bg
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1749578476}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &1910262880
 GameObject:
   m_ObjectHideFlags: 0
@@ -41780,6 +42479,8 @@ GameObject:
   - component: {fileID: 5645186132502265281}
   - component: {fileID: 4326618509265988544}
   - component: {fileID: 5645186132502265282}
+  - component: {fileID: 5645186132502265283}
+  - component: {fileID: 5645186132502265284}
   m_Layer: 5
   m_Name: ReverseCamera
   m_TagString: Untagged
@@ -43436,6 +44137,8 @@ GameObject:
   - component: {fileID: 8940935682154550339}
   - component: {fileID: 1029094355362644546}
   - component: {fileID: 8940935682154550340}
+  - component: {fileID: 8940935682154550342}
+  - component: {fileID: 8940935682154550341}
   m_Layer: 5
   m_Name: ModalWindow
   m_TagString: Untagged
@@ -45607,6 +46310,8 @@ GameObject:
   - component: {fileID: 9161769111078979402}
   - component: {fileID: 7311911086242116558}
   - component: {fileID: 7243786689585630514}
+  - component: {fileID: 9161769111078979404}
+  - component: {fileID: 9161769111078979403}
   m_Layer: 5
   m_Name: 0To100
   m_TagString: Untagged
@@ -46995,6 +47700,63 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 12
+--- !u!114 &5645186132502265283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110281700530465588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: main
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5645186132502265282}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+--- !u!114 &5645186132502265284
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110281700530465588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced37642bc2510e4b9aed40956b1ff33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: 'roundness '
+  multiplier: 1
+  updateValue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5645186132502265282}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+        m_MethodName: set_pixelsPerUnitMultiplier
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!114 &5645656429054741864
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -48779,6 +49541,8 @@ GameObject:
   - component: {fileID: 9182443930725177183}
   - component: {fileID: 9182443930725177182}
   - component: {fileID: 9182443930725177184}
+  - component: {fileID: 9182443930725177186}
+  - component: {fileID: 9182443930725177185}
   m_Layer: 5
   m_Name: FilePicker
   m_TagString: Untagged
@@ -51283,6 +52047,8 @@ GameObject:
   - component: {fileID: 8339532156777518034}
   - component: {fileID: 5979090171879363365}
   - component: {fileID: 8339532156777518035}
+  - component: {fileID: 8339532156777518037}
+  - component: {fileID: 8339532156777518036}
   m_Layer: 5
   m_Name: PowerOff
   m_TagString: Untagged
@@ -51335,6 +52101,63 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 12
+--- !u!114 &8339532156777518036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8339532156777518033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced37642bc2510e4b9aed40956b1ff33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: 'roundness '
+  multiplier: 1
+  updateValue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8339532156777518035}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+        m_MethodName: set_pixelsPerUnitMultiplier
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+--- !u!114 &8339532156777518037
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8339532156777518033}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: main
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8339532156777518035}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &8353011687799829718
 GameObject:
   m_ObjectHideFlags: 0
@@ -52504,6 +53327,63 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 12
+--- !u!114 &8940935682154550341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3389545067869749942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced37642bc2510e4b9aed40956b1ff33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: 'roundness '
+  multiplier: 1
+  updateValue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8940935682154550340}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+        m_MethodName: set_pixelsPerUnitMultiplier
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+--- !u!114 &8940935682154550342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3389545067869749942}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: main
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 8940935682154550340}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!222 &8949483536377509833
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -52835,6 +53715,63 @@ MonoBehaviour:
   infoSpeedText: {fileID: 190770251}
   infoTimeText: {fileID: 942200980}
   resultTimeText: {fileID: 1446618337}
+--- !u!114 &9161769111078979403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4916566292581741370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced37642bc2510e4b9aed40956b1ff33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: 'roundness '
+  multiplier: 1
+  updateValue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7243786689585630514}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+        m_MethodName: set_pixelsPerUnitMultiplier
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+--- !u!114 &9161769111078979404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4916566292581741370}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: main
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7243786689585630514}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!1 &9168368664730907056
 GameObject:
   m_ObjectHideFlags: 0
@@ -52940,6 +53877,63 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 12
+--- !u!114 &9182443930725177185
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6785973012469192618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ced37642bc2510e4b9aed40956b1ff33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: 'roundness '
+  multiplier: 1
+  updateValue:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9182443930725177184}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Image, UnityEngine.UI
+        m_MethodName: set_pixelsPerUnitMultiplier
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
+--- !u!114 &9182443930725177186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6785973012469192618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0f87def3621829419ec2e43be537566, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  styleName: main
+  updateColor:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 9182443930725177184}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Graphic, UnityEngine.UI
+        m_MethodName: set_color
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 1
 --- !u!224 &9190415863847298272
 RectTransform:
   m_ObjectHideFlags: 0
