@@ -27,13 +27,10 @@ public class LightController : BaseSerialCommunication
 
     private bool waving;
 
-    private bool drlOn;
     private bool lightOn;
 
     [SerializeField] private Sprite lightOnIconSprite;
-    [SerializeField] private Sprite drlOnIconSprite;
     private StatusBar.StatusEntry lightOnEntry;
-    private StatusBar.StatusEntry drlOnEntry;
 
     private void Start()
     {
@@ -43,9 +40,7 @@ public class LightController : BaseSerialCommunication
         Debug.Log("Light controller connected: " + IsConnected());
 
         lightOnEntry = StatusBar.AddStatus(lightOnIconSprite);
-        drlOnEntry = StatusBar.AddStatus(drlOnIconSprite);
         lightOnEntry.Hide();
-        drlOnEntry.Hide();
 
         StartCoroutine(RequestData());
     }
@@ -125,23 +120,11 @@ public class LightController : BaseSerialCommunication
                 break;
             case "lie":
                 lightOnEntry.Show();
-                drlOnEntry.Hide();
                 lightOn = true;
                 break;
             case "lid":
                 lightOnEntry.Hide();
-                if (drlOn)
-                    drlOnEntry.Show();
                 lightOn = false;
-                break;
-
-            case "drle":
-                drlOnEntry.Show();
-                drlOn = true;
-                break;
-            case "drld":
-                drlOnEntry.Hide();
-                drlOn = false;
                 break;
             case "el": //error light (when trying to change light motor state while light is on)
                 OnLightError();
