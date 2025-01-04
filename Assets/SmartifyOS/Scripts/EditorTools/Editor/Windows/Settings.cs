@@ -18,6 +18,7 @@ namespace SmartifyOS.Editor
         private Vector2 scrollPos;
 
         private bool autoCheckForUpdates = false;
+        private bool autoOpenMainScene = true;
 
         private GameObject vehicleParent;
         private List<BaseSerialCommunication> serialScripts;
@@ -46,6 +47,7 @@ namespace SmartifyOS.Editor
             GetObjects();
 
             autoCheckForUpdates = EditorPrefs.GetBool("AutoCheckForUpdates", false);
+            autoOpenMainScene = EditorPrefs.GetBool("AutoOpenMainScene", true);
             currentTab = (Tab)EditorPrefs.GetInt("SettingsTab", 0);
         }
 
@@ -129,6 +131,14 @@ namespace SmartifyOS.Editor
             autoCheckForUpdates = ToggleButton(autoCheckForUpdates, false, (value) =>
             {
                 EditorPrefs.SetBool("AutoCheckForUpdates", value);
+            });
+            EndColorBox();
+
+            BeginColorBox();
+            GUILayout.Label("Auto open Main Scene on Startup");
+            autoOpenMainScene = ToggleButton(autoOpenMainScene, false, (value) =>
+            {
+                EditorPrefs.SetBool("AutoOpenMainScene", value);
             });
             EndColorBox();
         }

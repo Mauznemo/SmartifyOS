@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace SmartifyOS.Editor
@@ -29,6 +30,8 @@ namespace SmartifyOS.Editor
             image = AssetDatabase.LoadAssetAtPath<Texture>(EditorUtils.GetGraphicsPath() + "Welcome/SmartifyOS-welcome.png");
             licensePath = EditorUtils.GetSmartifyOSPath() + "../../LICENSE";
             licenseContent = System.IO.File.ReadAllText(licensePath);
+
+            EditorSceneManager.OpenScene("Assets/Scenes/MainScene.unity");
 
             var windows = Resources.FindObjectsOfTypeAll<EditorWindow>();
             foreach (var window in windows)

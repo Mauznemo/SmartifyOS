@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
+using UnityEditor.SceneManagement;
 using UnityEngine;
 
 namespace SmartifyOS.Editor
@@ -38,6 +39,11 @@ namespace SmartifyOS.Editor
             if (EditorPrefs.GetBool("EditorUpdateShowAtStartup", true))
             {
                 EditorPrefs.SetBool("EditorUpdateShowAtStartup", false);
+            }
+
+            if (EditorPrefs.GetBool("AutoOpenMainScene", true))
+            {
+                EditorSceneManager.OpenScene("Assets/Scenes/MainScene.unity");
             }
         }
     }
