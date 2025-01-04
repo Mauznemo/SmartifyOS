@@ -31,6 +31,9 @@ namespace SmartifyOS.Editor.Theming
 
         public Color GetColor(string styleName)
         {
+            if (string.IsNullOrEmpty(styleName))
+                return Color.white;
+
             if (colorStyles.styles.ContainsKey(styleName))
             {
                 return colorStyles.styles[styleName].color;
@@ -40,6 +43,9 @@ namespace SmartifyOS.Editor.Theming
 
         public float GetValue(string styleName)
         {
+            if (string.IsNullOrEmpty(styleName))
+                return 0f;
+
             if (valueStyles.styles.ContainsKey(styleName))
             {
                 return valueStyles.styles[styleName].value;
