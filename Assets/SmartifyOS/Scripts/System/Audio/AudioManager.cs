@@ -33,6 +33,8 @@ namespace SmartifyOS.Audio
         {
             warningAudioSource.loop = true;
             warningAudioSource.clip = audioConfig_SO.notificationSounds.warningLoop;
+
+            LinuxCommand.Run($"pactl set-sink-mute 0 0");
         }
 
         /// <summary>
