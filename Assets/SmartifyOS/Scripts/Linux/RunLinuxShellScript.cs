@@ -68,7 +68,7 @@ namespace SmartifyOS.Linux
             return output;
         }
 
-        public static void RunWithWindow(string path, string args = "")
+        public static void RunWithWindow(string path, string args = "", ProcessWindowStyle windowStyle = ProcessWindowStyle.Normal)
         {
 
             if (path.StartsWith("~"))
@@ -120,7 +120,7 @@ namespace SmartifyOS.Linux
             {
                 UseShellExecute = true,
                 WorkingDirectory = scriptDirectory,
-                CreateNoWindow = false
+                WindowStyle = windowStyle
             };
 
             // Start the process
