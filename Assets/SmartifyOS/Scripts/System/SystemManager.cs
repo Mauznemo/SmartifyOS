@@ -101,14 +101,18 @@ namespace SmartifyOS
             SaveManager.Save();
             OnPowerOff?.Invoke();
             if (showLogoOnPowerOff)
+            {
                 logoScreen.ShowScreen();
+                Invoke(nameof(Shutdown), 2f);
+            }
 
-            Invoke(nameof(Shutdown), 2f);
+            Invoke(nameof(Shutdown), 1f);
+
         }
 
-        private void Shutdown()
+        private async void Shutdown()
         {
-            string s = LinuxCommand.Run("sudo sleep 1s; sudo shutdown -h now");
+            await LinuxCommand.RunAsync("sudo shutdown -h now");
             Application.Quit();
         }
 

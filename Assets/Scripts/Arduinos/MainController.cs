@@ -102,7 +102,7 @@ public class MainController : BaseSerialCommunication
                 //check if there was rpm before if so shutdown instantly
                 if (LiveDataController.highestRpm > 1)
                 {
-                    StartCoroutine(WaitForPowerRestore(1f, false));
+                    StartCoroutine(WaitForPowerRestore(3f, false));
                 }
                 else
                 {
