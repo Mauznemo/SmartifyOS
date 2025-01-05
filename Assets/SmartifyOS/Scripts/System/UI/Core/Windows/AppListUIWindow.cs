@@ -25,7 +25,7 @@ public class AppListUIWindow : BaseUIWindow
         buttons = GetComponentsInChildren<IconButton>().ToList();
         buttonOutlines = buttons.Select(x => x.GetComponent<Outline>()).ToArray();
 
-        androidAutoButton.onClick += () => { RunLinuxShellScript.RunWithWindow("~/SmartifyOS/Scripts/StartAndroidAuto.sh", windowStyle: System.Diagnostics.ProcessWindowStyle.Minimized); };
+        androidAutoButton.onClick += () => { RunLinuxShellScript.RunWithWindow("~/SmartifyOS/Scripts/StartAndroidAuto.sh"); };
     }
 
     private void Start()
