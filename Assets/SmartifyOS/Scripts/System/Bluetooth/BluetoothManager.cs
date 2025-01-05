@@ -411,16 +411,17 @@ namespace SmartifyOS.LinuxBluetooth
                 return;
             }
 
-            var (title, artist) = BluetoothParser.ParseArtistAndSongTitle(input);
-
-            if (!string.IsNullOrEmpty(title))
+            if (input.Contains("Title:"))
             {
+                string title = BluetoothParser.ParseSongTitle(input);
                 UnityEngine.Debug.Log($"Player title changed to: {title}");
                 OnPlayerTitleChanged?.Invoke(title);
                 return;
             }
-            else if (!string.IsNullOrEmpty(artist))
+
+            if (input.Contains("Artist:"))
             {
+                string artist = BluetoothParser.ParseSongArtist(input);
                 UnityEngine.Debug.Log($"Player artist changed to: {artist}");
                 OnPlayerArtistChanged?.Invoke(artist);
                 return;

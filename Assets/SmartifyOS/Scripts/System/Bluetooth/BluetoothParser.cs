@@ -118,6 +118,35 @@ namespace SmartifyOS.LinuxBluetooth
             return passkey;
         }
 
+        public static string ParseSongTitle(string input)
+        {
+            string titlePattern = @"Title:\s(.+)";
+
+            Match titleMatch = Regex.Match(input, titlePattern);
+
+            if (titleMatch.Success)
+            {
+                return titleMatch.Groups[1].Value.Trim();
+            }
+
+            return "Parsing error";
+        }
+
+        public static string ParseSongArtist(string input)
+        {
+            string artistPattern = @"Artist:\s(.+)";
+
+            Match artistMatch = Regex.Match(input, artistPattern);
+
+            if (artistMatch.Success)
+            {
+                return artistMatch.Groups[1].Value.Trim();
+            }
+
+            return "Parsing error";
+        }
+
+        [Obsolete("Use ParseSongTitle() and ParseSongArtist() instead")]
         public static (string title, string artist) ParseArtistAndSongTitle(string input)
         {
             string title = "";
