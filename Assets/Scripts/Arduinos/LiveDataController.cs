@@ -170,7 +170,7 @@ public class LiveDataController : BaseLiveSerialCommunication
         }
         else
         {
-            if (speedKmh > 10f)
+            if (speedKmh > 10f && rpm > 500f)
             {
                 drivingTriggerTimer -= Time.deltaTime;
                 if (drivingTriggerTimer <= 0)
