@@ -76,10 +76,8 @@ public class WarningManager : MonoBehaviour
         if (AudioManager.playingWarningSound || !LiveDataController.isDriving)
             return;
 
-        if (!MainController.leftDoorOpen && !MainController.rightDoorOpen && SaveManager.Load().notifications.doorWarningWhenDriving)
-            return;
-
-        if (!MainController.trunkOpen && SaveManager.Load().notifications.trunkWarningWhenDriving)
+        if (!((MainController.leftDoorOpen || MainController.rightDoorOpen) && SaveManager.Load().notifications.doorWarningWhenDriving) ||
+            !(MainController.trunkOpen && SaveManager.Load().notifications.trunkWarningWhenDriving))
             return;
 
         StartWarningSound();
