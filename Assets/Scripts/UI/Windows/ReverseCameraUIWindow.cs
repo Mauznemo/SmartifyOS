@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using SmartifyOS.SaveSystem;
 using SmartifyOS.SystemEvents;
@@ -23,6 +24,19 @@ public class ReverseCameraUIWindow : BaseUIWindow
         Init();
 
         InitCamera();
+
+        MainController.OnReverse += MainController_OnReverse;
+        MainController.OnForward += MainController_OnForward;
+    }
+
+    private void MainController_OnForward()
+    {
+        Hide();
+    }
+
+    private void MainController_OnReverse()
+    {
+        Show();
     }
 
     private void Update()
