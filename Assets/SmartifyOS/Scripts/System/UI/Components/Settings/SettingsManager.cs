@@ -38,11 +38,13 @@ namespace SmartifyOS.Settings
             settingsPages = pages.ToList();
             foreach (var page in pages)
             {
-                if(!page.disableOnStart)
+                if (!page.disableOnStart)
                     continue;
 
                 page.gameObject.SetActive(false);
             }
+
+            UpdateBackButtonState();
         }
 
         public void Close()
@@ -63,6 +65,13 @@ namespace SmartifyOS.Settings
             pageHistory[pageHistory.Count - 2].gameObject.SetActive(true);
             titleText.text = pageHistory[pageHistory.Count - 2].pageName;
             pageHistory.RemoveAt(pageHistory.Count - 1);
+
+            UpdateBackButtonState();
+        }
+
+        private void UpdateBackButtonState()
+        {
+            backButton.gameObject.SetActive(pageHistory.Count > 1);
         }
 
         public void ShowSettingsPage<T>() where T : BaseSettingsPage
@@ -92,6 +101,8 @@ namespace SmartifyOS.Settings
             }
 
             pageHistory.Add(page);
+
+            UpdateBackButtonState();
         }
     }
 }
