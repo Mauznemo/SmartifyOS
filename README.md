@@ -112,7 +112,9 @@ Then if you haven't already follow the steps here: [Installation For contributio
 
 **[SmartifyOS-Documentation](https://github.com/Mauznemo/SmartifyOS-Documentation)** - documentation of all the SmartifyOS code and how to use it.
 
-**[SmartifyOS-App](https://github.com/Mauznemo/SmartifyOS-App)** - android app to lock and unlock the car from your phone.
+**[SmartifyOS-companion-app](https://github.com/Mauznemo/SmartifyOS-companion-app)** - Flutter app to lock and unlock the car from your phone.
+
+**[SmartifyOS-App (Old)](https://github.com/Mauznemo/SmartifyOS-App)** - native Android app to lock and unlock the car from your phone.
 
 **[SmartMiata](https://github.com/Mauznemo/SmartMiata)** - all Arduino code I used for my Miata.
 
