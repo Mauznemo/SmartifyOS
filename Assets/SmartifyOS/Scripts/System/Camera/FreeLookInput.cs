@@ -13,7 +13,8 @@ public class FreeLookInput : MonoBehaviour
 
     private Vector2 startRotation;
 
-    private Coroutine resetCoroutine;
+    private Coroutine rotateCoroutine;
+    private Coroutine radiusCoroutine;
 
     [SerializeField] private float triggerTime = 0.2f;
     private float triggerTimer;
@@ -56,6 +57,20 @@ public class FreeLookInput : MonoBehaviour
     }
 
     /// <summary>
+    /// Sets the orbit radius of the camera
+    /// </summary>
+    /// <param name="radius">Radius of the orbit</param>
+    /// <param name="index">Index of the orbit (0: Top, 1: Middle, 2: Bottom)</param>
+    /// <param name="duration">Time to change the radius in seconds</param>
+    public void SetOrbitRadius(float radius, int index, float duration = 0.5f)
+    {
+        if (radiusCoroutine != null)
+            StopCoroutine(radiusCoroutine);
+
+        radiusCoroutine = StartCoroutine(SetOrbitRadiusSmoothly(radius, index, duration));
+    }
+
+    /// <summary>
     /// Sets the camera view to follow the car
     /// </summary>
     public void FollowCamView()
@@ -78,10 +93,10 @@ public class FreeLookInput : MonoBehaviour
     /// <param name="duration">Time to rotate in seconds</param>
     public void SetRotation(Vector2 targetRotation, float duration = 0.5f)
     {
-        if (resetCoroutine != null)
-            StopCoroutine(resetCoroutine);
+        if (rotateCoroutine != null)
+            StopCoroutine(rotateCoroutine);
 
-        resetCoroutine = StartCoroutine(SetRotationSmoothly(targetRotation, duration));
+        rotateCoroutine = StartCoroutine(SetRotationSmoothly(targetRotation, duration));
     }
 
     private IEnumerator SetRotationSmoothly(Vector2 targetRotation, float duration = 0.5f)
@@ -101,5 +116,22 @@ public class FreeLookInput : MonoBehaviour
         // Ensure exact target values at the end
         freeLookCamera.m_XAxis.Value = targetRotation.x;
         freeLookCamera.m_YAxis.Value = targetRotation.y;
+    }
+
+    private IEnumerator SetOrbitRadiusSmoothly(float targetRadius, int index, float duration = 0.5f)
+    {
+        float elapsedTime = 0f;
+        float startRadius = freeLookCamera.m_Orbits[index].m_Radius;
+
+        while (elapsedTime < duration)
+        {
+            float t = elapsedTime / duration;
+            freeLookCamera.m_Orbits[index].m_Radius = Mathf.Lerp(startRadius, targetRadius, t);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // Ensure exact target values at the end
+        freeLookCamera.m_Orbits[index].m_Radius = targetRadius;
     }
 }
