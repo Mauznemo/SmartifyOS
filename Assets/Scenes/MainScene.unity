@@ -1568,7 +1568,6 @@ MonoBehaviour:
   baudRate: 9600
   emulationMode: 0
   lightOnIconSprite: {fileID: 21300000, guid: 7c536c3322895954c95d114305537088, type: 3}
-  drlOnIconSprite: {fileID: 21300000, guid: 1b4068127b2470240bf4ca60c9c9d7a0, type: 3}
 --- !u!4 &59105534
 Transform:
   m_ObjectHideFlags: 0
@@ -19222,7 +19221,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b640a7e695235448d6ef2ca1a77509, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resetDuration: 0.7
   triggerTime: 0.1
 --- !u!1 &1146483679
 GameObject:
@@ -23926,6 +23924,7 @@ MonoBehaviour:
   portName: 
   baudRate: 9600
   emulationMode: 0
+  freeLookInput: {fileID: 1138225536}
   speedDisplayRemap:
     serializedVersion: 2
     m_Curve:
