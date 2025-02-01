@@ -11,23 +11,23 @@ public class FreeLookInput : MonoBehaviour
     private string XAxisName = "Mouse X";
     private string YAxisName = "Mouse Y";
 
-    public float resetDuration = 0.5f; // Duration for resetting the rotation
+    private Vector2 startRotation;
 
     private Coroutine resetCoroutine;
 
     [SerializeField] private float triggerTime = 0.2f;
     private float triggerTimer;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         freeLookCamera = GetComponent<CinemachineFreeLook>();
         freeLookCamera.m_XAxis.m_InputAxisName = "";
         freeLookCamera.m_YAxis.m_InputAxisName = "";
+
+        startRotation = new Vector2(freeLookCamera.m_XAxis.Value, freeLookCamera.m_YAxis.Value);
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (Input.GetMouseButton(0) && !Utilities.IsOverUI())
         {
@@ -55,27 +55,43 @@ public class FreeLookInput : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets the camera view to follow the car
+    /// </summary>
     public void FollowCamView()
     {
         SetRotation(new Vector2(180f, 0.67f));
     }
 
-    public void SetRotation(Vector2 targetRotation)
+    /// <summary>
+    /// Resets the camera view to the start position
+    /// </summary>
+    public void ResetCamView()
+    {
+        SetRotation(startRotation);
+    }
+
+    /// <summary>
+    /// Smoothly rotates the camera to the target rotation
+    /// </summary>
+    /// <param name="targetRotation">CinemachineFreeLook Rotation XAxis and YAxis values</param>
+    /// <param name="duration">Time to rotate in seconds</param>
+    public void SetRotation(Vector2 targetRotation, float duration = 0.5f)
     {
         if (resetCoroutine != null)
             StopCoroutine(resetCoroutine);
 
-        resetCoroutine = StartCoroutine(ResetRotationSmoothly(targetRotation));
+        resetCoroutine = StartCoroutine(SetRotationSmoothly(targetRotation, duration));
     }
 
-    IEnumerator ResetRotationSmoothly(Vector2 targetRotation)
+    private IEnumerator SetRotationSmoothly(Vector2 targetRotation, float duration = 0.5f)
     {
         float elapsedTime = 0f;
         Vector2 startRotation = new Vector2(freeLookCamera.m_XAxis.Value, freeLookCamera.m_YAxis.Value);
 
-        while (elapsedTime < resetDuration)
+        while (elapsedTime < duration)
         {
-            float t = elapsedTime / resetDuration;
+            float t = elapsedTime / duration;
             freeLookCamera.m_XAxis.Value = Mathf.Lerp(startRotation.x, targetRotation.x, t);
             freeLookCamera.m_YAxis.Value = Mathf.Lerp(startRotation.y, targetRotation.y, t);
             elapsedTime += Time.deltaTime;
