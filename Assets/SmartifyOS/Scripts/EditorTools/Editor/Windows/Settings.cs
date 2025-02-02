@@ -47,6 +47,7 @@ namespace SmartifyOS.Editor
         private string newValueStyleName = "";
         private bool newValueStyleRemovable = true;
         private Color terrainTintColor = new Color(0.075f, 0.06666667f, 0.1f);
+        private float terrainSmoothness = 0;
 
         [MenuItem("SmartifyOS/Settings", false, 0)]
         [Shortcut("SmartifyOS/Open Settings", KeyCode.Period, ShortcutModifiers.Action)]
@@ -91,7 +92,10 @@ namespace SmartifyOS.Editor
             var terrainThemer = GameObject.FindFirstObjectByType<TerrainThemer>();
 
             if (terrainThemer != null)
+            {
+                terrainSmoothness = terrainThemer.GetSmoothness();
                 terrainTintColor = terrainThemer.GetTint();
+            }
         }
 
         private void GetObjects()
@@ -396,18 +400,25 @@ namespace SmartifyOS.Editor
             GUILayout.BeginHorizontal();
             GUILayout.Label("Terrain Tint", GUILayout.Width(300));
             terrainTintColor = EditorGUILayout.ColorField(terrainTintColor);
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Terrain Smoothness", GUILayout.Width(300));
+            terrainSmoothness = EditorGUILayout.Slider(terrainSmoothness, 0f, 1f);
+            GUILayout.EndHorizontal();
+
 
             if (GUILayout.Button("Apply", GUILayout.Width(80)))
             {
                 TerrainThemer terrainThemer = GameObject.FindFirstObjectByType<TerrainThemer>();
                 if (terrainThemer == null) return;
 
-                terrainThemer.UpdateValue(terrainTintColor);
+                terrainThemer.SetTintColor(terrainTintColor);
+                terrainThemer.SetSmoothness(terrainSmoothness);
                 EditorUtility.SetDirty(terrainThemer);
                 EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
                 SceneView.RepaintAll();
             }
-            GUILayout.EndHorizontal();
 
             GUILayout.EndVertical();
         }

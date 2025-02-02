@@ -1,7 +1,7 @@
 using SmartifyOS.Editor.Theming;
 using UnityEngine;
 
-public class TerrainThemer : BaseThemeable<Color>
+public class TerrainThemer : MonoBehaviour
 {
     public Terrain terrain;
 
@@ -10,7 +10,17 @@ public class TerrainThemer : BaseThemeable<Color>
         return terrain.terrainData.terrainLayers[0].diffuseRemapMax;
     }
 
-    public override void UpdateValue(Color value)
+    public float GetSmoothness()
+    {
+        return terrain.terrainData.terrainLayers[0].smoothness;
+    }
+
+    public void SetSmoothness(float value)
+    {
+        terrain.terrainData.terrainLayers[0].smoothness = value;
+    }
+
+    public void SetTintColor(Color value)
     {
         TerrainLayer layer = terrain.terrainData.terrainLayers[0];
 
