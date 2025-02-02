@@ -85,9 +85,13 @@ namespace SmartifyOS.Editor
             autoOpenMainScene = EditorPrefs.GetBool("AutoOpenMainScene", true);
             currentTab = (Tab)EditorPrefs.GetInt("SettingsTab", 0);
 
-            terrainTintColor = FindFirstObjectByType<TerrainThemer>().GetTint();
 
             themeData = ThemeData.GetThemeData();
+
+            var terrainThemer = GameObject.FindFirstObjectByType<TerrainThemer>();
+
+            if (terrainThemer != null)
+                terrainTintColor = terrainThemer.GetTint();
         }
 
         private void GetObjects()
@@ -396,6 +400,8 @@ namespace SmartifyOS.Editor
             if (GUILayout.Button("Apply", GUILayout.Width(80)))
             {
                 TerrainThemer terrainThemer = GameObject.FindFirstObjectByType<TerrainThemer>();
+                if (terrainThemer == null) return;
+
                 terrainThemer.UpdateValue(terrainTintColor);
                 EditorUtility.SetDirty(terrainThemer);
                 EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
