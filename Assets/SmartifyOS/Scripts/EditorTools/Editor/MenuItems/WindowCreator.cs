@@ -117,7 +117,7 @@ namespace SmartifyOS.Editor
 
                 if (window.TryGetComponent(out ColorThemer colorThemer))
                 {
-                    colorThemer.UpdateColor(ThemeData.GetThemeData().GetColor(colorThemer.styleName));
+                    colorThemer.UpdateValue(ThemeData.GetThemeData().GetColor(colorThemer.styleName));
                     EditorUtility.SetDirty(colorThemer);
                 }
 

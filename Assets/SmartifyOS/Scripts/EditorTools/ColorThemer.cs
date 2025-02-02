@@ -6,14 +6,11 @@ using UnityEngine.Events;
 namespace SmartifyOS.Editor.Theming
 {
     [AddComponentMenu("SmartifyOS/Color Themer", 0)]
-    public class ColorThemer : MonoBehaviour
+    public class ColorThemer : BaseThemeable<Color>
     {
-        public string styleName;
         [SerializeField] private UnityEventColor updateColor = new UnityEventColor();
 
-        public string GetStyleName() => styleName;
-
-        public void UpdateColor(Color color)
+        public override void UpdateValue(Color color)
         {
             updateColor.Invoke(color);
         }

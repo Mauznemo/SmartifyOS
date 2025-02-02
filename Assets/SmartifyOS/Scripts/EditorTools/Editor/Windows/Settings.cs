@@ -192,7 +192,7 @@ namespace SmartifyOS.Editor
                                     if (colorThemer.GetStyleName() == colorStyle.Key)
                                     {
                                         colorThemer.styleName = themeData.colorStyles.GetFirstStyleName();
-                                        colorThemer.UpdateColor(ThemeData.GetThemeData().GetColor(colorThemer.styleName));
+                                        colorThemer.UpdateValue(ThemeData.GetThemeData().GetColor(colorThemer.styleName));
                                         EditorUtility.SetDirty(colorThemer);
                                     }
                                 }
@@ -220,7 +220,7 @@ namespace SmartifyOS.Editor
                     {
                         if (colorThemer.GetStyleName() == colorStyle.Key)
                         {
-                            colorThemer.UpdateColor(colorStyle.Value.color);
+                            colorThemer.UpdateValue(colorStyle.Value.color);
                         }
                     }
                     EditorUtility.SetDirty(this);

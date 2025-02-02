@@ -6,15 +6,12 @@ using UnityEngine.Events;
 namespace SmartifyOS.Editor.Theming
 {
     [AddComponentMenu("SmartifyOS/Value Themer", 0)]
-    public class ValueThemer : MonoBehaviour
+    public class ValueThemer : BaseThemeable<float>
     {
-        public string styleName;
         public float multiplier = 1f;
         [SerializeField] private UnityEventFloat updateValue = new UnityEventFloat();
 
-        public string GetStyleName() => styleName;
-
-        public void UpdateValue(float value)
+        public override void UpdateValue(float value)
         {
             updateValue.Invoke(value * multiplier);
         }

@@ -54,7 +54,7 @@ namespace SmartifyOS.Editor.Theming
             {
                 lastSelectedStyleIndex = selectedStyleIndex;
                 colorThemer.styleName = colorStyles.styles.Keys.ToArray()[selectedStyleIndex];
-                colorThemer.UpdateColor(ThemeData.GetThemeData().GetColor(colorThemer.styleName));
+                colorThemer.UpdateValue(ThemeData.GetThemeData().GetColor(colorThemer.styleName));
                 EditorUtility.SetDirty(colorThemer);
                 EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
             }
@@ -62,7 +62,7 @@ namespace SmartifyOS.Editor.Theming
             if (GUILayout.Button("Reload", GUILayout.MaxWidth(100)))
             {
                 colorThemer.styleName = colorStyles.styles.Keys.ToArray()[selectedStyleIndex];
-                colorThemer.UpdateColor(ThemeData.GetThemeData().GetColor(colorThemer.styleName));
+                colorThemer.UpdateValue(ThemeData.GetThemeData().GetColor(colorThemer.styleName));
                 EditorUtility.SetDirty(colorThemer);
                 EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
             }
