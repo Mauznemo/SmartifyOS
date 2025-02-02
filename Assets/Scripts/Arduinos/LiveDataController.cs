@@ -30,7 +30,7 @@ public class LiveDataController : BaseLiveSerialCommunication
     private float _rpm;
     private float _steeringWheelAngle;
 
-    [SerializeField] private FreeLookInput freeLookInput;
+    [SerializeField] private OrbitCameraController orbitCameraController;
 
     [SerializeField] private AnimationCurve speedDisplayRemap;
     [SerializeField] private InfoDisplay infoDisplay;
@@ -180,7 +180,7 @@ public class LiveDataController : BaseLiveSerialCommunication
                     isDriving = true;
                     OnStartedDriving?.Invoke();
                     Debug.Log("Started Driving");
-                    freeLookInput.FollowCamView();
+                    orbitCameraController.FollowCamView();
                 }
             }
         }

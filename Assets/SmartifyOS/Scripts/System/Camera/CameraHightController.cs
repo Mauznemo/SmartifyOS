@@ -8,7 +8,7 @@ using UnityEngine;
 public class CameraHightController : MonoBehaviour
 {
     [SerializeField] private float height = 5f;
-    [SerializeField] private FreeLookInput freeLookInput;
+    [SerializeField] private OrbitCameraController orbitCameraController;
 
     private void Start()
     {
@@ -21,7 +21,7 @@ public class CameraHightController : MonoBehaviour
         if (window.IsWindowOfType(typeof(FilePlayer), typeof(BluetoothPlayer)))
         {
             LeanTween.moveY(transform.gameObject, height, 0.5f);
-            freeLookInput.SetOrbitRadius(10f, 1);
+            orbitCameraController.SetOrbitRadius(10f, 1);
         }
     }
 
@@ -33,7 +33,7 @@ public class CameraHightController : MonoBehaviour
                 return;
 
             LeanTween.moveY(transform.gameObject, 0, 0.5f);
-            freeLookInput.SetOrbitRadius(7.5f, 1);
+            orbitCameraController.SetOrbitRadius(7.5f, 1);
         }
     }
 }

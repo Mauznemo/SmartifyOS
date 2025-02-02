@@ -4,7 +4,7 @@ using UnityEngine;
 using Cinemachine;
 
 [RequireComponent(typeof(CinemachineFreeLook))]
-public class FreeLookInput : MonoBehaviour
+public class OrbitCameraController : MonoBehaviour
 {
     private CinemachineFreeLook freeLookCamera;
 

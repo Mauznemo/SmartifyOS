@@ -23924,7 +23924,7 @@ MonoBehaviour:
   portName: 
   baudRate: 9600
   emulationMode: 0
-  freeLookInput: {fileID: 1138225536}
+  orbitCameraController: {fileID: 1138225536}
   speedDisplayRemap:
     serializedVersion: 2
     m_Curve:
@@ -33105,7 +33105,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   height: 0.9
-  freeLookInput: {fileID: 1138225536}
+  orbitCameraController: {fileID: 1138225536}
 --- !u!1 &1866090754
 GameObject:
   m_ObjectHideFlags: 0
