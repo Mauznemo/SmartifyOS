@@ -40,6 +40,7 @@ namespace SmartifyOS.Editor
         private SystemManager systemManager;
 
         private ThemeData themeData;
+        private Material uiBlurMaterial;
         private Color newColorStyleColor = Color.white;
         private string newColorStyleName = "";
         private bool newColorStyleRemovable = true;
@@ -48,6 +49,9 @@ namespace SmartifyOS.Editor
         private bool newValueStyleRemovable = true;
         private Color terrainTintColor = new Color(0.075f, 0.06666667f, 0.1f);
         private float terrainSmoothness = 0;
+        private int selectedPresetIndex = 0;
+        private string[] presets = { "Dark Background", "Light Background" };
+        private float blurStrength = 0f;
 
         [MenuItem("SmartifyOS/Settings", false, 0)]
         [Shortcut("SmartifyOS/Open Settings", KeyCode.Period, ShortcutModifiers.Action)]
@@ -88,6 +92,13 @@ namespace SmartifyOS.Editor
 
 
             themeData = ThemeData.GetThemeData();
+
+            uiBlurMaterial = AssetDatabase.LoadAssetAtPath<Material>("Assets/SmartifyOS/Packages/Unified-Universal-Blur/Materials/UniversalBlurUI.mat");
+
+            if (uiBlurMaterial != null)
+            {
+                blurStrength = uiBlurMaterial.GetFloat("_BlurStrength");
+            }
 
             var terrainThemer = GameObject.FindFirstObjectByType<TerrainThemer>();
 
@@ -170,6 +181,70 @@ namespace SmartifyOS.Editor
 
 
             GUILayout.Label("Theming", EditorStyles.boldLabel);
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("Preset:", GUILayout.Width(100));
+            selectedPresetIndex = EditorGUILayout.Popup(selectedPresetIndex, presets);
+            if (GUILayout.Button("Apply", GUILayout.MaxWidth(100)))
+            {
+                var mainColorStyle = new KeyValuePair<string, ColorStyle>("main", themeData.colorStyles.styles["main"]);
+                var bgColorStyle = new KeyValuePair<string, ColorStyle>("fullscreen-bg", themeData.colorStyles.styles["fullscreen-bg"]);
+                TerrainThemer terrainThemer = GameObject.FindFirstObjectByType<TerrainThemer>();
+
+                switch (selectedPresetIndex)
+                {
+                    case 0: //Dark Background
+                        mainColorStyle.Value.color = new Color32(190, 101, 255, 255); ;
+                        bgColorStyle.Value.color = new Color32(165, 88, 222, 255);
+                        terrainSmoothness = 0.68f;
+                        terrainThemer.SetSmoothness(terrainSmoothness);
+                        terrainTintColor = Color.black;
+                        terrainThemer.SetTintColor(terrainTintColor);
+                        blurStrength = 0.955f;
+                        if (uiBlurMaterial != null)
+                            uiBlurMaterial.SetFloat("_BlurStrength", blurStrength);
+                        break;
+                    case 1: //Light Background
+                        mainColorStyle.Value.color = new Color32(144, 114, 206, 255);
+                        bgColorStyle.Value.color = new Color32(116, 93, 164, 255);
+                        terrainSmoothness = 0f;
+                        terrainThemer.SetSmoothness(terrainSmoothness);
+                        terrainTintColor = new Color32(19, 17, 26, 255);
+                        terrainThemer.SetTintColor(terrainTintColor);
+                        blurStrength = 1f;
+                        if (uiBlurMaterial != null)
+                            uiBlurMaterial.SetFloat("_BlurStrength", blurStrength);
+                        break;
+                }
+
+                ApplyColorStyle(mainColorStyle);
+                ApplyColorStyle(bgColorStyle);
+
+                EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+                SceneView.RepaintAll();
+            }
+            GUILayout.EndHorizontal();
+
+            GUILayout.BeginVertical(Style.Box, GUILayout.ExpandWidth(true));
+            GUILayout.Label("General:", EditorStyles.boldLabel);
+
+            GUILayout.BeginHorizontal();
+            GUILayout.Label("UI Blur Strength:", GUILayout.Width(300));
+            blurStrength = EditorGUILayout.Slider(blurStrength, 0f, 1f);
+            GUILayout.EndHorizontal();
+
+            if (GUILayout.Button("Apply", GUILayout.Width(80)))
+            {
+                if (uiBlurMaterial == null) return;
+
+                uiBlurMaterial.SetFloat("_BlurStrength", blurStrength);
+                EditorUtility.SetDirty(uiBlurMaterial);
+                EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+                SceneView.RepaintAll();
+            }
+
+            GUILayout.EndVertical();
+
             GUILayout.BeginVertical(Style.Box, GUILayout.ExpandWidth(true));
             GUILayout.Label("Colors:", EditorStyles.boldLabel);
             foreach (var colorStyle in themeData.colorStyles.styles)
@@ -226,18 +301,7 @@ namespace SmartifyOS.Editor
 
                 if (GUILayout.Button("Apply", GUILayout.Width(80)))
                 {
-                    var colorThemers = GameObject.FindObjectsByType<ColorThemer>(FindObjectsSortMode.None);
-                    foreach (var colorThemer in colorThemers)
-                    {
-                        if (colorThemer.GetStyleName() == colorStyle.Key)
-                        {
-                            colorThemer.UpdateValue(colorStyle.Value.color);
-                        }
-                    }
-                    EditorUtility.SetDirty(this);
-                    EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
-                    SceneView.RepaintAll();
-                    themeData.SaveAsset();
+                    ApplyColorStyle(colorStyle);
 
                 }
                 GUILayout.EndHorizontal();
@@ -421,6 +485,22 @@ namespace SmartifyOS.Editor
             }
 
             GUILayout.EndVertical();
+        }
+
+        private void ApplyColorStyle(KeyValuePair<string, ColorStyle> colorStyle)
+        {
+            var colorThemers = GameObject.FindObjectsByType<ColorThemer>(FindObjectsSortMode.None);
+            foreach (var colorThemer in colorThemers)
+            {
+                if (colorThemer.GetStyleName() == colorStyle.Key)
+                {
+                    colorThemer.UpdateValue(colorStyle.Value.color);
+                }
+            }
+            EditorUtility.SetDirty(this);
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            SceneView.RepaintAll();
+            themeData.SaveAsset();
         }
 
         private void DrawEditorPage()
