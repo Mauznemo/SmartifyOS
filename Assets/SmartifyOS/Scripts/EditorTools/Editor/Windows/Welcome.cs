@@ -16,6 +16,17 @@ namespace SmartifyOS.Editor
 
         private string buttonText = "Next";
 
+        private Texture lightPresetImage;
+        private Texture darkPresetImage;
+        private bool preset1Selected = true;
+        private bool preset2Selected = false;
+        private GUIStyle normalStyle;
+        private GUIStyle selectedStyle;
+        private GUIStyle headingStyle;
+        private GUIStyle subHeadingStyle;
+
+
+
         [MenuItem("SmartifyOS/Welcome")]
         public static void ShowWindow()
         {
@@ -28,6 +39,8 @@ namespace SmartifyOS.Editor
         private void OnEnable()
         {
             image = AssetDatabase.LoadAssetAtPath<Texture>(EditorUtils.GetGraphicsPath() + "Welcome/SmartifyOS-welcome.png");
+            lightPresetImage = AssetDatabase.LoadAssetAtPath<Texture>(EditorUtils.GetGraphicsPath() + "Welcome/preset-light.png");
+            darkPresetImage = AssetDatabase.LoadAssetAtPath<Texture>(EditorUtils.GetGraphicsPath() + "Welcome/preset-dark.png");
             licensePath = EditorUtils.GetSmartifyOSPath() + "../../LICENSE";
             licenseContent = System.IO.File.ReadAllText(licensePath);
 
@@ -43,14 +56,44 @@ namespace SmartifyOS.Editor
                     Debug.Log("Closed Unity Editor Update Checker window.");
                 }
             }
+
+            headingStyle = new GUIStyle(EditorStyles.label)
+            {
+                fontStyle = FontStyle.Bold,
+                fontSize = 30,
+                padding = new RectOffset(50, 0, -5, -5),
+            };
+
+            subHeadingStyle = new GUIStyle(EditorStyles.label)
+            {
+                fontStyle = FontStyle.Bold,
+                fontSize = 20,
+                padding = new RectOffset(50, 0, -5, -5),
+            };
+
+            normalStyle = new GUIStyle();
+            normalStyle.padding = new RectOffset(4, 4, 4, 4);
+
+            selectedStyle = new GUIStyle();
+            selectedStyle.imagePosition = ImagePosition.ImageOnly;
+            selectedStyle.padding = new RectOffset(4, 4, 4, 4);
+            selectedStyle.normal.background = CreateColorTexture(new Color(0.2f, 0.4f, 1f, 0.5f));
+        }
+
+        private Texture2D CreateColorTexture(Color color)
+        {
+            Texture2D texture = new Texture2D(1, 1);
+            texture.SetPixel(0, 0, color);
+            texture.Apply();
+            return texture;
         }
 
         private void OnDestroy()
         {
-            if (pageIndex == 4)
+            if (pageIndex == 5)
                 return;
 
-            var newWin = CreateInstance<Welcome>(); ;
+            var newWin = CreateInstance<Welcome>();
             newWin.titleContent = new GUIContent("Welcome to SmartifyOS");
             newWin.pageIndex = pageIndex;
             newWin.SetSize(900, 500);
@@ -81,10 +124,14 @@ namespace SmartifyOS.Editor
                     License();
                     break;
                 case 3:
-                    Donation();
+                    StylePreset();
                     break;
                 case 4:
+                    Donation();
+                    break;
+                case 5:
                     EditorPrefs.SetInt("SmartifyOSWelcome", 1);
+                    OnFinish();
                     Close();
                     break;
             }
@@ -99,7 +146,7 @@ namespace SmartifyOS.Editor
 
             GUILayout.FlexibleSpace();
 
-            if (pageIndex == 3)
+            if (pageIndex == 4)
             {
                 if (GUILayout.Button(" Start with Blank Project", buttonStyle, GUILayout.Width(220), GUILayout.Height(40)))
                 {
@@ -132,20 +179,6 @@ namespace SmartifyOS.Editor
         {
             GUILayout.Space(20);
             scrollPosition = GUILayout.BeginScrollView(scrollPosition);
-
-            var headingStyle = new GUIStyle(EditorStyles.label)
-            {
-                fontStyle = FontStyle.Bold,
-                fontSize = 30,
-                padding = new RectOffset(50, 0, -5, -5),
-            };
-
-            var subHeadingStyle = new GUIStyle(EditorStyles.label)
-            {
-                fontStyle = FontStyle.Bold,
-                fontSize = 20,
-                padding = new RectOffset(50, 0, -5, -5),
-            };
 
             var textStyle = new GUIStyle(EditorStyles.label)
             {
@@ -217,13 +250,6 @@ namespace SmartifyOS.Editor
             buttonText = "Finish";
             GUILayout.FlexibleSpace();
 
-            var headingStyle = new GUIStyle(EditorStyles.label)
-            {
-                fontStyle = FontStyle.Bold,
-                fontSize = 30,
-                padding = new RectOffset(50, 0, -5, -5),
-            };
-
             var textStyle = new GUIStyle(EditorStyles.label)
             {
                 fontSize = 14,
@@ -259,6 +285,51 @@ namespace SmartifyOS.Editor
             }
 
             GUILayout.FlexibleSpace();
+        }
+
+        private void StylePreset()
+        {
+            GUILayout.Space(20);
+            buttonText = "Next";
+            EditorGUILayout.LabelField("Select a style preset", subHeadingStyle);
+
+            GUILayout.FlexibleSpace();
+
+            // Display images side by side
+            EditorGUILayout.BeginHorizontal();
+            GUILayout.FlexibleSpace();
+
+            // Image 1 with selection handling
+            if (GUILayout.Button(lightPresetImage, preset1Selected ? selectedStyle : normalStyle, GUILayout.Width(400), GUILayout.Height(238)))
+            {
+                preset1Selected = true;
+                preset2Selected = false;
+                Repaint();
+            }
+
+            GUILayout.Space(10);
+
+            // Image 2 with selection handling
+            if (GUILayout.Button(darkPresetImage, preset2Selected ? selectedStyle : normalStyle, GUILayout.Width(400), GUILayout.Height(238)))
+            {
+                preset1Selected = false;
+                preset2Selected = true;
+                Repaint();
+            }
+            GUILayout.FlexibleSpace();
+
+            EditorGUILayout.EndHorizontal();
+
+            // Display selection status
+            GUILayout.FlexibleSpace();
+            EditorGUILayout.LabelField("Selected: " + (preset1Selected ? "Image 1" : preset2Selected ? "Image 2" : "None"));
+        }
+
+        private void OnFinish()
+        {
+            Settings settingsWindow = ScriptableObject.CreateInstance<Settings>();
+            settingsWindow.ApplyThemePreset(preset1Selected ? 1 : preset2Selected ? 0 : -1);
+            DestroyImmediate(settingsWindow);
         }
     }
 }

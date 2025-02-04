@@ -187,41 +187,7 @@ namespace SmartifyOS.Editor
             selectedPresetIndex = EditorGUILayout.Popup(selectedPresetIndex, presets);
             if (GUILayout.Button("Apply", GUILayout.MaxWidth(100)))
             {
-                var mainColorStyle = new KeyValuePair<string, ColorStyle>("main", themeData.colorStyles.styles["main"]);
-                var bgColorStyle = new KeyValuePair<string, ColorStyle>("fullscreen-bg", themeData.colorStyles.styles["fullscreen-bg"]);
-                TerrainThemer terrainThemer = GameObject.FindFirstObjectByType<TerrainThemer>();
-
-                switch (selectedPresetIndex)
-                {
-                    case 0: //Dark Background
-                        mainColorStyle.Value.color = new Color32(190, 101, 255, 255); ;
-                        bgColorStyle.Value.color = new Color32(165, 88, 222, 255);
-                        terrainSmoothness = 0.68f;
-                        terrainThemer.SetSmoothness(terrainSmoothness);
-                        terrainTintColor = Color.black;
-                        terrainThemer.SetTintColor(terrainTintColor);
-                        blurStrength = 0.955f;
-                        if (uiBlurMaterial != null)
-                            uiBlurMaterial.SetFloat("_BlurStrength", blurStrength);
-                        break;
-                    case 1: //Light Background
-                        mainColorStyle.Value.color = new Color32(144, 114, 206, 255);
-                        bgColorStyle.Value.color = new Color32(116, 93, 164, 255);
-                        terrainSmoothness = 0f;
-                        terrainThemer.SetSmoothness(terrainSmoothness);
-                        terrainTintColor = new Color32(19, 17, 26, 255);
-                        terrainThemer.SetTintColor(terrainTintColor);
-                        blurStrength = 1f;
-                        if (uiBlurMaterial != null)
-                            uiBlurMaterial.SetFloat("_BlurStrength", blurStrength);
-                        break;
-                }
-
-                ApplyColorStyle(mainColorStyle);
-                ApplyColorStyle(bgColorStyle);
-
-                EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
-                SceneView.RepaintAll();
+                ApplyThemePreset(selectedPresetIndex);
             }
             GUILayout.EndHorizontal();
 
@@ -485,6 +451,45 @@ namespace SmartifyOS.Editor
             }
 
             GUILayout.EndVertical();
+        }
+
+        public void ApplyThemePreset(int selectedPresetIndex)
+        {
+            var mainColorStyle = new KeyValuePair<string, ColorStyle>("main", themeData.colorStyles.styles["main"]);
+            var bgColorStyle = new KeyValuePair<string, ColorStyle>("fullscreen-bg", themeData.colorStyles.styles["fullscreen-bg"]);
+            TerrainThemer terrainThemer = GameObject.FindFirstObjectByType<TerrainThemer>();
+
+            switch (selectedPresetIndex)
+            {
+                case 0: //Dark Background
+                    mainColorStyle.Value.color = new Color32(190, 101, 255, 255); ;
+                    bgColorStyle.Value.color = new Color32(165, 88, 222, 255);
+                    terrainSmoothness = 0.68f;
+                    terrainThemer.SetSmoothness(terrainSmoothness);
+                    terrainTintColor = Color.black;
+                    terrainThemer.SetTintColor(terrainTintColor);
+                    blurStrength = 0.955f;
+                    if (uiBlurMaterial != null)
+                        uiBlurMaterial.SetFloat("_BlurStrength", blurStrength);
+                    break;
+                case 1: //Light Background
+                    mainColorStyle.Value.color = new Color32(144, 114, 206, 255);
+                    bgColorStyle.Value.color = new Color32(116, 93, 164, 255);
+                    terrainSmoothness = 0f;
+                    terrainThemer.SetSmoothness(terrainSmoothness);
+                    terrainTintColor = new Color32(19, 17, 26, 255);
+                    terrainThemer.SetTintColor(terrainTintColor);
+                    blurStrength = 1f;
+                    if (uiBlurMaterial != null)
+                        uiBlurMaterial.SetFloat("_BlurStrength", blurStrength);
+                    break;
+            }
+
+            ApplyColorStyle(mainColorStyle);
+            ApplyColorStyle(bgColorStyle);
+
+            EditorSceneManager.MarkSceneDirty(EditorSceneManager.GetActiveScene());
+            SceneView.RepaintAll();
         }
 
         private void ApplyColorStyle(KeyValuePair<string, ColorStyle> colorStyle)
