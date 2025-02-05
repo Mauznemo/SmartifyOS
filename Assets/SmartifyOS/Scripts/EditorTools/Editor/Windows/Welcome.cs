@@ -322,7 +322,6 @@ namespace SmartifyOS.Editor
 
             // Display selection status
             GUILayout.FlexibleSpace();
-            EditorGUILayout.LabelField("Selected: " + (preset1Selected ? "Image 1" : preset2Selected ? "Image 2" : "None"));
         }
 
         private void OnFinish()
