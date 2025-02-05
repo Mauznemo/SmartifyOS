@@ -3,7 +3,8 @@ Shader "Unify/UI/Tinted Blur"
     Properties
     {
         [PerRendererData] _MainTex ("Sprite Texture", 2D) = "white" {}
-
+        _BlurStrength ("Blur Strength", Range(0,1)) = 1
+        
         _StencilComp ("Stencil Comparison", Float) = 8
         _Stencil ("Stencil ID", Float) = 0
         _StencilOp ("Stencil Operation", Float) = 0
@@ -79,6 +80,7 @@ Shader "Unify/UI/Tinted Blur"
             fixed4 _TextureSampleAdd;
             float4 _ClipRect;
             float4 _MainTex_ST;
+            float _BlurStrength;
 
             v2f vert(appdata_t v)
             {
@@ -97,10 +99,13 @@ Shader "Unify/UI/Tinted Blur"
 
             fixed4 frag(v2f IN) : SV_Target
             {
+                // Sample the main texture (your UI image)
                 half4 mainTexColor = tex2D(_MainTex, IN.texcoord) + _TextureSampleAdd;
                 
-                half4 color = (tex2D(_GlobalUniversalBlurTexture, IN.screenPos / IN.screenPos.w) + _TextureSampleAdd) * IN.color;
-
+                // Sample the blur texture and apply tint
+                half4 blurColor = (tex2D(_GlobalUniversalBlurTexture, IN.screenPos.xy / IN.screenPos.w) + _TextureSampleAdd) * IN.color;
+                
+                // Apply clipping if enabled
                 #ifdef UNITY_UI_CLIP_RECT
                 mainTexColor.a *= UnityGet2DClipping(IN.worldPosition.xy, _ClipRect);
                 #endif
@@ -108,12 +113,13 @@ Shader "Unify/UI/Tinted Blur"
                 #ifdef UNITY_UI_ALPHACLIP
                 clip (mainTexColor.a - 0.001);
                 #endif
+
+                // Blend between the original tinted color and tinted blur based on blur strength
+                half4 finalColor;
+                finalColor.rgb = lerp(mainTexColor.rgb * IN.color.rgb, blurColor.rgb, _BlurStrength);
+                finalColor.a = mainTexColor.a * IN.color.a;
                 
-                color *= mainTexColor;
-
-
-
-                return color;
+                return finalColor;
             }
         ENDCG
         }

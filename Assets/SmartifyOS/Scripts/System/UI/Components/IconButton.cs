@@ -81,6 +81,11 @@ namespace SmartifyOS.UI.Components
             }
         }
 
+        public void SetOffColor(Color color)
+        {
+            offColor = color;
+        }
+
         private void UpdateUI(bool active)
         {
             if (active)

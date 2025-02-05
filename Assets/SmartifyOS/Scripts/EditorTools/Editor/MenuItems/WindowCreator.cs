@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using SmartifyOS.Editor.Theming;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -108,27 +109,33 @@ namespace SmartifyOS.Editor
                 if (fullscreen)
                 {
                     window = CreateFullscreenWindowFromPrefab(windowTitle);
-                    if (createScript)
-                    {
-                        ScriptTemplateUtility.CreateScript($"{ScriptTemplateUtility.GetTemplatesPath()}/UIWindow.cs.txt", windowTitle.ToPascalCase(), path);
-
-                        ScheduleDelayedAction();
-
-                        AssetDatabase.Refresh();
-                    }
                 }
                 else
                 {
                     window = CreateWindowFromPrefab(windowTitle);
-                    if (createScript)
-                    {
-                        ScriptTemplateUtility.CreateScript($"{ScriptTemplateUtility.GetTemplatesPath()}/UIWindow.cs.txt", windowTitle.ToPascalCase(), path);
-
-                        ScheduleDelayedAction();
-
-                        AssetDatabase.Refresh();
-                    }
                 }
+
+                if (window.TryGetComponent(out ColorThemer colorThemer))
+                {
+                    colorThemer.UpdateValue(ThemeData.GetThemeData().GetColor(colorThemer.styleName));
+                    EditorUtility.SetDirty(colorThemer);
+                }
+
+                if (window.TryGetComponent(out ValueThemer valueThemer))
+                {
+                    valueThemer.UpdateValue(ThemeData.GetThemeData().GetValue(valueThemer.styleName));
+                    EditorUtility.SetDirty(valueThemer);
+                }
+
+                if (createScript)
+                {
+                    ScriptTemplateUtility.CreateScript($"{ScriptTemplateUtility.GetTemplatesPath()}/UIWindow.cs.txt", windowTitle.ToPascalCase(), path);
+
+                    ScheduleDelayedAction();
+
+                    AssetDatabase.Refresh();
+                }
+
                 if (!createScript)
                     Close();
             }

@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef42921e7b8acae46bc2e3af5ebe5b6c, type: 3}
+  m_Name: ThemeData
+  m_EditorClassIdentifier: 
+  colorStyles:
+    styles:
+      m_Keys:
+      - main
+      - fullscreen-bg
+      m_Values:
+      - color: {r: 0.5647059, g: 0.44705883, b: 0.80784315, a: 1}
+        canBeRemoved: 0
+      - color: {r: 0.45490196, g: 0.3647059, b: 0.6431373, a: 1}
+        canBeRemoved: 0
+  valueStyles:
+    styles:
+      m_Keys:
+      - 'roundness '
+      - notification-roundness
+      m_Values:
+      - value: 12
+        canBeRemoved: 0
+      - value: 10
+        canBeRemoved: 1
