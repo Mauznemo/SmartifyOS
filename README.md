@@ -55,8 +55,6 @@ Since SmartifyOS is still in the development phase there will probably be cases 
 
 ## Installation (Editor)
 
-You can also follow [this guide](https://smartify-os.com/setup) it will guide you through every step.
-
 ### For contribution:
 
 If you want to contribute to this project by for example fixing a bug or adding a feature install it like this:
