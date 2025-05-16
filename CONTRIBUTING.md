@@ -1,6 +1,6 @@
 # Contributing to SmartifyOS
 
-Thank you for your interest in contributing to my project! Please take a moment to review our guidelines for contributing.
+Thank you for your interest in contributing to the project! Please take a moment to review the guidelines for contributing.
 
 ## Commit Message Guidelines
 
