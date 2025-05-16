@@ -18,9 +18,9 @@ MonoBehaviour:
       - main
       - fullscreen-bg
       m_Values:
-      - color: {r: 0.5647059, g: 0.44705883, b: 0.80784315, a: 1}
+      - color: {r: 0.74509805, g: 0.39607844, b: 1, a: 1}
         canBeRemoved: 0
-      - color: {r: 0.45490196, g: 0.3647059, b: 0.6431373, a: 1}
+      - color: {r: 0.64705884, g: 0.34509805, b: 0.87058824, a: 1}
         canBeRemoved: 0
   valueStyles:
     styles:
