@@ -47,9 +47,6 @@ namespace SmartifyOS.UI
                 return;
             }
 
-            if (isVisible)
-                return;
-
             UIManager.Instance.RegisterShownWindow(this);
 
             isVisible = true;
