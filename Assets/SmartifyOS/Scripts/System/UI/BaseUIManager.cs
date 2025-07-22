@@ -18,7 +18,7 @@ namespace SmartifyOS.UI
         public static event Action<BaseUIWindow> OnWindowShown;
         public static event Action<BaseUIWindow> OnWindowHidden;
 
-        public bool IsWindowOpened<T>() where T : BaseUIWindow
+        public bool IsWindowVisible<T>() where T : BaseUIWindow
         {
             return visibleWindows.OfType<T>().Any();
         }

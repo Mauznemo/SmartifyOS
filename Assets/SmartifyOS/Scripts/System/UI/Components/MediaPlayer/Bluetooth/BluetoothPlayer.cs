@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using SmartifyOS.LinuxBluetooth;
 using SmartifyOS.SaveSystem;
 using SmartifyOS.Settings;
@@ -27,7 +25,6 @@ namespace SmartifyOS.UI.MediaPlayer
         [SerializeField] private Sprite pausedSprite;
 
         private bool playing = false;
-        private bool allowAutoOpen = true;
 
         private void Awake()
         {
@@ -113,9 +110,9 @@ namespace SmartifyOS.UI.MediaPlayer
 
         private void OnPlayerPaused()
         {
+            if (!UIManager.Instance.IsWindowVisible<FilePlayer>() || !UIManager.Instance.IsWindowVisible<InteriorUIWindow>())
+                Show(ShowAction.OpenInBackground);
 
-            //TODO: Add check if FilePlayer or interior window is open
-            Show(ShowAction.OpenInBackground);
             playButton.SetIcon(pausedSprite);
             playing = false;
         }
@@ -123,8 +120,9 @@ namespace SmartifyOS.UI.MediaPlayer
         private void OnPlayerPlaying()
         {
 
-            //TODO: Add check if FilePlayer or interior window is open
-            Show(ShowAction.OpenInBackground);
+            if (!UIManager.Instance.IsWindowVisible<FilePlayer>() || !UIManager.Instance.IsWindowVisible<InteriorUIWindow>())
+                Show(ShowAction.OpenInBackground);
+
             playButton.SetIcon(playingSprite);
             playing = true;
         }

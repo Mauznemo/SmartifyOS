@@ -90,7 +90,7 @@ public class ControlwheelManager : MonoBehaviour
         switch (mode)
         {
             case Mode.Audio:
-                if (UIManager.Instance.IsWindowOpened<AppListUIWindow>())
+                if (UIManager.Instance.IsWindowVisible<AppListUIWindow>())
                 {
                     UIManager.Instance.HideWindow<AppListUIWindow>();
                 }

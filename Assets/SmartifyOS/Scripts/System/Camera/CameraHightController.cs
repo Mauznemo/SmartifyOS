@@ -27,7 +27,7 @@ public class CameraHightController : MonoBehaviour
     {
         if (window.IsWindowOfType(typeof(FilePlayer), typeof(BluetoothPlayer)))
         {
-            if (UIManager.Instance.IsWindowOpened<FilePlayer>() || UIManager.Instance.IsWindowOpened<BluetoothPlayer>())
+            if (UIManager.Instance.IsWindowVisible<FilePlayer>() || UIManager.Instance.IsWindowVisible<BluetoothPlayer>())
                 return;
 
             LeanTween.moveY(transform.gameObject, 0, 0.5f);
