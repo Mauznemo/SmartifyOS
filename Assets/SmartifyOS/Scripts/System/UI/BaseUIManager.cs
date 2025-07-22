@@ -33,7 +33,7 @@ namespace SmartifyOS.UI
             }
             else
             {
-                Debug.LogError("Window has no instance");
+                Debug.LogError("Window has no instance, make sure it exists in your scene., make sure it exists in your scene.");
                 return null;
             }
         }
@@ -45,7 +45,6 @@ namespace SmartifyOS.UI
         /// <param name="showAction">Show action to perform</param>
         public void ShowWindow(BaseUIWindow window, ShowAction showAction = ShowAction.OpenOnTop)
         {
-
             if (window != null)
             {
                 if (showAction == ShowAction.OpenSingle)
@@ -54,7 +53,7 @@ namespace SmartifyOS.UI
             }
             else
             {
-                Debug.LogError("Window has no instance");
+                Debug.LogError("Window has no instance, make sure it exists in your scene., make sure it exists in your scene.");
             }
         }
 
@@ -75,7 +74,7 @@ namespace SmartifyOS.UI
             }
             else
             {
-                Debug.LogError("Window has no instance");
+                Debug.LogError("Window has no instance, make sure it exists in your scene.");
             }
         }
 
@@ -93,7 +92,7 @@ namespace SmartifyOS.UI
             }
             else
             {
-                Debug.LogError("Window has no instance");
+                Debug.LogError("Window has no instance, make sure it exists in your scene.");
             }
         }
 
@@ -120,7 +119,6 @@ namespace SmartifyOS.UI
         {
             if (visibleWindows.Contains(window))
             {
-                Debug.Log("Window already open");
                 return;
             }
 
