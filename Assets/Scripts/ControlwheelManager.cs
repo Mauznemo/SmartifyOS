@@ -92,11 +92,11 @@ public class ControlwheelManager : MonoBehaviour
             case Mode.Audio:
                 if (UIManager.Instance.IsWindowOpened<AppListUIWindow>())
                 {
-                    UIManager.Instance.HideUIWindow<AppListUIWindow>();
+                    UIManager.Instance.HideWindow<AppListUIWindow>();
                 }
                 else
                 {
-                    UIManager.Instance.ShowUIWindow<AppListUIWindow>();
+                    UIManager.Instance.ShowWindow<AppListUIWindow>();
                 }
                 return;
             case Mode.AppList:

@@ -11,8 +11,8 @@ public class CameraHightController : MonoBehaviour
 
     private void Start()
     {
-        UIManager.OnWindowOpened += UIManager_OnWindowOpened;
-        UIManager.OnWindowClosed += UIManager_OnWindowClosed;
+        UIManager.OnWindowShown += UIManager_OnWindowOpened;
+        UIManager.OnWindowHidden += UIManager_OnWindowClosed;
     }
 
     private void UIManager_OnWindowOpened(BaseUIWindow window)
@@ -26,8 +26,8 @@ public class CameraHightController : MonoBehaviour
     private void UIManager_OnWindowClosed(BaseUIWindow window)
     {
         if (window.IsWindowOfType(typeof(FilePlayer), typeof(BluetoothPlayer)))
-        {   
-            if(UIManager.Instance.IsWindowOpened<FilePlayer>() || UIManager.Instance.IsWindowOpened<BluetoothPlayer>())
+        {
+            if (UIManager.Instance.IsWindowOpened<FilePlayer>() || UIManager.Instance.IsWindowOpened<BluetoothPlayer>())
                 return;
 
             LeanTween.moveY(transform.gameObject, 0, 0.5f);

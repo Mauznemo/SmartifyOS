@@ -14,9 +14,9 @@ public class AppListOpen : MonoBehaviour
         button.onClick += () =>
         {
             if (UIManager.Instance.IsWindowOpened<AppListUIWindow>())
-                UIManager.Instance.HideUIWindow<AppListUIWindow>();
+                UIManager.Instance.HideWindow<AppListUIWindow>();
             else
-                UIManager.Instance.ShowUIWindow<AppListUIWindow>();
+                UIManager.Instance.ShowWindow<AppListUIWindow>();
         };
     }
 }

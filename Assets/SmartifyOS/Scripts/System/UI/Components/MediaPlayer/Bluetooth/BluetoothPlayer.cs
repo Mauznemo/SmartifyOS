@@ -113,40 +113,20 @@ namespace SmartifyOS.UI.MediaPlayer
 
         private void OnPlayerPaused()
         {
-            if (allowAutoOpen)
-                Show();
+
+            //TODO: Add check if FilePlayer or interior window is open
+            Show(ShowAction.OpenInBackground);
             playButton.SetIcon(pausedSprite);
             playing = false;
         }
 
         private void OnPlayerPlaying()
         {
-            if (allowAutoOpen)
-                Show();
+
+            //TODO: Add check if FilePlayer or interior window is open
+            Show(ShowAction.OpenInBackground);
             playButton.SetIcon(playingSprite);
             playing = true;
-        }
-
-        protected override void HandleWindowOpened(BaseUIWindow window)
-        {
-            //Add all windows that should hide this window when they open
-            if (window.IsWindowOfType(typeof(InteriorUIWindow)))
-            {
-                Hide(true);
-                allowAutoOpen = false;
-            }
-        }
-
-        protected override void HandleWindowClosed(BaseUIWindow window)
-        {
-            if (!wasOpen) { return; }
-
-            //Add all windows that should trigger this window to reopen when they close
-            if (window.IsWindowOfType(typeof(InteriorUIWindow)))
-            {
-                Show();
-                allowAutoOpen = true;
-            }
         }
     }
 

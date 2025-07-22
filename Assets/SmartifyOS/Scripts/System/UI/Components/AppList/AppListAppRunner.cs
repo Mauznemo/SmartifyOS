@@ -9,6 +9,7 @@ namespace SmartifyOS.UI
     public class AppListAppRunner : MonoBehaviour
     {
         [SerializeField] private BaseUIWindow windowToOpen;
+        [SerializeField] private ShowAction showAction;
 
         private IconButton button;
 
@@ -17,8 +18,8 @@ namespace SmartifyOS.UI
             button = GetComponent<IconButton>();
             button.onClick += () =>
             {
-                UIManager.Instance.GetUIWindowInstance<AppListUIWindow>().Hide();
-                UIManager.Instance.ShowUIWindow(windowToOpen);
+                UIManager.Instance.GetWindowInstance<AppListUIWindow>().Hide();
+                UIManager.Instance.ShowWindow(windowToOpen, showAction);
             };
         }
     }

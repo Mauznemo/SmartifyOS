@@ -9,19 +9,21 @@ namespace SmartifyOS.UI
     public class BaseUIManager : MonoBehaviour
     {
         [SerializeField] protected ModalWindow modalWindowPrefab;
-        [SerializeField] protected List<BaseUIWindow> openWindows = new List<BaseUIWindow>();
+        [SerializeField] protected List<BaseUIWindow> visibleWindows = new List<BaseUIWindow>();
+        [SerializeField] protected BottomBar bottomBar;
+        [SerializeField] private Transform topLevelElement;
 
         [SerializeField] protected List<BaseUIWindow> windowInstances = new List<BaseUIWindow>();
 
-        public static event Action<BaseUIWindow> OnWindowOpened;
-        public static event Action<BaseUIWindow> OnWindowClosed;
+        public static event Action<BaseUIWindow> OnWindowShown;
+        public static event Action<BaseUIWindow> OnWindowHidden;
 
         public bool IsWindowOpened<T>() where T : BaseUIWindow
         {
-            return openWindows.OfType<T>().Any();
+            return visibleWindows.OfType<T>().Any();
         }
 
-        public T GetUIWindowInstance<T>() where T : BaseUIWindow
+        public T GetWindowInstance<T>() where T : BaseUIWindow
         {
             T window = windowInstances.OfType<T>().FirstOrDefault();
 
@@ -36,11 +38,19 @@ namespace SmartifyOS.UI
             }
         }
 
-        public void ShowUIWindow(BaseUIWindow window)
+        /// <summary>
+        /// Show a window
+        /// </summary>
+        /// <param name="window">Window instance to show</param>
+        /// <param name="showAction">Show action to perform</param>
+        public void ShowWindow(BaseUIWindow window, ShowAction showAction = ShowAction.OpenOnTop)
         {
+
             if (window != null)
             {
-                window.Show();
+                if (showAction == ShowAction.OpenSingle)
+                    HideAllWindows();
+                window.Show(showAction);
             }
             else
             {
@@ -48,13 +58,20 @@ namespace SmartifyOS.UI
             }
         }
 
-        public void ShowUIWindow<T>() where T : BaseUIWindow
+        /// <summary>
+        /// Show a window
+        /// </summary>
+        /// <typeparam name="T">Window type to show</typeparam>
+        /// <param name="showAction">Show action to perform</param>
+        public void ShowWindow<T>(ShowAction showAction = ShowAction.OpenOnTop) where T : BaseUIWindow
         {
             BaseUIWindow window = windowInstances.OfType<T>().FirstOrDefault();
 
             if (window != null)
             {
-                window.Show();
+                if (showAction == ShowAction.OpenSingle)
+                    HideAllWindows();
+                window.Show(showAction);
             }
             else
             {
@@ -62,7 +79,11 @@ namespace SmartifyOS.UI
             }
         }
 
-        public void HideUIWindow<T>() where T : BaseUIWindow
+        /// <summary>
+        /// Hide a window that is currently visible
+        /// </summary>
+        /// <typeparam name="T">Window type to hide</typeparam>
+        public void HideWindow<T>() where T : BaseUIWindow
         {
             BaseUIWindow window = windowInstances.OfType<T>().FirstOrDefault();
 
@@ -76,7 +97,15 @@ namespace SmartifyOS.UI
             }
         }
 
-        public void RegisterUIWindow(BaseUIWindow window)
+        public int GetTopLevelSiblingIndex()
+        {
+            return topLevelElement.GetSiblingIndex() - 1;
+        }
+
+        /// <summary>
+        /// Register the instance of a window
+        /// </summary>
+        public void RegisterWindowInstance(BaseUIWindow window)
         {
             if (windowInstances.Contains(window))
                 return;
@@ -84,24 +113,38 @@ namespace SmartifyOS.UI
             windowInstances.Add(window);
         }
 
-        public void AddOpenWindow(BaseUIWindow window)
+        /// <summary>
+        /// Register the window as shown
+        /// </summary>
+        public void RegisterShownWindow(BaseUIWindow window)
         {
-            if (openWindows.Contains(window))
+            if (visibleWindows.Contains(window))
             {
                 Debug.Log("Window already open");
                 return;
             }
 
-            openWindows.Add(window);
-            OnWindowOpened?.Invoke(window);
+            visibleWindows.Add(window);
+            OnWindowShown?.Invoke(window);
+
+            UpdateBottomBarVisibility();
         }
 
-        public void RemoveOpenWindow(BaseUIWindow window)
+        /// <summary>
+        /// Register the window as hidden
+        /// </summary>
+        public void RegisterHiddenWindow(BaseUIWindow window)
         {
-            openWindows.Remove(window);
-            OnWindowClosed?.Invoke(window);
+            visibleWindows.Remove(window);
+            OnWindowHidden?.Invoke(window);
+
+            UpdateBottomBarVisibility();
         }
 
+        /// <summary>
+        /// Create a new modal window
+        /// </summary>
+        /// <returns>The created <see cref="ModalWindow"/> (unconfigured)</returns>
         public ModalWindow CreateModal()
         {
             ModalWindow modalWindow = Instantiate(modalWindowPrefab, transform);
@@ -110,6 +153,52 @@ namespace SmartifyOS.UI
 
             return modalWindow;
         }
+
+        protected void HideAllWindows()
+        {
+            foreach (BaseUIWindow window in visibleWindows.ToList())
+            {
+                window.Hide();
+            }
+        }
+
+        protected void UpdateBottomBarVisibility()
+        {
+            if (CheckBottomBarVisibility())
+            {
+                bottomBar.Show();
+            }
+            else
+            {
+                bottomBar.Hide();
+            }
+        }
+
+        /// <summary>Checks if the bottom bar should be visible</summary>
+        protected bool CheckBottomBarVisibility()
+        {
+            foreach (BaseUIWindow window in visibleWindows.ToList())
+            {
+                if (window.hidesBottomUI)
+                    return false;
+            }
+
+            return true;
+        }
+    }
+    /// <summary>
+    /// Action to perform when showing a window
+    /// </summary>
+    public enum ShowAction
+    {
+        /// <summary>Show the window on top of all open windows</summary>
+        OpenOnTop,
+        /// <summary>Close all other windows and show the window</summary>
+        OpenSingle,
+        /// <summary>Show the window behind all other windows</summary>
+        OpenInBackground,
+        /// <summary>Show the window and don't change the z-index</summary>
+        OpenInPlace
     }
 }
 

@@ -406,14 +406,6 @@ public class InteriorUIWindow : BaseUIWindow
         }
     }
 
-    protected override void HandleWindowOpened(BaseUIWindow window)
-    {
-        if (window.IsWindowOfType(typeof(AppListUIWindow)))
-        {
-            Hide(true);
-        }
-    }
-
     private enum SelectedLightSource
     {
         None,
