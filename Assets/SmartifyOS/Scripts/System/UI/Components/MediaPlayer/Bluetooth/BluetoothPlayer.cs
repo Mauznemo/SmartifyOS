@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using SmartifyOS.LinuxBluetooth;
 using SmartifyOS.SaveSystem;
 using SmartifyOS.Settings;
@@ -27,7 +25,6 @@ namespace SmartifyOS.UI.MediaPlayer
         [SerializeField] private Sprite pausedSprite;
 
         private bool playing = false;
-        private bool allowAutoOpen = true;
 
         private void Awake()
         {
@@ -113,40 +110,21 @@ namespace SmartifyOS.UI.MediaPlayer
 
         private void OnPlayerPaused()
         {
-            if (allowAutoOpen)
-                Show();
+            if (!UIManager.Instance.IsWindowVisible<FilePlayer>() || !UIManager.Instance.IsWindowVisible<InteriorUIWindow>())
+                Show(ShowAction.OpenInBackground);
+
             playButton.SetIcon(pausedSprite);
             playing = false;
         }
 
         private void OnPlayerPlaying()
         {
-            if (allowAutoOpen)
-                Show();
+
+            if (!UIManager.Instance.IsWindowVisible<FilePlayer>() || !UIManager.Instance.IsWindowVisible<InteriorUIWindow>())
+                Show(ShowAction.OpenInBackground);
+
             playButton.SetIcon(playingSprite);
             playing = true;
-        }
-
-        protected override void HandleWindowOpened(BaseUIWindow window)
-        {
-            //Add all windows that should hide this window when they open
-            if (window.IsWindowOfType(typeof(InteriorUIWindow)))
-            {
-                Hide(true);
-                allowAutoOpen = false;
-            }
-        }
-
-        protected override void HandleWindowClosed(BaseUIWindow window)
-        {
-            if (!wasOpen) { return; }
-
-            //Add all windows that should trigger this window to reopen when they close
-            if (window.IsWindowOfType(typeof(InteriorUIWindow)))
-            {
-                Show();
-                allowAutoOpen = true;
-            }
         }
     }
 

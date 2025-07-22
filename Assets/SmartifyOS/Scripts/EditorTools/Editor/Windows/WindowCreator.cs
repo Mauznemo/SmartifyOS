@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using SmartifyOS.Editor.Theming;
+using SmartifyOS.UI;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -113,6 +114,12 @@ namespace SmartifyOS.Editor
                 else
                 {
                     window = CreateWindowFromPrefab(windowTitle);
+                }
+
+                if (window.TryGetComponent(out BaseUIWindow baseUIWindow))
+                {
+                    baseUIWindow.hidesBottomUI = fullscreen;
+                    EditorUtility.SetDirty(baseUIWindow);
                 }
 
                 if (window.TryGetComponent(out ColorThemer colorThemer))

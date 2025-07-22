@@ -13,10 +13,10 @@ public class AppListOpen : MonoBehaviour
         button = GetComponent<IconButton>();
         button.onClick += () =>
         {
-            if (UIManager.Instance.IsWindowOpened<AppListUIWindow>())
-                UIManager.Instance.HideUIWindow<AppListUIWindow>();
+            if (UIManager.Instance.IsWindowVisible<AppListUIWindow>())
+                UIManager.Instance.HideWindow<AppListUIWindow>();
             else
-                UIManager.Instance.ShowUIWindow<AppListUIWindow>();
+                UIManager.Instance.ShowWindow<AppListUIWindow>();
         };
     }
 }

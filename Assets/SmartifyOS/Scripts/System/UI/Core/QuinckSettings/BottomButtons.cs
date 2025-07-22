@@ -12,11 +12,11 @@ namespace SmartifyOS.StatusBar
 
         [SerializeField]
         private StatusBarDrag statusBarDrag;
-    
+
         private void Awake()
         {
-            settingsButton.onClick += () => { UIManager.Instance.ShowUIWindow<SettingsUIWindow>(); statusBarDrag.MoveUp(); };
-            powerButton.onClick += () => { UIManager.Instance.ShowUIWindow<PowerOffUIWindow>(); };
+            settingsButton.onClick += () => { UIManager.Instance.ShowWindow<SettingsUIWindow>(); statusBarDrag.MoveUp(); };
+            powerButton.onClick += () => { UIManager.Instance.ShowWindow<PowerOffUIWindow>(UI.ShowAction.OpenInPlace); };
         }
     }
 }

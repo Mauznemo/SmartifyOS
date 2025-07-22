@@ -12,79 +12,51 @@ namespace SmartifyOS.UI
 {
     public abstract class BaseUIWindow : MonoBehaviour
     {
-        /// <summary>Was the window open before it was closed by another window</summary>
-        protected bool wasOpen;
-        /// <summary>Is the window currently open</summary>
-        protected bool isOpen;
+        [Tooltip("Should the window hide the bottom UI while its open?")]
+        [SerializeField] public bool hidesBottomUI = false;
+        /// <summary>Is the window currently shown/visible on screen</summary>
+        protected bool isVisible;
 
         protected void Init()
         {
-            UIManager.Instance.RegisterUIWindow(this);
-
-            BaseUIManager.OnWindowOpened += UIManager_OnWindowOpened;
-            BaseUIManager.OnWindowClosed += UIManager_OnWindowClosed;
+            UIManager.Instance.RegisterWindowInstance(this);
 
             transform.localScale = Vector3.zero;
         }
 
-        private void UIManager_OnWindowClosed(BaseUIWindow obj)
-        {
-            if (obj == this)
-                return;
-
-            HandleWindowClosed(obj);
-        }
-
-        private void UIManager_OnWindowOpened(BaseUIWindow obj)
-        {
-            if (obj == this)
-                return;
-
-            HandleWindowOpened(obj);
-        }
-
         /// <summary>
-        /// Called when any other window is opened
-        /// </summary>
-        /// <param name="window">The window that was opened</param>
-        protected virtual void HandleWindowOpened(BaseUIWindow window) { }
-
-
-        /// <summary>
-        /// Called when any other window is closed
-        /// </summary>
-        /// <param name="window">The window that was closed</param>
-        protected virtual void HandleWindowClosed(BaseUIWindow window) { }
-
-        /// <summary>
-        /// Called when the window is shown (opened)
+        /// Called when the window is shown
         /// </summary>
         protected virtual void OnShow() { }
 
         /// <summary>
-        /// Called when the window is hidden (closed)
+        /// Called when the window is hidden
         /// </summary>
         protected virtual void OnHide() { }
 
 
         /// <summary>
-        /// Shows the window
+        /// Shows the window on top
         /// </summary>
-        public void Show()
+        public void Show(ShowAction showAction = ShowAction.OpenOnTop)
         {
+
             if (!Application.isPlaying)
             {
                 transform.localScale = Vector3.one;
                 return;
             }
 
-            UIManager.Instance.AddOpenWindow(this);
+            UIManager.Instance.RegisterShownWindow(this);
 
-            wasOpen = true;
-            isOpen = true;
+            isVisible = true;
 
-            //transform.localScale = Vector3.one;
             LeanTween.scale(gameObject, Vector3.one, 0.2f).setEaseInOutCubic();
+
+            if (showAction == ShowAction.OpenOnTop || showAction == ShowAction.OpenSingle)
+                transform.SetSiblingIndex(UIManager.Instance.GetTopLevelSiblingIndex());
+            else if (showAction == ShowAction.OpenInBackground)
+                transform.SetSiblingIndex(0);
 
             OnShow();
         }
@@ -92,8 +64,7 @@ namespace SmartifyOS.UI
         /// <summary>
         /// Hides the window
         /// </summary>
-        /// <param name="internalUpdate"><see cref="wasOpen"/> will not be reset if <see langword="true"/></param>
-        public void Hide(bool internalUpdate = false)
+        public void Hide()
         {
             if (!Application.isPlaying)
             {
@@ -101,14 +72,13 @@ namespace SmartifyOS.UI
                 return;
             }
 
-            UIManager.Instance.RemoveOpenWindow(this);
+            if (!isVisible)
+                return;
 
-            if (!internalUpdate)
-                wasOpen = false;
+            UIManager.Instance.RegisterHiddenWindow(this);
 
-            isOpen = false;
+            isVisible = false;
 
-            //transform.localScale = Vector3.zero;
             LeanTween.scale(gameObject, Vector3.zero, 0.2f).setEaseInOutCubic();
 
             OnHide();

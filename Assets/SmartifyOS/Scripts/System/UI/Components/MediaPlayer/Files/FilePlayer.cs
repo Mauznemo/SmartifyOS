@@ -137,7 +137,7 @@ namespace SmartifyOS.UI.MediaPlayer
                 return;
             }
 
-            Show();
+            Show(ShowAction.OpenInBackground);
 
             var file = new FileInfo(filePath);
             sourceText.text = file.Name;
@@ -166,26 +166,6 @@ namespace SmartifyOS.UI.MediaPlayer
             artistText.text = metadata.artist;
 
             Debug.Log("Metadata other: " + metadata.year + " - " + metadata.album);
-        }
-
-        protected override void HandleWindowOpened(BaseUIWindow window)
-        {
-            //Add all windows that should hide this window when they open
-            if (window.IsWindowOfType(typeof(InteriorUIWindow)))
-            {
-                Hide(true);
-            }
-        }
-
-        protected override void HandleWindowClosed(BaseUIWindow window)
-        {
-            if (!wasOpen) { return; }
-
-            //Add all windows that should trigger this window to reopen when they close
-            if (window.IsWindowOfType(typeof(InteriorUIWindow)))
-            {
-                Show();
-            }
         }
 
         public static string FormatTime(float timeInSeconds)

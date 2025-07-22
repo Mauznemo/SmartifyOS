@@ -885,6 +885,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e71c2f07cd47076a80e4466223af126, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hidesBottomUI: 1
   entryPrefab: {fileID: 7078924734845711827}
   entriesParent: {fileID: 1887336913}
   speedIcon: {fileID: 21300000, guid: 8f880207492996b4496bb040a2b7f417, type: 3}
@@ -1465,10 +1466,10 @@ RectTransform:
   - {fileID: 947119891}
   - {fileID: 48730312}
   - {fileID: 865236272}
-  - {fileID: 485828524}
   - {fileID: 927539389}
   - {fileID: 5645186132502265280}
   - {fileID: 922593151}
+  - {fileID: 485828524}
   - {fileID: 1342345176}
   - {fileID: 8940935682154550338}
   - {fileID: 2352419050623714597}
@@ -1496,7 +1497,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   modalWindowPrefab: {fileID: 8940935682154550339}
-  openWindows: []
+  visibleWindows: []
+  bottomBar: {fileID: 485828525}
+  topLevelElement: {fileID: 922593151}
   windowInstances: []
 --- !u!1 &58288748
 GameObject:
@@ -9771,6 +9774,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 485828524}
+  - component: {fileID: 485828525}
   m_Layer: 5
   m_Name: BottomBar
   m_TagString: Untagged
@@ -9799,6 +9803,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 62.975}
   m_SizeDelta: {x: 0, y: 125.95}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &485828525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 485828523}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 645a0206f49948b44be4c2d4ef72fd15, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &496293037
 GameObject:
   m_ObjectHideFlags: 0
@@ -12064,6 +12080,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowToOpen: {fileID: 1234626696}
+  showAction: 2
 --- !u!114 &637135349
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14959,6 +14976,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0e7f64e69d47bc699aaf4afe7d2af6c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hidesBottomUI: 0
   androidAutoButton: {fileID: 4331709482519479548}
   buttons:
   - {fileID: 4331709482519479548}
@@ -16137,6 +16155,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowToOpen: {fileID: 1903291151}
+  showAction: 1
 --- !u!114 &925625689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16232,6 +16251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0249187beb9ceb87fa0d3998c3002ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hidesBottomUI: 1
   scrollRect: {fileID: 1106145060}
 --- !u!114 &927539394
 MonoBehaviour:
@@ -16629,6 +16649,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05a46e4828d1bb1d0bb397da399a4e40, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hidesBottomUI: 0
   realtimeInfoGraphs: {fileID: 1832577010}
   steeringAngleText: {fileID: 1947144119}
   batteryText: {fileID: 1189894923}
@@ -21518,6 +21539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 99626b9c709d4f3a4a48cf80509af3d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hidesBottomUI: 0
   filePath: 
   previousButton: {fileID: 975536458}
   nextButton: {fileID: 1439717080}
@@ -24429,6 +24451,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowToOpen: {fileID: 947119892}
+  showAction: 0
 --- !u!114 &1398101631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -28126,6 +28149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowToOpen: {fileID: 5645186132502265281}
+  showAction: 0
 --- !u!114 &1571215810
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -29316,6 +29340,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowToOpen: {fileID: 9161769111078979402}
+  showAction: 0
 --- !u!114 &1612675897
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -31123,6 +31148,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28316bd02e6f88511ad1ed131ab11a3c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hidesBottomUI: 0
   previousButton: {fileID: 2043198103}
   nextButton: {fileID: 1148500627}
   playButton: {fileID: 1593322218}
@@ -32629,6 +32655,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowToOpen: {fileID: 48730313}
+  showAction: 0
 --- !u!114 &1781323250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -33334,6 +33361,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   windowToOpen: {fileID: 927539393}
+  showAction: 0
 --- !u!114 &1832190970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34583,6 +34611,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6d617256e50aef39aa2c120b55c6077, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hidesBottomUI: 1
   color: {r: 0, g: 0, b: 0, a: 0}
   selectionScreen: {fileID: 801190499}
   colorScreen: {fileID: 136240320}
@@ -47678,6 +47707,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c58daeec52a94b96c83c13083391dd97, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hidesBottomUI: 0
   updateCameraFeed: 0
   uiReverseOverlay: {fileID: 1358245813}
   webcamRenderTexture: {fileID: 8400000, guid: 4156629028f634c839d225d54b23a7ac, type: 2}
@@ -52081,6 +52111,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbcc53bf3190331709cd581789e5757a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hidesBottomUI: 0
   powerOffButton: {fileID: 4771641825283323213}
   restartButton: {fileID: 556377699}
   cancelButton: {fileID: 979841443}
@@ -53721,6 +53752,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 683cd7c10f7540549a8551e11001dced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hidesBottomUI: 0
   startScreen: {fileID: 640672439}
   infoScreen: {fileID: 274382497}
   resultScreen: {fileID: 1320095120}
@@ -53850,6 +53882,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0bca2adc002c95c09fb6a5ee311ace4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hidesBottomUI: 0
   filePlayer: {fileID: 1234626696}
   searchingText: {fileID: 234318718}
   dirList: []
