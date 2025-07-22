@@ -41,7 +41,7 @@ Since SmartifyOS is still in the development phase there will probably be cases 
 | Linux (Ubuntu) | yes        |
 | macOS          | not tested |
 
-<sub>*Some features like testing Bluetooth management and other things that rely on Linux don't work on a Windows systems</sub>
+<sub>*Some features like testing Bluetooth management and other things that rely on Linux don't work on a Windows system</sub>
 
 
 ### Build:
