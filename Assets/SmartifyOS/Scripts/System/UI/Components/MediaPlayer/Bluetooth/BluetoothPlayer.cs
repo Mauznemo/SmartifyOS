@@ -105,6 +105,11 @@ namespace SmartifyOS.UI.MediaPlayer
 
         private void OnPlayerTitleChanged(string obj)
         {
+            if (string.IsNullOrEmpty(obj) || obj.ToLower().Contains("not provided"))
+            {
+                Hide();
+            }
+
             titleText.text = obj;
         }
 
