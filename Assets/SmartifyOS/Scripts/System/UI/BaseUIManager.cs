@@ -146,6 +146,7 @@ namespace SmartifyOS.UI
         public ModalWindow CreateModal()
         {
             ModalWindow modalWindow = Instantiate(modalWindowPrefab, transform);
+            modalWindow.transform.SetSiblingIndex(GetTopLevelSiblingIndex() + 1);
 
             modalWindow.gameObject.SetActive(true);
 
