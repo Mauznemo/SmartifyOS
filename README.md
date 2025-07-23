@@ -15,17 +15,16 @@ And if you need any other help or want to talk about new features or changes you
 
 ## About
 
-### Short description:
-SmartifyOS is a base application (source code) that makes it easy for you to create a custom GUI for a DIY infotainment system in older cars. It is based on the [Unity Game Engine](https://unity.com/), which means you have almost unlimited possibilities to customize it to your liking.
+SmartifyOS is a base application (source code) that makes it easy for you to create a custom GUI for a DIY infotainment system in older cars. It is based on the [Unity Game Engine](https://unity.com/), which means you have almost unlimited possibilities to customize it to your liking. SmartifyOS has a lot of GUI Unity Editor tools that make it easy for you to use even if you don't have a lot programming experience!
 
-[More](https://smartify-os.com/about)
+[More details](https://smartify-os.com/about)
 
 ### This repo contains:
-1. The SmartifyOS base application which is made so that it can be customized a lot and build on top of whatever you want
-2. The full software for my Miata build on-top of the SmartifyOS base application
+1. The SmartifyOS base application with all the editor tools
+2. The full software for my Miata build on-top of the SmartifyOS base application (can be removed for clean start)
 
 ### Project structure:
-All scripts you can use as a base to make your own system are in `Assets/SmartifyOS` all other folders in `Assets` (mainly `Scripts` and `ScriptableObjects`) are using the code from `Assets/SmartifyOS` as a base and are specific for my car and setup (like Arduinos and sensors).
+All scripts you can use as a base to make your own system are in `Assets/SmartifyOS` all other folders in `Assets` (mainly `Scripts` and `ScriptableObjects`) are using the code from `Assets/SmartifyOS` as a base and are specific for my car and setup (like Arduinos and sensors). To remove the example project you can simply click `SmartifyOS > Create Blank Project` and select what you want to remove.
 
 I also tried to make everything in `Assets/SmartifyOS` so that you shouldn't need to modify anything in it to work with your specific setup since all the project specific code is in `Scripts` and `ScriptableObjects`.
 
@@ -48,10 +47,10 @@ Since SmartifyOS is still in the development phase there will probably be cases 
 | Platform          | Supported                    |
 | ----------------- | ---------------------------- |
 | Windows           | no                           |
-| Linux Ubuntu x86  | yes                          |
+| Linux Ubuntu x86  | yes (obsolete)               |
 | Linux Debian LXDE | yes                          |
 | Linux Arm         | no (will hopefully be added) |
-| Other Linux       | not tested                   |
+| Other Linux x86   | not tested                   |
 
 ## Installation (Editor)
 
@@ -77,7 +76,9 @@ If you want to contribute to this project by for example fixing a bug or adding 
 7. Now click on the ⚠️ icon and install the needed version (make sure to tick `Linux Build support (Mono)` under `Add modules`)
 
 ### For only testing/using and finding bugs:
-If you don't plan to modify any code and only want to help find bugs or suggest features to add you can do it like this:
+
+If you don't plan to modify any core code and only want to help find bugs or suggest features to add you can do it like this:
+
 1. Install the [Unity Hub](https://unity.com/) (When you open the Unity Hub the first time click on `Skip Installation`)
 2. Clone the repo
    ```
@@ -100,7 +101,7 @@ Then if you haven't already follow the steps here: [Installation For contributio
    - If the prompt does not appear, click the "Pull requests" tab, then click the "New pull request" button.
 3. Select the Base and Compare Branches:
    - Base repository: This should be the original repository you forked from.
-   - Base branch: Typically, this is the main or master branch of the original repository.
+   - Base branch: This is the main branch of the original repository.
    - Head repository: This should be your forked repository.
    - Compare branch: Select the branch you just pushed.
 4. Create Pull Request and make sure to follow the [Pull Request Guidelines](CONTRIBUTING.md#pull-request-guidelines)
@@ -110,7 +111,7 @@ Then if you haven't already follow the steps here: [Installation For contributio
 
 **[SmartifyOS-Documentation](https://github.com/Mauznemo/SmartifyOS-Documentation)** - documentation of all the SmartifyOS code and how to use it.
 
-**[OpenCarKey](https://github.com/Mauznemo/OpenCarKey)** - Project including and app to lock and unlock the car from your phone.
+**[OpenCarKey](https://github.com/Mauznemo/OpenCarKey)** - Project including the app and ESP32 code to lock and unlock the car from your phone.
 
 **[SmartifyOS-App (Old)](https://github.com/Mauznemo/SmartifyOS-App)** - native Android app to lock and unlock the car from your phone.
 
