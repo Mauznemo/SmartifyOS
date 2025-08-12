@@ -3,7 +3,7 @@
 ![SmartifyOS Image](Assets/SmartifyOS/Scripts/EditorTools/Resources/Graphics/Welcome/SmartifyOS-welcome.png)
 
 >[!CAUTION]
->**Disclaimer:** This software is currently in the development phase and is intended for developers. It is not suitable for general use in vehicles yet.
+> If you want to use SmartifyOS, please wait a while since I might rewrite it in something better suited than Unity. If you want to get notified when it is ready you can join the waitlist on [smartify-os.com](https://smartify-os.com?join) or the [Discord](https://discord.gg/dYf8zrVUHt)!
 
 The documentation can be found here: [docs.smartify-os.com](https://docs.smartify-os.com/)
 
