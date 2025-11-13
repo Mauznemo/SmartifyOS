@@ -20,6 +20,8 @@ namespace SmartifyOS.Editor.Theming
             get => updateColor;
             set => updateColor = value;
         }
+#else
+        public override void UpdateValue(Color color) { }
 #endif
     }
 

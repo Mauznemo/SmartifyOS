@@ -21,6 +21,8 @@ namespace SmartifyOS.Editor.Theming
             get => updateValue;
             set => updateValue = value;
         }
+#else
+        public override void UpdateValue(float value) { }
 #endif
     }
 
